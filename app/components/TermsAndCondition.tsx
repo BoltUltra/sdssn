@@ -60,11 +60,11 @@ const TermsAndConditions: React.FC = () => {
           5. Limitation of Liability
         </h2>
         <p>
-          Our website and its content are provided on an "as is" basis, without
-          any warranties of any kind. We will not be liable for any damages of
-          any kind arising from the use of our website, including but not
-          limited to direct, indirect, incidental, punitive, and consequential
-          damages.
+          Our website and its content are provided on an &rdquo;as is&rdquo;
+          basis, without any warranties of any kind. We will not be liable for
+          any damages of any kind arising from the use of our website, including
+          but not limited to direct, indirect, incidental, punitive, and
+          consequential damages.
         </p>
       </section>
 
