@@ -1,0 +1,61 @@
+- .eslintrc.json
+- .gitignore
+- app
+  - admin
+    - dashboard
+      - interactions
+        - page.tsx
+      - layout.tsx
+      - messages
+        - page.tsx
+      - settings
+        - page.tsx
+      - updates
+        - page.tsx
+      - uploads
+        - page.tsx
+    - login
+      - page.tsx
+  - auth
+    - forgot-password
+      - page.tsx
+    - layout.tsx
+    - login
+      - page.tsx
+    - register
+      - page.tsx
+  - components
+    - index.js
+  - dashboard
+    - analytics
+      - page.tsx
+    - layout.tsx
+    - plan-upgrade
+      - page.tsx
+    - profile
+      - page.tsx
+    - projects
+      - page.tsx
+    - settings
+      - page.tsx
+  - favicon.ico
+  - globals.css
+  - layout.tsx
+  - page.tsx
+- next-env.d.ts
+- next.config.mjs
+- package-lock.json
+- package.json
+- postcss.config.mjs
+- public
+  - images
+    - index.js
+    - jpg
+    - png
+    - svg
+    - webp
+  - next.svg
+  - vercel.svg
+- README.md
+- tailwind.config.ts
+- tsconfig.json
