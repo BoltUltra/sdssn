@@ -1,0 +1,199 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "eventTitle": "J2021 Annual Business Conference",
+      "eventDetails": "Lorem ipsum dolor ectetur adipiscing elit, sed o esiumod tempor incididunt incididunt utlaabore e magna aliqua ad minmtrud rem ipsum dolor ectetur adipiscing elit, sed o esiumod tempor incididunt incididunt utlaabore e magna aliqua r adipiscing elit, sed o esiumod tempor incididunt incididun",
+      "covener": "John Doe",
+      "date": "2021-12-01",
+      "time": "09:00",
+      "location": "New York",
+      "venue": "New York Convention Center",
+      "image": "/images/png/event1.png",
+      "comments": [
+        {
+          "user": "Alice",
+          "comment": "Looking forward to this event!",
+          "image": "/images/png/user-img.png",
+          "date": "2021-11-15"
+        },
+        {
+          "user": "Bob",
+          "comment": "Can't wait!",
+          "image": "/images/png/user-img.png",
+          "date": "2021-11-16"
+        }
+      ],
+      "likes": 5,
+      "shares": 2
+    },
+    {
+      "id": 2,
+      "eventTitle": "Tech Innovators Meetup",
+      "eventDetails": "A gathering of the brightest minds in technology to discuss the future of innovation.",
+      "covener": "Jane Smith",
+      "date": "2022-01-15",
+      "time": "10:00",
+      "location": "San Francisco",
+      "venue": "Tech Hub SF",
+      "image": "/images/png/event2.png",
+      "comments": [
+        {
+          "user": "Charlie",
+          "comment": "Excited to meet everyone!",
+          "image": "/images/png/user-img.png",
+          "date": "2022-01-01"
+        }
+      ],
+      "likes": 10,
+      "shares": 2
+    },
+    {
+      "id": 3,
+      "eventTitle": "Healthcare Summit 2022",
+      "eventDetails": "An event focused on the latest advancements in healthcare technology.",
+      "covener": "Dr. Emily White",
+      "date": "2022-03-10",
+      "time": "08:30",
+      "location": "Chicago",
+      "venue": "Chicago Health Center",
+      "image": "/images/png/event3.png",
+      "comments": [
+        {
+          "user": "David",
+          "comment": "Important discussions ahead!",
+          "image": "/images/png/user-img.png",
+          "date": "2022-02-25"
+        }
+      ],
+      "likes": 8,
+      "shares": 1
+    },
+    {
+      "id": 4,
+      "eventTitle": "Green Energy Expo",
+      "eventDetails": "Exploring sustainable energy solutions for a better future.",
+      "covener": "Michael Green",
+      "date": "2022-05-20",
+      "time": "11:00",
+      "location": "Los Angeles",
+      "venue": "LA Expo Center",
+      "image": "/images/png/event4.png",
+      "comments": [
+        {
+          "user": "Eve",
+          "comment": "Can't wait to learn more about green energy!",
+          "image": "/images/png/user-img.png",
+          "date": "2022-05-01"
+        }
+      ],
+      "likes": 12,
+      "shares": 3
+    },
+    {
+      "id": 5,
+      "eventTitle": "AI & Robotics Conference",
+      "eventDetails": "A conference dedicated to the latest in AI and robotics.",
+      "covener": "Sophia Brown",
+      "date": "2022-07-30",
+      "time": "09:30",
+      "location": "Boston",
+      "venue": "Boston Tech Center",
+      "image": "/images/png/event5.png",
+      "comments": [
+        {
+          "user": "Frank",
+          "comment": "Looking forward to the AI discussions!",
+          "image": "/images/png/user-img.png",
+          "date": "2022-07-15"
+        }
+      ],
+      "likes": 15,
+      "shares": 5
+    }
+  ],
+  "media": [
+    {
+      "id": 1,
+      "title": "Tech News",
+      "image": "/images/jpg/media1.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Health & Wellness",
+      "image": "/images/jpg/media2.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Business Insights",
+      "image": "/images/jpg/media3.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Travel & Adventure",
+      "image": "/images/jpg/media4.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Food & Cuisine",
+      "image": "/images/jpg/media5.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Science & Research",
+      "image": "/images/jpg/media1.jpg"
+    },
+    {
+      "id": 7,
+      "title": "Education & Learning",
+      "image": "/images/jpg/media2.jpg"
+    },
+    {
+      "id": 8,
+      "title": "Sports & Fitness",
+      "image": "/images/jpg/media3.jpg"
+    },
+    {
+      "id": 9,
+      "title": "Art & Culture",
+      "image": "/images/jpg/media4.jpg"
+    },
+    {
+      "id": 10,
+      "title": "Music & Entertainment",
+      "image": "/images/jpg/media5.jpg"
+    },
+    {
+      "id": 11,
+      "title": "Fashion & Style",
+      "image": "/images/jpg/media1.jpg"
+    },
+    {
+      "id": 12,
+      "title": "History & Heritage",
+      "image": "/images/jpg/media2.jpg"
+    },
+    {
+      "id": 13,
+      "title": "Nature & Wildlife",
+      "image": "/images/jpg/media3.jpg"
+    },
+    {
+      "id": 14,
+      "title": "Technology & Gadgets",
+      "image": "/images/jpg/media4.jpg"
+    }
+  ],
+  "products": [
+    {
+      "id": 101,
+      "name": "Laptop",
+      "price": 999.99
+    },
+    {
+      "id": 102,
+      "name": "Smartphone",
+      "price": 499.99
+    }
+  ]
+}

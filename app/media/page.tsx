@@ -1,12 +1,13 @@
 "use client";
 import Image from "next/image";
 import { Footer, Header } from "../components";
+import HeroSlider from "../components/Media/HeroSlider";
 
 export default function Media() {
   return (
     <>
       <Header />
-      <p className="py-32">This is Media</p>
+      <HeroSlider />
       <Footer />
     </>
   );

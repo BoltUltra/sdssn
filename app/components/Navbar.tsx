@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { HambergerMenu } from "iconsax-react";
 import Link from "next/link";
+import Image from "next/image";
+import { logo, logoDark } from "@/public/images";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -36,14 +38,9 @@ const Navbar = () => {
       >
         <div className="max-w-[1440px] mx-auto">
           <div className="container mx-auto md:px-20 px-5 py-4 flex justify-between items-center font-plus-jakarta">
-            <div
-              className={`${
-                scrolled ? "text-primary-500" : "text-primary"
-              } text-3xl md:text-4xl font-extrabold uppercase`}
-            >
-              SDSSN
-            </div>
-
+            <Link href="/">
+              <Image src={logoDark} alt="logo" className="md:w-72 w-52" />
+            </Link>
             <ul
               className={`${
                 scrolled ? "text-primary" : "text-primary"
@@ -103,61 +100,60 @@ const Navbar = () => {
               >
                 <HambergerMenu size="32" color="#000000" />
               </button>
-
-              {isMobileMenuOpen && (
-                <div className="absolute top-16 left-0 px-5 py-5 bg-white w-full">
-                  <ul className="space-y-5">
-                    <li onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                      <Link href="/" className="">
-                        Home
-                      </Link>
-                    </li>
-                    <li onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                      <Link href="/about" className="">
-                        About SDSSN
-                      </Link>
-                    </li>
-                    <li onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                      <Link href="/membership" className="">
-                        Membership
-                      </Link>
-                    </li>
-                    <li onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                      <Link href="/news-and-event" className="">
-                        News & Events
-                      </Link>
-                    </li>
-                    <li onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                      <Link href="/media" className="">
-                        Media
-                      </Link>
-                    </li>
-                    <li onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                      <Link href="/contact" className="">
-                        Contact Us
-                      </Link>
-                    </li>
-                  </ul>
-                  <div className="flex space-x-5 mt-5">
-                    <Link
-                      href="/auth/login"
-                      className="text-black-800 border-primary-500 hover:bg-primary-500 border-2 rounded-lg px-5 md:px-10 py-2 md:py-3 hover:text-white transition-all duration-300 ease-in-out w-full text-center"
-                    >
-                      Login
-                    </Link>
-                    <Link
-                      href="auth/register"
-                      className="bg-primary text-white px-5 py-3 rounded-lg w-full text-center"
-                    >
-                      Register
-                    </Link>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>
       </motion.nav>
+      {isMobileMenuOpen && (
+        <div className="fixed top-16 left-0 px-5 py-5 bg-white w-full z-50">
+          <ul className="space-y-5">
+            <li onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <Link href="/" className="">
+                Home
+              </Link>
+            </li>
+            <li onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <Link href="/about" className="">
+                About SDSSN
+              </Link>
+            </li>
+            <li onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <Link href="/membership" className="">
+                Membership
+              </Link>
+            </li>
+            <li onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <Link href="/news-and-event" className="">
+                News & Events
+              </Link>
+            </li>
+            <li onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <Link href="/media" className="">
+                Media
+              </Link>
+            </li>
+            <li onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <Link href="/contact" className="">
+                Contact Us
+              </Link>
+            </li>
+          </ul>
+          <div className="flex space-x-5 mt-5">
+            <Link
+              href="/auth/login"
+              className="text-black-800 border-primary-500 hover:bg-primary-500 border-2 rounded-lg px-5 md:px-10 py-2 md:py-3 hover:text-white transition-all duration-300 ease-in-out w-full text-center"
+            >
+              Login
+            </Link>
+            <Link
+              href="auth/register"
+              className="bg-primary text-white px-5 py-3 rounded-lg w-full text-center"
+            >
+              Register
+            </Link>
+          </div>
+        </div>
+      )}
     </>
   );
 };

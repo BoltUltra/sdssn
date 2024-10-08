@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Header, Loading } from "../components";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogBackdrop,

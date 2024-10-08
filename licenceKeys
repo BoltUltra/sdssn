@@ -1,0 +1,25 @@
+useEffect(() => {
+  initLightboxJS("7B78-0C19-DA25-B7A9", "individual");
+}, []);
+
+useEffect(() => {
+  initLightboxJS("38D9-565D-70AB-E059", "individual");
+});
+
+initLightboxJS("6720-FA22-3857-27B3", "individual");
+
+useEffect(() => {
+  initLightboxJS("30EA-8C17-6991-916C", "Individual"); //use in progress
+}, []);
+
+useEffect(() => {
+  initLightboxJS("DF8A-D560-5C71-E585", "Individual");
+}, []);
+
+useEffect(() => {
+  initLightboxJS("055B-A1E2-BECD-BE30", "Individual");
+});
+
+useMemo(() => {
+  initLightboxJS("653C-4B2F-78DF-EC69 ", "individual");
+}, []);
