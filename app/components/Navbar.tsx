@@ -8,7 +8,14 @@ import { logo, logoDark } from "@/public/images";
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About SDSSN" },
+    { href: "/membership", label: "Membership" },
+    { href: "/news-and-event", label: "News & Events" },
+    { href: "/media", label: "Media" },
+    { href: "/contact", label: "Contact Us" },
+  ];
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
@@ -46,36 +53,13 @@ const Navbar = () => {
                 scrolled ? "text-primary" : "text-primary"
               } hidden md:flex space-x-6`}
             >
-              <li>
-                <Link href="/" className="">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="">
-                  About SDSSN
-                </Link>
-              </li>
-              <li>
-                <Link href="/membership" className="">
-                  Membership
-                </Link>
-              </li>
-              <li>
-                <Link href="/news-and-event" className="">
-                  News & Events
-                </Link>
-              </li>
-              <li>
-                <Link href="/media" className="">
-                  Media
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="">
-                  Contact Us
-                </Link>
-              </li>
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
 
             <div className="hidden md:flex space-x-6">
@@ -87,7 +71,7 @@ const Navbar = () => {
                     : "bg-primary text-white border-primary"
                 } border-2 px-5 md:px-10 py-2 md:py-3 rounded-lg`}
               >
-                Get Started
+                Join Us
               </Link>
             </div>
 

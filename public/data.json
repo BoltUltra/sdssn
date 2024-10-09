@@ -195,5 +195,100 @@
       "name": "Smartphone",
       "price": 499.99
     }
-  ]
+  ],
+  "maps": [
+    {
+      "id": 1,
+      "title": "Map of Abuja",
+      "mapImg": "/images/png/map.png"
+    },
+    {
+      "id": 2,
+      "title": "Map of Lagos",
+      "mapImg": "/images/png/map.png"
+    },
+    {
+      "id": 3,
+      "title": "Map of Ibadan",
+      "mapImg": "/images/png/map.png"
+    },
+    {
+      "id": 4,
+      "title": "Map of Kano",
+      "mapImg": "/images/png/map.png"
+    }
+  ],
+  "discussions": [
+    {
+      "id": 1,
+      "subject": "How can i fix this bug?",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!"
+    },
+    {
+      "id": 2,
+      "subject": "How can i fix this bug?",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!"
+    },
+    {
+      "id": 3,
+      "subject": "How can i fix this bug?",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!"
+    },
+    {
+      "id": 4,
+      "subject": "How can i fix this bug?",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!"
+    }
+  ],
+  "links": [
+    {
+      "id": 1,
+      "subject": "Map of Nigeria",
+      "link": "https://www.google.com"
+    },
+    {
+      "id": 2,
+      "subject": "Map of Nigeria",
+      "link": "https://www.google.com"
+    },
+    {
+      "id": 3,
+      "subject": "Map of Nigeria",
+      "link": "https://www.google.com"
+    },
+    {
+      "id": 4,
+      "subject": "Map of Nigeria",
+      "link": "https://www.google.com"
+    }
+  ],
+  "privatemaps": [
+    {
+      "id": 1,
+      "title": "Map of Abuja",
+      "mapImg": "/images/png/map.png"
+    },
+    {
+      "id": 4,
+      "title": "Map of Kano",
+      "mapImg": "/images/png/map.png"
+    }
+  ],
+  "privatediscussions": [
+    {
+      "id": 1,
+      "subject": "How can i fix this bug?",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!"
+    }
+  ],
+  "privatelinks": [],
+  "draftmaps": [
+    {
+      "id": 1,
+      "title": "Map of Kigali",
+      "mapImg": "/images/png/map.png"
+    }
+  ],
+  "draftdiscussions": [],
+  "draftlinks": []
 }

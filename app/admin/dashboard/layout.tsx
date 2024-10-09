@@ -33,6 +33,7 @@ import {
 } from "iconsax-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Toaster } from "react-hot-toast";
 
 const navigation = [
   {
@@ -109,6 +110,7 @@ export default function AdminDashboardLayout({
 
   return (
     <>
+      <Toaster />
       <main>
         <Dialog
           open={sidebarOpen}

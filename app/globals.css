@@ -130,3 +130,8 @@
     transform: rotate(-360deg);
   }
 }
+
+/* FIle input */
+#file {
+  display: none;
+}

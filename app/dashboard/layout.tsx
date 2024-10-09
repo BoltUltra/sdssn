@@ -29,6 +29,7 @@ import {
 } from "iconsax-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Toaster } from "react-hot-toast";
 
 const navigation = [
   {
@@ -110,6 +111,7 @@ export default function DashboardLayout({
 
   return (
     <>
+      <Toaster />
       <main>
         <Dialog
           open={sidebarOpen}
@@ -236,7 +238,7 @@ export default function DashboardLayout({
                             isActive(item.href)
                               ? "bg-gray-50 text-primary"
                               : "text-white hover:bg-gray-50 hover:text-primary",
-                            "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
+                            "group flex gap-x-3 rounded-md p-4 text-sm font-semibold leading-6"
                           )}
                         >
                           <item.icon
@@ -272,8 +274,8 @@ export default function DashboardLayout({
         </div>
 
         <div className="lg:pl-72">
-          <div className="sticky top-0 z-40 lg:mx-auto lg:max-w-7xl lg:px-8">
-            <div className="flex h-16 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-0 lg:shadow-none">
+          <div className="sticky top-0 z-40 lg:mx-auto lg:max-w-full lg:px-8">
+            <div className="flex h-16 items-center gap-x-4 border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-0 lg:shadow-none">
               <button
                 type="button"
                 onClick={() => setSidebarOpen(true)}
