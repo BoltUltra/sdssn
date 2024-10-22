@@ -30,6 +30,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
+import { user1 } from "@/public/images";
+import { useDataStore } from "../stores/dataStore";
 
 const navigation = [
   {
@@ -42,26 +44,26 @@ const navigation = [
     href: "/dashboard/profile",
     icon: User,
   },
-  {
-    name: "Analytics",
-    href: "/dashboard/analytics",
-    icon: StatusUp,
-  },
-  {
-    name: "Upgrade Plan",
-    href: "/dashboard/plan-upgrade",
-    icon: Diamonds,
-  },
+  // {
+  //   name: "Analytics",
+  //   href: "/dashboard/analytics",
+  //   icon: StatusUp,
+  // },
+  // {
+  //   name: "Upgrade Plan",
+  //   href: "/dashboard/plan-upgrade",
+  //   icon: Diamonds,
+  // },
   {
     name: "Settings",
     href: "/dashboard/settings",
     icon: Setting4,
   },
-  {
-    name: "Help",
-    href: "/dashboard/settings",
-    icon: InfoCircle,
-  },
+  // {
+  //   name: "Help",
+  //   href: "/dashboard/settings",
+  //   icon: InfoCircle,
+  // },
 ];
 
 const userNavigation = [
@@ -80,6 +82,7 @@ export default function DashboardLayout({
 }>) {
   const { isAuthenticated, isLoading, loadUserFromLocalStorage, logout } =
     useAuthStore();
+
   const router = useRouter();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -153,7 +156,7 @@ export default function DashboardLayout({
                     alt="user-image"
                   />
                   <h3 className="text-white text-center mt-3 font-semibold">
-                    {`${user?.firstName} ${user?.lastName}`}
+                    {user ? `${user?.firstName} ${user?.lastName}` : "John Doe"}
                   </h3>
                   <p className="flex items-center text-white text-sm justify-center space-x-2">
                     <span>{user?.username}</span>
@@ -212,14 +215,14 @@ export default function DashboardLayout({
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-primary px-6 pb-4">
             <div className="pt-10">
               <Image
-                src={user?.image}
+                src={user ? user?.image : user1}
                 height={100}
                 width={100}
                 className="rounded-full border-4 border-white mx-auto"
                 alt="user-image"
               />
               <h3 className="text-white text-center mt-3 font-semibold">
-                {`${user?.firstName} ${user?.lastName}`}
+                {user ? `${user?.firstName} ${user?.lastName}` : "John Doe"}
               </h3>
               <p className="flex items-center text-white text-sm justify-center space-x-2">
                 <span>{user?.username}</span>
@@ -298,7 +301,7 @@ export default function DashboardLayout({
                       <span className="sr-only">Open user menu</span>
                       <Image
                         alt="user img"
-                        src={user?.image}
+                        src={user ? user?.image : user1}
                         height={36}
                         width={36}
                         className="h-9 w-9 rounded-full bg-gray-50 border-2 border-primary"
@@ -308,7 +311,9 @@ export default function DashboardLayout({
                           aria-hidden="true"
                           className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                         >
-                          {`${user?.firstName} ${user?.lastName}`}
+                          {user
+                            ? `${user?.firstName} ${user?.lastName}`
+                            : "John Doe "}
                         </span>
                         <ArrowDown3
                           aria-hidden="true"

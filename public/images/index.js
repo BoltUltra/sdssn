@@ -1,6 +1,7 @@
 export { default as demoImage } from "./png/demo-img.png";
 export { default as map } from "./png/map.png";
 export { default as user } from "./png/user-img.png";
+export { default as user1 } from "./png/user.png";
 export { default as president } from "./png/president.png";
 export { default as about } from "./png/about-bg.png";
 export { default as logo } from "./png/logo.png";

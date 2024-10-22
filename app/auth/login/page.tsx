@@ -1,14 +1,14 @@
 "use client";
 import { useAuthStore } from "@/app/stores/authStore";
+import { useDataStore } from "@/app/stores/dataStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const router = useRouter();
   const { login } = useAuthStore();
-  // const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -17,8 +17,10 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await login({ username, password });
-      router.push("/dashboard/projects");
+      await login({ username_email: username, password });
+      setTimeout(() => {
+        router.push("/dashboard/projects");
+      }, 5000);
     } catch (error) {
       toast.error("An error occurred");
     } finally {
@@ -30,6 +32,7 @@ const Login = () => {
 
   return (
     <>
+      <Toaster />
       <div className="md:max-w-xl md:mx-auto mx-5 flex items-center justify-center my-32">
         <div className="shadow-md rounded-lg p-8 w-full">
           <div className="space-y-3">

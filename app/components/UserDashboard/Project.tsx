@@ -10,6 +10,7 @@ import Button from "../Button";
 import { MdAdd } from "react-icons/md";
 import { RiUploadCloud2Fill } from "react-icons/ri";
 import ButtonSecondary from "../ButtonSecondary";
+import TextEditor from "../Editor";
 
 const categories = [
   { name: "Public", value: "public" },
@@ -33,6 +34,43 @@ export default function Project() {
   const handleTabChange = (index: number) => {
     const selectedTab = categories[index].value;
     router.push(`/dashboard/projects?tab=${selectedTab}`, { scroll: false });
+  };
+
+  const [formData, setFormData] = useState({
+    file: null,
+    category: "",
+    title: "",
+    description: "",
+    editorContent: "",
+    tags: "",
+    status: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      file: e.target.files[0],
+    }));
+  };
+
+  const handleEditorChange = (content) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      editorContent: content,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
   };
 
   return (
@@ -61,7 +99,7 @@ export default function Project() {
             </TabPanel>
             <TabPanel>
               <div className="md:mx-44 mt-8">
-                <form action="" className="space-y-8">
+                <form className="space-y-8">
                   <div>
                     <label
                       htmlFor="file"
@@ -75,7 +113,12 @@ export default function Project() {
                         <p>Higher resolution recommended. (Max 5MB)</p>
                       </div>
                     </label>
-                    <input type="file" id="file" className="hidden" />
+                    <input
+                      type="file"
+                      id="file"
+                      className="hidden"
+                      onChange={handleFileChange}
+                    />
                   </div>
                   <div className="flex flex-col space-y-2">
                     <label htmlFor="category" className="form-label">
@@ -85,7 +128,9 @@ export default function Project() {
                       <select
                         name="category"
                         id="category"
-                        className="w-full bg-transparent"
+                        className="w-full bg-transparent outline-none"
+                        value={formData.category}
+                        onChange={handleInputChange}
                       >
                         <option value="">Category</option>
                         <option value="maps">Maps</option>
@@ -103,19 +148,18 @@ export default function Project() {
                       name="title"
                       id="title"
                       className="form-input"
+                      value={formData.title}
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="flex flex-col space-y-2">
                     <label htmlFor="description" className="form-label">
                       Description
                     </label>
-                    <textarea
-                      name="description"
-                      id="description"
-                      cols={5}
-                      rows={3}
-                      className="form-input"
-                    ></textarea>
+                    <TextEditor
+                      content={formData.description}
+                      onContentChange={handleEditorChange}
+                    />
                   </div>
                   <div className="flex flex-col space-y-2">
                     <label htmlFor="tags" className="form-label">
@@ -126,16 +170,44 @@ export default function Project() {
                       name="tags"
                       id="tags"
                       className="form-input"
+                      value={formData.tags}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-2">
+                    <label htmlFor="category" className="form-label">
+                      Category
+                    </label>
+                    <div className="form-input">
+                      <select
+                        name="category"
+                        id="category"
+                        className="w-full bg-transparent outline-none"
+                        value={formData.status}
+                        onChange={handleInputChange}
+                      >
+                        <option value="">Status</option>
+                        <option value="maps">Draft</option>
+                        <option value="discussions">Private</option>
+                        <option value="links">Public</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="flex md:flex-row flex-col items-center gap-4 justify-end mt-10">
+                    <Button
+                      text="Upload Project"
+                      className=""
+                      onClick={handleSubmit}
                     />
                   </div>
                 </form>
-                <div className="flex md:flex-row flex-col items-center gap-4 justify-end mt-10">
+                {/* <div className="flex md:flex-row flex-col items-center gap-4 justify-end mt-10">
                   <Button
                     text="Upload Project"
                     onClick={() => {}}
                     className=""
                   />
-                </div>
+                </div> */}
               </div>
             </TabPanel>
           </TabPanels>

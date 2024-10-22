@@ -1,9 +1,13 @@
 "use client";
 import { useAuthStore } from "@/app/stores/authStore";
+import { useDataStore } from "@/app/stores/dataStore";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
+  const router = useRouter();
   const { register } = useAuthStore();
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
@@ -11,14 +15,62 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { fetchSecurityQuestions } = useDataStore();
+  const [securityQuestions, setSecurityQuestions] = useState<any[]>([]);
+  const [selectedSecurityQuestion, setSelectedSecurityQuestion] = useState("");
+  const [securityAnswer, setSecurityAnswer] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    const payload = {
+      fullName,
+      username,
+      phoneNo: phoneNumber,
+      email,
+      password,
+      confirm_password: confirmPassword,
+      securityQuestion: selectedSecurityQuestion,
+      answer: securityAnswer,
+    };
     e.preventDefault();
-    register({ email, password });
+    setIsLoading(true);
+    try {
+      await register(payload);
+      // toast.success("Registration successful");
+      setFullName("");
+      setUsername("");
+      setPhoneNumber("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      setSelectedSecurityQuestion("");
+      setSecurityAnswer("");
+      setTimeout(() => {
+        router.push("/auth/login");
+      }, 2000);
+    } catch (error) {
+      toast.error("An error occurred");
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const questions = await fetchSecurityQuestions();
+        setSecurityQuestions(questions);
+      } catch (error) {
+        console.error("Error fetching security questions:", error);
+      }
+    };
+
+    fetchQuestions();
+  }, [fetchSecurityQuestions]);
 
   return (
     <>
+      <Toaster />
       <div className="md:max-w-xl md:mx-auto mx-5 flex items-center justify-center my-32">
         <div className="shadow-md rounded-lg p-8 w-full">
           <div className="space-y-3">
@@ -110,6 +162,41 @@ const Register = () => {
               />
             </div>
 
+            <div className="flex flex-col space-y-2">
+              <label htmlFor="securityQuestion" className="form-label">
+                Security Question
+              </label>
+              <div className="form-input">
+                <select
+                  value={selectedSecurityQuestion}
+                  onChange={(e) => setSelectedSecurityQuestion(e.target.value)}
+                  required
+                  className="bg-transparent outline-none w-full"
+                >
+                  <option value="">Select a security question</option>
+                  {securityQuestions?.map((question) => (
+                    <option key={question.id} value={question.id}>
+                      {question.question}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="flex flex-col space-y-2">
+              <label htmlFor="securityAnswer" className="form-label">
+                Security Answer
+              </label>
+              <input
+                type="text"
+                value={securityAnswer}
+                onChange={(e) => setSecurityAnswer(e.target.value)}
+                placeholder="Your answer"
+                required
+                className="form-input"
+              />
+            </div>
+
             <div className="flex items-center space-x-2">
               <input type="checkbox" className="form-checkbox" />
               <label htmlFor="terms" className="text-sm">
@@ -119,11 +206,15 @@ const Register = () => {
                 </Link>
               </label>
             </div>
+
             <button
               type="submit"
-              className="py-4 w-full text-white bg-primary rounded-lg mt-10"
+              className={`py-4 w-full text-white bg-primary rounded-lg mt-10 ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={isLoading}
             >
-              Register
+              {isLoading ? <div className="loader"></div> : "Register"}
             </button>
           </form>
 

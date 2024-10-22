@@ -135,3 +135,62 @@
 #file {
   display: none;
 }
+
+/* Text Editor */
+.toolbar {
+  @apply flex flex-wrap gap-2 mb-4;
+
+}
+
+.toolbar button {
+  @apply px-4 py-2 rounded-lg border border-gray-300 bg-gray-100 text-gray-800 cursor-pointer;
+}
+
+button.is-active {
+  @apply bg-primary text-white;
+}
+
+button:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+.ProseMirror {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-height: 300px;
+  overflow-y: scroll;
+  outline: none;
+}
+
+.ProseMirror h1 {
+  font-size: 2em;
+}
+
+.ProseMirror h2 {
+  font-size: 1.75em;
+}
+
+.ProseMirror h3 {
+  font-size: 1.5em;
+}
+
+.ProseMirror ol {
+  list-style-type: decimal;
+  margin-left: 1.5em;
+}
+
+.ProseMirror ul {
+  list-style-type: disc;
+  margin-left: 1.5em;
+}
+
+.ProseMirror a {
+  color: blue;
+  text-decoration: underline;
+}
+
+.ProseMirror img {
+  max-width: 100%;
+}
