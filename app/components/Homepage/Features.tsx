@@ -1,4 +1,4 @@
-import { demoImage } from "@/public/images";
+import { articles, demoImage, map, podcasts } from "@/public/images";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -11,19 +11,19 @@ const Features = () => {
       id: 1,
       name: "Podcasts",
       link: "/podcasts",
-      img: demoImage,
+      img: podcasts,
     },
     {
-      id: 1,
+      id: 2,
       name: "Articles",
       link: "/articles",
-      img: demoImage,
+      img: articles,
     },
     {
-      id: 1,
+      id: 3,
       name: "Data",
       link: "/data",
-      img: demoImage,
+      img: map,
     },
   ];
   return (
@@ -40,7 +40,8 @@ const Features = () => {
                 <Image
                   src={feat.img}
                   alt={feat.name}
-                  className="mx-auto rounded-md"
+                  onClick={() => router.push(feat.link)}
+                  className="mx-auto rounded-md h-72 w-full object-cover hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer"
                 />
                 <div className="p-5">
                   <button

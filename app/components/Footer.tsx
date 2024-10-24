@@ -1,4 +1,4 @@
-import { logo } from "@/public/images";
+import { logo, logoWhite } from "@/public/images";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-5 md:gap-0 gap-10">
           <div className="space-y-5 col-span-2">
             <Link href="/">
-              <Image src={logo} alt="logo" className="md:w-96 w-52" />
+              <Image src={logoWhite} alt="logo" className="md:w-32 w-52" />
             </Link>
             <p className="pr-20">
               Spatial Data Science Society Of Nigeria (SDSSN) is a

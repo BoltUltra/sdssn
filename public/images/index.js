@@ -17,6 +17,8 @@ export { default as eventlg } from "./png/event-lg.png";
 export { default as eventsm } from "./png/event-sm.png";
 export { default as news } from "./png/news-img.png";
 export { default as eventbanner } from "./png/event-banner.png";
+export { default as logoWhite } from "./png/logo-new-white.png";
+export { default as logoNew } from "./png/logo-new.png";
 
 export { default as capacity } from "./svg/capacity.svg";
 export { default as collaboration } from "./svg/collaboration.svg";
@@ -35,3 +37,6 @@ export { default as media2 } from "./jpg/media2.jpg";
 export { default as media3 } from "./jpg/media3.jpg";
 export { default as media4 } from "./jpg/media4.jpg";
 export { default as media5 } from "./jpg/media5.jpg";
+
+export { default as articles } from "./others/articles.avif";
+export { default as podcasts } from "./others/poscasts.webp";

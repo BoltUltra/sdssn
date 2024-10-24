@@ -88,6 +88,9 @@ export default function DashboardLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const user = useAuthStore().user;
   const isActive = (href: any) => pathname === href;
+  const userImage = JSON.parse(localStorage.getItem("userImage") || "{}");
+  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+  console.log(userImage);
 
   useEffect(() => {
     loadUserFromLocalStorage();
@@ -149,17 +152,21 @@ export default function DashboardLayout({
               <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-primary px-6 pb-4">
                 <div className="pt-10">
                   <Image
-                    src={user?.image}
+                    src={
+                      userImage === "No Profile Image is Avaialable"
+                        ? user1
+                        : userImage
+                    }
                     height={70}
                     width={70}
                     className="rounded-full border-4 border-white mx-auto"
                     alt="user-image"
                   />
                   <h3 className="text-white text-center mt-3 font-semibold">
-                    {user ? `${user?.firstName} ${user?.lastName}` : "John Doe"}
+                    {currentUser ? currentUser?.fulltName : "John Doe"}
                   </h3>
                   <p className="flex items-center text-white text-sm justify-center space-x-2">
-                    <span>{user?.username}</span>
+                    <span>{currentUser?.username}</span>
                     <Verify color="#FFFFFF" size={12} />
                   </p>
                 </div>
@@ -215,17 +222,21 @@ export default function DashboardLayout({
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-primary px-6 pb-4">
             <div className="pt-10">
               <Image
-                src={user ? user?.image : user1}
+                src={
+                  userImage === "No Profile Image is Avaialable"
+                    ? user1
+                    : userImage
+                }
                 height={100}
                 width={100}
                 className="rounded-full border-4 border-white mx-auto"
                 alt="user-image"
               />
               <h3 className="text-white text-center mt-3 font-semibold">
-                {user ? `${user?.firstName} ${user?.lastName}` : "John Doe"}
+                {currentUser ? currentUser?.fullName : "John Doe"}
               </h3>
               <p className="flex items-center text-white text-sm justify-center space-x-2">
-                <span>{user?.username}</span>
+                <span>{currentUser?.username}</span>
                 <Verify color="#FFFFFF" size={16} />
               </p>
             </div>
@@ -301,7 +312,11 @@ export default function DashboardLayout({
                       <span className="sr-only">Open user menu</span>
                       <Image
                         alt="user img"
-                        src={user ? user?.image : user1}
+                        src={
+                          userImage === "No Profile Image is Avaialable"
+                            ? user1
+                            : userImage
+                        }
                         height={36}
                         width={36}
                         className="h-9 w-9 rounded-full bg-gray-50 border-2 border-primary"
@@ -311,9 +326,7 @@ export default function DashboardLayout({
                           aria-hidden="true"
                           className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                         >
-                          {user
-                            ? `${user?.firstName} ${user?.lastName}`
-                            : "John Doe "}
+                          {currentUser ? currentUser?.fullName : "John Doe"}
                         </span>
                         <ArrowDown3
                           aria-hidden="true"

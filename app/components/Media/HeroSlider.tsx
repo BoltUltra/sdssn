@@ -5,8 +5,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Loading from "../Loading";
 import Image from "next/image";
-import "lightbox.js-react/dist/index.css";
-import { SlideshowLightbox, initLightboxJS } from "lightbox.js-react";
 
 const settings = {
   dots: true,
@@ -19,10 +17,6 @@ const settings = {
 };
 const HeroSlider = () => {
   const [medias, setMedias] = useState(null);
-
-  useEffect(() => {
-    initLightboxJS("30EA-8C17-6991-916C", "Individual");
-  }, []);
 
   useEffect(() => {
     fetch("/data.json")
@@ -52,29 +46,6 @@ const HeroSlider = () => {
           ))}
         </Slider>
 
-        {/* <div className="mt-40">
-          <SlideshowLightbox
-            lightboxIdentifier="lightbox1"
-            framework="next"
-            images={medias}
-            className="grid md:grid-cols-4 gap-8"
-          >
-            {medias.map((media) => (
-              <div key={media.title} className="h-[441px]">
-                <Image
-                  // key={media.title}
-                  src={media.image}
-                  alt={media.title}
-                  height={441}
-                  width={283}
-                  data-lightboxjs="lightbox1"
-                  quality={80}
-                  className="object-cover h-[441px] object-center"
-                />
-              </div>
-            ))}
-          </SlideshowLightbox>
-        </div> */}
         <div className="mt-40">
           <div className="grid md:grid-cols-4 gap-8">
             {medias.map((media) => (

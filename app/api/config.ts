@@ -9,6 +9,8 @@ export const API_URLS = {
   changePassword: `${API_BASE_URL}/userProfile/passwordReset`,
   fetchData: `${API_BASE_URL}/data`,
   fetchUserProfile: `${API_BASE_URL}/userProfile/profile`,
+  uploadProfileImage: `${API_BASE_URL}/userProfile/imageUpload`,
+  fetchUserImage: `${API_BASE_URL}/userProfile/viewProfileImage`,
   editProfile: `${API_BASE_URL}/userProfile/editProfile`,
   fetchSecurityQuestions: `${API_BASE_URL}/global/fetchAllSecurityQuestions`,
 };

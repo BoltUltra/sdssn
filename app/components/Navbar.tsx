@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { HambergerMenu } from "iconsax-react";
 import Link from "next/link";
 import Image from "next/image";
-import { logo, logoDark } from "@/public/images";
+import { logo, logoDark, logoNew } from "@/public/images";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -46,7 +46,7 @@ const Navbar = () => {
         <div className="max-w-[1440px] mx-auto">
           <div className="container mx-auto md:px-20 px-5 py-4 flex justify-between items-center font-plus-jakarta">
             <Link href="/">
-              <Image src={logoDark} alt="logo" className="md:w-72 w-52" />
+              <Image src={logoNew} alt="logo" className="md:w-32 w-20" />
             </Link>
             <ul
               className={`${

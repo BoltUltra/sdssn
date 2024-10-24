@@ -36,7 +36,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   auth: null,
 
   login: async (credentials) => {
-    const { fetchUserProfile, fetchSecurityQuestions } =
+    const { fetchUserProfile, fetchSecurityQuestions, fetchUserImage } =
       useDataStore.getState();
     try {
       const response = await axios.post(API_URLS.login, credentials);
@@ -49,6 +49,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       toast.success("Login successful");
       await fetchUserProfile();
       await fetchSecurityQuestions();
+      await fetchUserImage();
     } catch (error: any) {
       console.error("Login error:", error);
       toast.error(error.response?.data);

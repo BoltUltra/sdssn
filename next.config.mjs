@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "dummyjson.com",
       },
+      {
+        protocol: "https",
+        hostname: "sdnssbucket.s3.eu-west-1.amazonaws.com",
+      },
     ],
   },
   eslint: {

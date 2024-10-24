@@ -1,6 +1,11 @@
+- .DS_Store
 - .eslintrc.json
 - .gitignore
+- README.md
 - app
+  - .DS_Store
+  - about
+    - page.tsx
   - admin
     - dashboard
       - interactions
@@ -16,6 +21,8 @@
         - page.tsx
     - login
       - page.tsx
+  - api
+    - config.ts
   - auth
     - forgot-password
       - page.tsx
@@ -24,8 +31,69 @@
       - page.tsx
     - register
       - page.tsx
+  - community-guideline
+    - page.tsx
   - components
+    - About
+      - Hero.tsx
+      - MissionAndVision.tsx
+      - Partner.tsx
+      - TeamMembers.tsx
+      - Why.tsx
+    - AuthLayout.tsx
+    - Button.tsx
+    - ButtonSecondary.tsx
+    - Contact
+      - Form.tsx
+      - Info.tsx
+    - Editor.tsx
+    - Footer.tsx
+    - Heading3.tsx
+    - Heading4.tsx
+    - Homepage
+      - About.tsx
+      - Features.tsx
+      - Hero.tsx
+      - MembershipCount.tsx
+      - Newsletter.tsx
+      - Partners.tsx
+      - President.tsx
+      - SharedMap.tsx
+      - What.tsx
+    - Loading.tsx
+    - Map.tsx
+    - Media
+      - HeroSlider.tsx
+    - Navbar.tsx
+    - NewsAndEvents
+      - Banner.tsx
+      - EventSlider.tsx
+      - EventsTab.tsx
+      - OtherEvents.tsx
+    - TermsAndCondition.tsx
+    - UserDashboard
+      - DiscussionCard.tsx
+      - Discussions.tsx
+      - DraftDiscussions.tsx
+      - DraftLinks.tsx
+      - DraftMaps.tsx
+      - DraftProjectPanel.tsx
+      - EditUserProfile.tsx
+      - LinkCard.tsx
+      - Links.tsx
+      - MapCard.tsx
+      - Maps.tsx
+      - PrivateDiscussions.tsx
+      - PrivateLinks.tsx
+      - PrivateMaps.tsx
+      - PrivateProjectPanel.tsx
+      - Project.tsx
+      - PublicProjectPanel.tsx
+      - UserProfile.tsx
+      - UsersSettings.tsx
     - index.js
+  - contact
+    - page.tsx
   - dashboard
     - analytics
       - page.tsx
@@ -33,29 +101,87 @@
     - plan-upgrade
       - page.tsx
     - profile
+      - edit-profile
+        - page.tsx
       - page.tsx
     - projects
       - page.tsx
     - settings
       - page.tsx
+  - faq
+    - page.tsx
   - favicon.ico
   - globals.css
   - layout.tsx
+  - media
+    - page.tsx
+  - membership
+    - page.tsx
+  - news-and-event
+    - events
+      - [id]
+        - page.tsx
+    - news
+    - page.tsx
   - page.tsx
+  - podcasts
+  - stores
+    - authStore.ts
+    - dataStore.ts
+  - terms
+    - page.tsx
+- licenceKeys
 - next-env.d.ts
 - next.config.mjs
 - package-lock.json
 - package.json
 - postcss.config.mjs
+- project_structure.text
 - public
+  - data.json
   - images
     - index.js
     - jpg
+      - media1.jpg
+      - media2.jpg
+      - media3.jpg
+      - media4.jpg
+      - media5.jpg
     - png
+      - Frame 51984.png
+      - about-bg.png
+      - demo-img.png
+      - event-banner.png
+      - event-lg.png
+      - event-sm.png
+      - event1.png
+      - event2.png
+      - event3.png
+      - event4.png
+      - event5.png
+      - logo-dark.png
+      - logo.png
+      - map.png
+      - news-img.png
+      - partner.png
+      - president.png
+      - team-member.png
+      - user-img.png
+      - user.png
     - svg
-    - webp
+      - capacity.svg
+      - collaboration.svg
+      - hero-text-icon.svg
+      - innovation.svg
+      - knowledge.svg
+      - mission.svg
+      - partner.svg
+      - pattern.svg
+      - professionalism.svg
+      - sustainability.svg
+      - vector.svg
   - next.svg
   - vercel.svg
-- README.md
 - tailwind.config.ts
 - tsconfig.json
+- types.d.ts
