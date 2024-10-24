@@ -88,9 +88,20 @@ export default function DashboardLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const user = useAuthStore().user;
   const isActive = (href: any) => pathname === href;
-  const userImage = JSON.parse(localStorage.getItem("userImage") || "{}");
-  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
-  console.log(userImage);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [userImage, setUserImage] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Access localStorage here only if on client side
+      const storedUser = JSON.parse(
+        localStorage.getItem("currentUser") || "{}"
+      );
+      const storedImage = JSON.parse(localStorage.getItem("userImage") || "{}");
+      setCurrentUser(storedUser);
+      setUserImage(storedImage);
+    }
+  }, []);
 
   useEffect(() => {
     loadUserFromLocalStorage();

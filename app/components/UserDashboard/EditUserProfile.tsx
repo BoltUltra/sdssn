@@ -31,9 +31,20 @@ const EditUserProfile = () => {
   const [answer, setAnswer] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [userImage, setUserImage] = useState(null);
 
-  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
-  const userImage = JSON.parse(localStorage.getItem("userImage") || "{}");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Access localStorage here only if on client side
+      const storedUser = JSON.parse(
+        localStorage.getItem("currentUser") || "{}"
+      );
+      const storedImage = JSON.parse(localStorage.getItem("userImage") || "{}");
+      setCurrentUser(storedUser);
+      setUserImage(storedImage);
+    }
+  }, []);
 
   // useEffect to load data from localStorage on component mount
   useEffect(() => {

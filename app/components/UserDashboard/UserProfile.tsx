@@ -14,9 +14,20 @@ const UserProfile = () => {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const { updateUserImage } = useDataStore();
+  const [currentUser, setCurrentUser] = useState(null);
+  const [userImage, setUserImage] = useState(null);
 
-  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
-  const userImage = JSON.parse(localStorage.getItem("userImage") || "{}");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Access localStorage here only if on client side
+      const storedUser = JSON.parse(
+        localStorage.getItem("currentUser") || "{}"
+      );
+      const storedImage = JSON.parse(localStorage.getItem("userImage") || "{}");
+      setCurrentUser(storedUser);
+      setUserImage(storedImage);
+    }
+  }, []);
 
   const handleImageClick = () => {
     fileInputRef.current?.click();
