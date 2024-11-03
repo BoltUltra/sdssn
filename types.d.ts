@@ -1,11 +1,11 @@
 export interface RegistrationData {
-  username: string;
+  name: string;
+  first_name: string;
+  last_name: string;
   password: string;
-  confirm_password: string;
-  fullName: string;
+  password_confirmation: string;
   email: string;
-  phoneNo: string;
-  securityQuestion: string;
+  security_question: string;
   answer: string;
 }
 

@@ -290,5 +290,117 @@
     }
   ],
   "draftdiscussions": [],
-  "draftlinks": []
+  "draftlinks": [],
+  "audioPodcasts": [
+    {
+      "id": 1,
+      "title": "Earth and it’s surroundings",
+      "podcastLink": "/podcasts/podcast1.mp3",
+      "description": "Get an in-depth understanding on how data science impart our community",
+      "image": "/images/png/podcast-hero-img.png",
+      "date": "2021-11-15",
+      "by": "John Doe"
+    },
+    {
+      "id": 2,
+      "title": "The Future of AI",
+      "podcastLink": "/podcasts/podcast2.mp3",
+      "description": "Exploring the advancements and ethical considerations of AI.",
+      "image": "/images/png/podcast-hero-img.png",
+      "date": "2022-01-10",
+      "by": "Jane Smith"
+    },
+    {
+      "id": 3,
+      "title": "Healthcare Innovations",
+      "podcastLink": "/podcasts/podcast1.mp3",
+      "description": "Discussing the latest breakthroughs in healthcare technology.",
+      "image": "/images/png/podcast-hero-img.png",
+      "date": "2022-02-20",
+      "by": "Dr. Emily White"
+    },
+    {
+      "id": 4,
+      "title": "Green Energy Solutions",
+      "podcastLink": "/podcasts/podcast1.mp3",
+      "description": "Sustainable energy solutions for a greener future.",
+      "image": "/images/png/podcast-hero-img.png",
+      "date": "2022-03-15",
+      "by": "Michael Green"
+    },
+    {
+      "id": 5,
+      "title": "Robotics in Industry",
+      "podcastLink": "/podcasts/podcast2.mp3",
+      "description": "The impact of robotics on various industries.",
+      "image": "/images/png/podcast-hero-img.png",
+      "date": "2022-04-25",
+      "by": "Sophia Brown"
+    },
+    {
+      "id": 6,
+      "title": "Tech Trends 2022",
+      "podcastLink": "/podcasts/podcast1.mp3",
+      "description": "A look at the top technology trends for 2022.",
+      "image": "/images/png/podcast-hero-img.png",
+      "date": "2022-05-05",
+      "by": "David Johnson"
+    }
+  ],
+  "videoPodcasts": [
+    {
+      "id": 1,
+      "title": "Earth and its surroundings",
+      "podcastLink": "https://www.youtube.com/watch?v=SjvsfBvfyvI",
+      "description": "Get an in-depth understanding on how data science impacts our community",
+      "image": "/images/png/podcast-hero-img.png",
+      "date": "2021-11-15",
+      "by": "John Doe"
+    },
+    {
+      "id": 2,
+      "title": "The Future of AI",
+      "podcastLink": "https://www.youtube.com/watch?v=DVRg0daTads",
+      "description": "Exploring the advancements and ethical considerations of AI.",
+      "image": "/images/png/podcast-hero-img.png",
+      "date": "2022-01-10",
+      "by": "Jane Smith"
+    },
+    {
+      "id": 3,
+      "title": "Healthcare Innovations",
+      "podcastLink": "https://www.youtube.com/watch?v=NCLBok_C9Hg",
+      "description": "Discussing the latest breakthroughs in healthcare technology.",
+      "image": "/images/png/podcast-hero-img.png",
+      "date": "2022-02-20",
+      "by": "Dr. Emily White"
+    },
+    {
+      "id": 4,
+      "title": "Green Energy Solutions",
+      "podcastLink": "https://www.youtube.com/watch?v=UJeSWbR6W04",
+      "description": "Sustainable energy solutions for a greener future.",
+      "image": "/images/png/podcast-hero-img.png",
+      "date": "2022-03-15",
+      "by": "Michael Green"
+    },
+    {
+      "id": 5,
+      "title": "Robotics in Industry",
+      "podcastLink": "https://www.youtube.com/watch?v=veTauaom0ec",
+      "description": "The impact of robotics on various industries.",
+      "image": "/images/png/podcast-hero-img.png",
+      "date": "2022-04-25",
+      "by": "Sophia Brown"
+    },
+    {
+      "id": 6,
+      "title": "Tech Trends 2022",
+      "podcastLink": "https://www.youtube.com/watch?v=0CmtDk-joT4",
+      "description": "A look at the top technology trends for 2022.",
+      "image": "/images/png/podcast-hero-img.png",
+      "date": "2022-05-05",
+      "by": "David Johnson"
+    }
+  ]
 }

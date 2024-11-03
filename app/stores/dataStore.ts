@@ -50,16 +50,23 @@ export const useDataStore = create<DataState>((set) => ({
     set({ loading: true });
     try {
       const token = formatToken(localStorage.getItem("token"));
+      const currentUser = JSON.parse(
+        localStorage.getItem("currentUser") || "{}"
+      );
+      const userId = currentUser.id; // Retrieve the user ID from currentUser or however it is stored
+
       if (!token) {
         throw new Error("No token found. Please log in again.");
       }
-      console.log("Token found:", token);
-      const response = await axios.get(API_URLS.fetchUserProfile, {
+
+      // Use the dynamic URL function with the user ID
+      const response = await axios.get(API_URLS.fetchUserProfile(userId), {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
+
       set({ userProfile: response.data, loading: false, error: null });
       localStorage.setItem("currentUser", JSON.stringify(response.data));
     } catch (error: any) {
@@ -108,7 +115,7 @@ export const useDataStore = create<DataState>((set) => ({
         },
       });
       toast.success("User Profile Updated successfully");
-      console.log("Response from editUserProfile:", response);
+      // console.log("Response from editUserProfile:", response);
     } catch (error: any) {
       set({
         error: error.response?.data?.message || error.message,
@@ -135,8 +142,8 @@ export const useDataStore = create<DataState>((set) => ({
       const formData = new FormData();
       formData.append("file", payload.file);
 
-      console.log("Uploading file:", payload.file);
-      console.log("FormData entries:", [...formData.entries()]);
+      // console.log("Uploading file:", payload.file);
+      // console.log("FormData entries:", [...formData.entries()]);
 
       const response = await axios.post(API_URLS.uploadProfileImage, formData, {
         headers: {
@@ -145,7 +152,7 @@ export const useDataStore = create<DataState>((set) => ({
       });
 
       set({ loading: false });
-      console.log("Upload response:", response);
+      // console.log("Upload response:", response);
       toast.success("Profile image uploaded successfully");
     } catch (error: any) {
       console.error("Upload error details:", error.response || error);
@@ -167,7 +174,7 @@ export const useDataStore = create<DataState>((set) => ({
       if (!token) {
         throw new Error("No token found. Please log in again.");
       }
-      console.log("Token found:", token);
+      // console.log("Token found:", token);
       const response = await axios.get(API_URLS.fetchUserImage, {
         headers: {
           Authorization: `Bearer ${token}`,

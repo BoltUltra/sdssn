@@ -70,7 +70,7 @@ export default function Project() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
   };
 
   return (
@@ -201,13 +201,6 @@ export default function Project() {
                     />
                   </div>
                 </form>
-                {/* <div className="flex md:flex-row flex-col items-center gap-4 justify-end mt-10">
-                  <Button
-                    text="Upload Project"
-                    onClick={() => {}}
-                    className=""
-                  />
-                </div> */}
               </div>
             </TabPanel>
           </TabPanels>

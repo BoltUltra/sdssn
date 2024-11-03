@@ -3,47 +3,49 @@ import { useAuthStore } from "@/app/stores/authStore";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Header, Footer, Loading } from "../components";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isAuthenticated, isLoading, loadUserFromLocalStorage } =
-    useAuthStore();
-  const router = useRouter();
+  // const { isAuthenticated, isLoading, loadUserFromLocalStorage } =
+  //   useAuthStore();
+  // const router = useRouter();
 
-  useEffect(() => {
-    loadUserFromLocalStorage();
-  }, [loadUserFromLocalStorage]);
+  // useEffect(() => {
+  //   loadUserFromLocalStorage();
+  // }, [loadUserFromLocalStorage]);
 
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push("/auth/login");
-    }
+  // useEffect(() => {
+  //   if (!isLoading && !isAuthenticated) {
+  //     router.push("/auth/login");
+  //   }
 
-    if (!isLoading && isAuthenticated) {
-      router.push("/dashboard/projects");
-    }
-  }, [isAuthenticated, isLoading, router]);
+  //   // if (!isLoading && isAuthenticated) {
+  //   //   router.push("/dashboard/projects");
+  //   // }
+  // }, [isAuthenticated, isLoading, router]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
-  if (!isAuthenticated) {
-    return (
-      <>
-        <Header />
-        <section>{children}</section>
-      </>
-    );
-  }
+  // if (!isAuthenticated) {
+  //   return (
+  //     <>
+  //       <Toaster />
+  //       {/* <Header /> */}
+  //       <section>{children}</section>
+  //     </>
+  //   );
+  // }
 
-  // return (
-  //   <>
-  //     <Header />
-  //     <section>{children}</section>
-  //   </>
-  // );
+  return (
+    <>
+      {/* <Header /> */}
+      <section>{children}</section>
+    </>
+  );
 }

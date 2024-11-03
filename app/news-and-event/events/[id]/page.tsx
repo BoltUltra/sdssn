@@ -21,7 +21,7 @@ const SingleEvent = () => {
           const foundEvent = data.events.find(
             (event) => event.id === Number(id)
           );
-          console.log("foundEvent", foundEvent);
+          // console.log("foundEvent", foundEvent);
           setEvent(foundEvent);
         })
         .catch((error) => console.error("Error fetching event data:", error));

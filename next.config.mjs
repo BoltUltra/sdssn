@@ -8,7 +8,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "sdnssbucket.s3.eu-west-1.amazonaws.com",
+        hostname: "api.dicebear.com",
       },
     ],
   },

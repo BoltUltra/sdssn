@@ -37,7 +37,7 @@ const UserProfile = () => {
     try {
       setIsUploading(true);
 
-      console.log("Selected file:", file); // Debug log
+      // console.log("Selected file:", file); // Debug log
 
       if (!file) {
         throw new Error("No file selected");

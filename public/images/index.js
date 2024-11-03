@@ -19,6 +19,7 @@ export { default as news } from "./png/news-img.png";
 export { default as eventbanner } from "./png/event-banner.png";
 export { default as logoWhite } from "./png/logo-new-white.png";
 export { default as logoNew } from "./png/logo-new.png";
+export { default as podcastHero } from "./png/podcast-hero-img.png";
 
 export { default as capacity } from "./svg/capacity.svg";
 export { default as collaboration } from "./svg/collaboration.svg";

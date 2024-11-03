@@ -29,7 +29,7 @@ import {
 } from "iconsax-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { user1 } from "@/public/images";
 import { useDataStore } from "../stores/dataStore";
 
@@ -93,13 +93,10 @@ export default function DashboardLayout({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Access localStorage here only if on client side
       const storedUser = JSON.parse(
         localStorage.getItem("currentUser") || "{}"
       );
-      const storedImage = JSON.parse(localStorage.getItem("userImage") || "{}");
       setCurrentUser(storedUser);
-      setUserImage(storedImage);
     }
   }, []);
 
@@ -163,21 +160,20 @@ export default function DashboardLayout({
               <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-primary px-6 pb-4">
                 <div className="pt-10">
                   <Image
-                    src={
-                      userImage === "No Profile Image is Avaialable"
-                        ? user1
-                        : userImage
-                    }
+                    src={`https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`}
                     height={70}
                     width={70}
                     className="rounded-full border-4 border-white mx-auto"
                     alt="user-image"
+                    unoptimized
                   />
                   <h3 className="text-white text-center mt-3 font-semibold">
-                    {currentUser ? currentUser?.fulltName : "John Doe"}
+                    {currentUser
+                      ? `${currentUser?.first_name} ${currentUser?.last_name}`
+                      : "John Doe"}
                   </h3>
                   <p className="flex items-center text-white text-sm justify-center space-x-2">
-                    <span>{currentUser?.username}</span>
+                    <span>{currentUser?.name}</span>
                     <Verify color="#FFFFFF" size={12} />
                   </p>
                 </div>
@@ -233,21 +229,20 @@ export default function DashboardLayout({
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-primary px-6 pb-4">
             <div className="pt-10">
               <Image
-                src={
-                  userImage === "No Profile Image is Avaialable"
-                    ? user1
-                    : userImage
-                }
+                src={`https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`}
                 height={100}
                 width={100}
                 className="rounded-full border-4 border-white mx-auto"
                 alt="user-image"
+                unoptimized
               />
               <h3 className="text-white text-center mt-3 font-semibold">
-                {currentUser ? currentUser?.fullName : "John Doe"}
+                {currentUser
+                  ? `${currentUser?.first_name} ${currentUser?.last_name}`
+                  : "John Doe"}
               </h3>
               <p className="flex items-center text-white text-sm justify-center space-x-2">
-                <span>{currentUser?.username}</span>
+                <span>{currentUser?.name}</span>
                 <Verify color="#FFFFFF" size={16} />
               </p>
             </div>
@@ -323,21 +318,20 @@ export default function DashboardLayout({
                       <span className="sr-only">Open user menu</span>
                       <Image
                         alt="user img"
-                        src={
-                          userImage === "No Profile Image is Avaialable"
-                            ? user1
-                            : userImage
-                        }
+                        src={`https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`}
                         height={36}
                         width={36}
                         className="h-9 w-9 rounded-full bg-gray-50 border-2 border-primary"
+                        unoptimized
                       />
                       <span className="hidden lg:flex lg:items-center">
                         <span
                           aria-hidden="true"
                           className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                         >
-                          {currentUser ? currentUser?.fullName : "John Doe"}
+                          {currentUser
+                            ? `${currentUser?.first_name} ${currentUser?.last_name}`
+                            : "John Doe"}
                         </span>
                         <ArrowDown3
                           aria-hidden="true"

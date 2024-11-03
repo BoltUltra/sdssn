@@ -73,7 +73,7 @@ const EditUserProfile = () => {
     try {
       setIsUploading(true);
 
-      console.log("Selected file:", file); // Debug log
+      // console.log("Selected file:", file); // Debug log
 
       if (!file) {
         throw new Error("No file selected");
@@ -147,7 +147,7 @@ const EditUserProfile = () => {
     };
     setIsLoading(true);
     try {
-      console.log(updatedUser);
+      // console.log(updatedUser);
       await editUserProfile(updatedUser);
       setTimeout(() => {
         localStorage.setItem("currentUser", JSON.stringify(updatedUser));

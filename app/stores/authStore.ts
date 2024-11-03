@@ -7,11 +7,15 @@ import { ChangePasswordData, RegistrationData } from "@/types";
 
 interface AuthState {
   isAuthenticated: boolean;
+  isEmailVerified: boolean;
   auth: any | null;
   user: any | null;
   admin: any | null;
   isLoading: boolean;
-  login: (credentials: { username: string; password: string }) => Promise<void>;
+  login: (
+    credentials: { email: string; password: string },
+    router
+  ) => Promise<void>;
   adminLogin: (credentials: {
     username: string;
     password: string;
@@ -30,12 +34,13 @@ const formatToken = (token: string | null): string => {
 
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,
+  isEmailVerified: false,
   user: null,
   admin: null,
   isLoading: true,
   auth: null,
 
-  login: async (credentials) => {
+  login: async (credentials, router) => {
     const { fetchUserProfile, fetchSecurityQuestions, fetchUserImage } =
       useDataStore.getState();
     try {
@@ -44,12 +49,27 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       set({ isAuthenticated: true, auth: userData, isLoading: false });
       localStorage.setItem("auth", JSON.stringify(userData));
+      localStorage.setItem("currentUser", JSON.stringify(userData.data));
       localStorage.setItem("token", JSON.stringify(userData.token));
       localStorage.setItem("isAuthenticated", "true");
-      toast.success("Login successful");
+      const currentUser = JSON.parse(
+        localStorage.getItem("currentUser") || "{}"
+      );
+
+      // Redirect based on `email_verified` only after confirming the `currentUser` data is present
+      if (currentUser && currentUser.email_verified === "1") {
+        // console.log("Email verified - routing to dashboard");
+        router.push("/dashboard/projects");
+      } else if (currentUser && currentUser.email_verified === "0") {
+        toast.error("Email not verified");
+        // console.log("Email not verified - routing to email verification page");
+        router.push("/auth/email-not-verified");
+      } else {
+        toast.error("Failed to verify email status");
+      }
+      // toast.success("Login successful");
       await fetchUserProfile();
       await fetchSecurityQuestions();
-      await fetchUserImage();
     } catch (error: any) {
       console.error("Login error:", error);
       toast.error(error.response?.data);
@@ -98,7 +118,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         },
       });
       toast.success("Password Updated Successfully");
-      console.log("Response from update password", response);
+      // console.log("Response from update password", response);
       return response.data;
     } catch (error: any) {
       console.error("Reset error:", error.message);
@@ -106,7 +126,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   logout: () => {
-    set({ isAuthenticated: false, auth: null });
+    set({ isAuthenticated: false, auth: null, isEmailVerified: false });
     localStorage.clear();
   },
 
@@ -120,6 +140,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({ isLoading: false }); // Stop loading if no user found
     }
   },
+
   loadAdminFromLocalStorage: () => {
     const admin = localStorage.getItem("auth");
     const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
