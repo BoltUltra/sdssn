@@ -9,25 +9,25 @@ const MembershipCount = () => {
   const members = [
     {
       id: 1,
-      name: "Students",
+      name: "Graduate",
       number: "100+",
       icon: <LuGraduationCap />,
     },
     {
       id: 2,
-      name: "Intermediate",
+      name: "Associate",
       number: "40+",
       icon: <PiHandshake />,
     },
     {
       id: 3,
-      name: "Certified",
+      name: "Proessional",
       number: "200+",
       icon: <LiaCertificateSolid />,
     },
     {
       id: 3,
-      name: "Volunteers",
+      name: "Cooperate",
       number: "40+",
       icon: <MdOutlineVolunteerActivism />,
     },
@@ -37,7 +37,7 @@ const MembershipCount = () => {
       <section className="bg-[#F8F8F8] py-20">
         <div className="max-w-[1440px] mx-auto md:px-20 px-5">
           <div className="flex flex-col items-center justify-center space-y-2">
-            <Heading3 text={"Membership Count"} />
+            <Heading3 text={"Membership Count"} style="" />
             <div className="h-0.5 w-40 bg-[#C30711]"></div>
           </div>
           <div className="grid md:grid-cols-4 gap-10 mt-10">

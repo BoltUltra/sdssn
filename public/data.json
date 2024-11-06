@@ -199,45 +199,246 @@
   "maps": [
     {
       "id": 1,
-      "title": "Map of Abuja",
-      "mapImg": "/images/png/map.png"
+      "title": "Scenic View of Olumo Rock Plains",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Oluwaseun Adebayo"
     },
     {
       "id": 2,
-      "title": "Map of Lagos",
-      "mapImg": "/images/png/map.png"
+      "title": "Lekki Conservation Wetlands",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Chidinma Okonkwo"
     },
     {
       "id": 3,
-      "title": "Map of Ibadan",
-      "mapImg": "/images/png/map.png"
+      "title": "Ancient Walls of Kano Heritage Site",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Babajide Ogunleye"
     },
     {
       "id": 4,
-      "title": "Map of Kano",
-      "mapImg": "/images/png/map.png"
+      "title": "Yankari Game Reserve Territory",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Amina Ibrahim"
+    },
+    {
+      "id": 5,
+      "title": "Cross River National Park Routes",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Chukwuma Nnamdi"
+    },
+    {
+      "id": 6,
+      "title": "Ikogosi Warm Springs Layout",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Folake Adeleke"
+    },
+    {
+      "id": 7,
+      "title": "Obudu Cattle Ranch Trails",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Yusuf Mohammed"
+    },
+    {
+      "id": 8,
+      "title": "Idanre Hills Topography",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Aisha Muhammed"
+    },
+    {
+      "id": 9,
+      "title": "Sukur Cultural Landscape",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Obiora Ezekwesili"
+    },
+    {
+      "id": 10,
+      "title": "Gashaka Gumti National Park",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Toluwani Adekunle"
+    },
+    {
+      "id": 11,
+      "title": "Mambilla Plateau Highlands",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Emeka Okafor"
+    },
+    {
+      "id": 12,
+      "title": "Osun Sacred Grove Layout",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Blessing Ogunbanjo"
+    },
+    {
+      "id": 13,
+      "title": "Zuma Rock District",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Abdul Rahman"
+    },
+    {
+      "id": 14,
+      "title": "Kajuru Castle Grounds",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Taiwo Olayinka"
+    },
+    {
+      "id": 15,
+      "title": "Tarkwa Bay Beach Front",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Ngozi Okonjo"
+    },
+    {
+      "id": 16,
+      "title": "Millennium Park Layout",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Olayinka Dosunmu"
+    },
+    {
+      "id": 17,
+      "title": "Gurara Falls Reserve",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Fatima Abubakar"
+    },
+    {
+      "id": 18,
+      "title": "Erin Ijesha Waterfalls Territory",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Chinua Achebe"
+    },
+    {
+      "id": 19,
+      "title": "Nike Lake Resort Area",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Adebola Okoro"
+    },
+    {
+      "id": 20,
+      "title": "Lekki Conservation Center Trails",
+      "mapImg": "/images/png/map.png",
+      "uploadedBy": "Zainab Bello"
     }
   ],
+
   "discussions": [
     {
       "id": 1,
-      "subject": "How can i fix this bug?",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!"
+      "subject": "How can I fix this bug?",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Adebayo Adekunle"
     },
     {
       "id": 2,
-      "subject": "How can i fix this bug?",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!"
+      "subject": "Why is my component not rendering?",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Chiamaka Okeke"
     },
     {
       "id": 3,
-      "subject": "How can i fix this bug?",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!"
+      "subject": "Best practices for form validation?",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Sadiq Bello"
     },
     {
       "id": 4,
-      "subject": "How can i fix this bug?",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!"
+      "subject": "How to optimize my app's performance?",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Enitan Ajayi"
+    },
+    {
+      "id": 5,
+      "subject": "Error handling in async functions",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Ngozi Nwosu"
+    },
+    {
+      "id": 6,
+      "subject": "How can I center elements in CSS?",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Muhammed Abubakar"
+    },
+    {
+      "id": 7,
+      "subject": "How to set up environment variables?",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Funmi Alade"
+    },
+    {
+      "id": 8,
+      "subject": "Debugging tips for JavaScript beginners",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Emeka Eze"
+    },
+    {
+      "id": 9,
+      "subject": "Deploying a React app to Netlify",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Hassan Musa"
+    },
+    {
+      "id": 10,
+      "subject": "Best ways to manage state in Vue",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Tolu Fashola"
+    },
+    {
+      "id": 11,
+      "subject": "Issues with npm install",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Osas Omoruyi"
+    },
+    {
+      "id": 12,
+      "subject": "Setting up routes in Next.js",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Gbemi Shonibare"
+    },
+    {
+      "id": 13,
+      "subject": "Why is my API request failing?",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Chijioke Obi"
+    },
+    {
+      "id": 14,
+      "subject": "Working with Redux Toolkit",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Zainab Mohammed"
+    },
+    {
+      "id": 15,
+      "subject": "Optimizing image loading in React",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Idowu Aina"
+    },
+    {
+      "id": 16,
+      "subject": "Managing responsive layouts",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Abdulrahman Sani"
+    },
+    {
+      "id": 17,
+      "subject": "Handling authentication with Firebase",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Ifeoma Onuoha"
+    },
+    {
+      "id": 18,
+      "subject": "Best tools for testing in Vue.js",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Musa Abdullahi"
+    },
+    {
+      "id": 19,
+      "subject": "Issues with CSS grid layout",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Yetunde Kolade"
+    },
+    {
+      "id": 20,
+      "subject": "How to use Context API effectively",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus, sapiente recusandae expedita consequuntur voluptatibus. Excepturi eligendi a rerum error suscipit alias, aliquid at eius, voluptas dolore atque delectus sequi!",
+      "uploadedBy": "Nnamdi Okafor"
     }
   ],
   "links": [

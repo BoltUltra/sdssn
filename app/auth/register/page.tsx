@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { IoReturnDownBackOutline } from "react-icons/io5";
 
 const Register = () => {
   const router = useRouter();
@@ -47,9 +48,7 @@ const Register = () => {
       setConfirmPassword("");
       setSelectedSecurityQuestion("");
       setSecurityAnswer("");
-      setTimeout(() => {
-        router.push("/auth/verify-email");
-      }, 2000);
+      router.push("/auth/verify-email");
     } catch (error) {
       toast.error("An error occurred");
     } finally {
@@ -226,12 +225,21 @@ const Register = () => {
               </button>
             </form>
 
-            <div className="mt-5">
+            <div className="mt-5 space-y-2">
               <p>
                 Already have an account?{" "}
                 <Link href="/auth/login" className="font-bold text-primary">
                   Login
                 </Link>
+              </p>
+              <p className="flex items-center space-x-2">
+                <IoReturnDownBackOutline size={20} />
+                <span>
+                  go back to{"  "}
+                  <Link href="/" className="font-bold text-primary">
+                    homepage
+                  </Link>
+                </span>
               </p>
             </div>
           </div>

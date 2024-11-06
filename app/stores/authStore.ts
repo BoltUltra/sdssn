@@ -55,19 +55,15 @@ export const useAuthStore = create<AuthState>((set) => ({
       const currentUser = JSON.parse(
         localStorage.getItem("currentUser") || "{}"
       );
-
-      // Redirect based on `email_verified` only after confirming the `currentUser` data is present
       if (currentUser && currentUser.email_verified === "1") {
-        // console.log("Email verified - routing to dashboard");
+        toast.success("Login successful");
         router.push("/dashboard/projects");
       } else if (currentUser && currentUser.email_verified === "0") {
         toast.error("Email not verified");
-        // console.log("Email not verified - routing to email verification page");
         router.push("/auth/email-not-verified");
       } else {
         toast.error("Failed to verify email status");
       }
-      // toast.success("Login successful");
       await fetchUserProfile();
       await fetchSecurityQuestions();
     } catch (error: any) {
@@ -98,7 +94,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       const response = await axios.post(API_URLS.register, userData);
       // set({ isAuthenticated: true });
-      toast.success("Registration successful proceeding to login");
+      toast.success("Registration successful");
       return response.data;
     } catch (error: any) {
       console.error("Registration error:", error.message);

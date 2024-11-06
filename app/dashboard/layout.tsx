@@ -32,17 +32,21 @@ import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import { user1 } from "@/public/images";
 import { useDataStore } from "../stores/dataStore";
+import { GrProjects } from "react-icons/gr";
+import { FaRegUser } from "react-icons/fa";
+import { MdSettingsSuggest } from "react-icons/md";
+import { CiLogout } from "react-icons/ci";
 
 const navigation = [
   {
     name: "Projects",
     href: "/dashboard/projects",
-    icon: TableDocument,
+    icon: GrProjects,
   },
   {
     name: "My Profile",
     href: "/dashboard/profile",
-    icon: User,
+    icon: FaRegUser,
   },
   // {
   //   name: "Analytics",
@@ -57,7 +61,7 @@ const navigation = [
   {
     name: "Settings",
     href: "/dashboard/settings",
-    icon: Setting4,
+    icon: MdSettingsSuggest,
   },
   // {
   //   name: "Help",
@@ -281,7 +285,7 @@ export default function DashboardLayout({
                     onClick={handleLogout}
                     className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-white hover:bg-gray-50 hover:text-primary w-full"
                   >
-                    <Logout
+                    <CiLogout
                       aria-hidden="true"
                       className="h-6 w-6 shrink-0 text-white group-hover:text-primary"
                     />

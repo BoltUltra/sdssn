@@ -12,7 +12,7 @@ export default function Membership() {
       <section className="pt-44 pb-20 bg-background">
         <div className="section-container">
           <div className="md:max-w-sm mx-auto text-center space-y-3 md:mb-16 mb-12">
-            <Heading3 text={"Membership Fees"} />
+            <Heading3 text={"Membership Fees"} style={""} />
             <p>Explore the right option for you and pick your prefered plan</p>
           </div>
           <div className="grid md:grid-cols-4 md:gap-2 gap-8">

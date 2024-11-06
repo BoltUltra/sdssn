@@ -72,7 +72,7 @@ const PodcastList = () => {
                 {podcasts.map((podcast) => (
                   <div
                     key={podcast.id}
-                    className="flex items-center hover:scale-105 transition-all duration-500 cursor-pointer"
+                    className="flex items-center cursor-pointer"
                   >
                     <div className="flex space-x-4 w-[75%] border-r-2 border-r-white pr-10 mr-10">
                       <Image
@@ -107,7 +107,7 @@ const PodcastList = () => {
                 {videoPodcasts.map((podcast) => (
                   <div
                     key={podcast.id}
-                    className="flex items-center hover:scale-105 transition-all duration-500 cursor-pointer"
+                    className="flex items-center cursor-pointer"
                   >
                     <div className="flex items-center space-x-4 w-[75%] border-r-2 border-r-white pr-10 mr-10">
                       <div className="w-[293px]">
