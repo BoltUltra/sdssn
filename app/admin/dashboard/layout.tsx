@@ -221,12 +221,12 @@ export default function AdminDashboardLayout({
                 unoptimized
               />
               <h3 className="text-white text-center mt-3 font-semibold">
-                {`${user?.firstName} ${user?.lastName}`}
+                {"Admin"}
               </h3>
-              <p className="flex items-center text-white text-sm justify-center space-x-2">
+              {/* <p className="flex items-center text-white text-sm justify-center space-x-2">
                 <span>Admin</span>
                 <Verify color="#FFFFFF" size={16} />
-              </p>
+              </p> */}
             </div>
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
