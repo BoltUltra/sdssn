@@ -9,242 +9,244 @@ import toast, { Toaster } from "react-hot-toast";
 
 const EditUserProfile = () => {
   const router = useRouter();
-  const { editUserProfile, updateUserImage } = useDataStore();
+  const { editUserProfile, updateUserImage, fetchUserProfile } = useDataStore();
   const fileInputRef = useRef(null);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
 
   // Define state for form fields
-  const [fullName, setFullName] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [location, setLocation] = useState("");
-  const [membershipStatus, setMembershipStatus] = useState("");
-  const [twitter, setTwitter] = useState("");
-  const [instagram, setInstagram] = useState("");
-  const [facebook, setFacebook] = useState("");
-  const [linkedIn, setLinkedIn] = useState("");
-  const [github, setGithub] = useState("");
-  const [securityQuestions, setSecurityQuestions] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    dateOfBirth: "",
+    address: "",
+    state: "",
+    gender: "",
+    membershipStatus: "",
+    phoneNumber: "",
+    social: {
+      twitter: "",
+      instagram: "",
+      facebook: "",
+      linkedin: "",
+      github: "",
+    },
+    securityQuestions: "",
+    answer: "",
+  });
+
   const [isLoading, setIsLoading] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userImage, setUserImage] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
+  // Load user data on component mount
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Access localStorage here only if on client side
-      const storedUser = JSON.parse(
-        localStorage.getItem("currentUser") || "{}"
-      );
-      const storedImage = JSON.parse(localStorage.getItem("userImage") || "{}");
-      setCurrentUser(storedUser);
-      setUserImage(storedImage);
-    }
-  }, []);
+    const loadUserData = async () => {
+      try {
+        // First try to get user data from API
+        // const userData = await fetchUserProfile();
+        const response = await fetchUserProfile();
+        const userData = response.data;
+        console.log("User data:", userData);
 
-  // useEffect to load data from localStorage on component mount
-  useEffect(() => {
-    // Populate the state with the values from localStorage
-    setFullName(currentUser?.fullName || "");
-    setUsername(currentUser?.username || "");
-    setEmail(currentUser?.email || "");
-    setDateOfBirth(currentUser?.dateOfBirth || "");
-    setLocation(currentUser?.location || "");
-    setMembershipStatus(currentUser?.membership || "Free");
-    setTwitter(currentUser?.twitter || "");
-    setInstagram(currentUser?.instagram || "");
-    setFacebook(currentUser?.facebook || "");
-    setLinkedIn(currentUser?.linkedIn || "");
-    setGithub(currentUser?.github || "");
-    setSecurityQuestions(currentUser?.securityQuestions || "");
-    setAnswer(currentUser?.answer || "");
-    setPhoneNumber(currentUser?.phoneNumber || "");
-  }, []);
-
-  const handleImageClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleUpload = async (file: File) => {
-    try {
-      setIsUploading(true);
-
-      // console.log("Selected file:", file); // Debug log
-
-      if (!file) {
-        throw new Error("No file selected");
+        if (!userData) {
+          // Fallback to localStorage if API fails
+          const storedUser = localStorage.getItem("currentUser");
+          if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            setFormData({
+              firstName: parsedUser.first_name || "",
+              lastName: parsedUser.last_name || "",
+              username: parsedUser.name || "",
+              email: parsedUser.email || "",
+              dateOfBirth: parsedUser.dob || "",
+              address: parsedUser.address || "",
+              state: parsedUser.state || "",
+              gender: parsedUser.gender || "",
+              membershipStatus: parsedUser.membership_status || "Free",
+              phoneNumber: parsedUser.phone_number || "",
+              social: {
+                twitter: parsedUser.social?.twitter || "",
+                instagram: parsedUser.social?.instagram || "",
+                facebook: parsedUser.social?.facebook || "",
+                linkedin: parsedUser.social?.linkedin || "",
+                github: parsedUser.social?.github || "",
+              },
+              securityQuestions: parsedUser.security_question || "",
+              answer: parsedUser.answer || "",
+            });
+          }
+        } else {
+          // Use API data if available
+          setFormData({
+            firstName: userData.first_name || "",
+            lastName: userData.last_name || "",
+            username: userData.name || "",
+            email: userData.email || "",
+            dateOfBirth: userData.dob || "",
+            address: userData.address || "",
+            state: userData.state || "",
+            gender: userData.gender || "",
+            membershipStatus: userData.membership_status || "Free",
+            phoneNumber: userData.phone_number || "",
+            social: {
+              twitter: userData.social?.twitter || "",
+              instagram: userData.social?.instagram || "",
+              facebook: userData.social?.facebook || "",
+              linkedin: userData.social?.linkedin || "",
+              github: userData.social?.github || "",
+            },
+            securityQuestions: userData.security_question || "",
+            answer: userData.answer || "",
+          });
+        }
+      } catch (error) {
+        toast.error("Failed to load user data");
+        console.error("Error loading user data:", error);
       }
-
-      const result = await updateUserImage({
-        file,
-      });
-
-      if (result.success) {
-        const updatedUser = {
-          ...currentUser,
-          profileImage: result.data.imageUrl, // adjust based on your API response structure
-        };
-        localStorage.setItem("currentUser", JSON.stringify(updatedUser));
-
-        toast.success("Image uploaded successfully");
-      } else {
-        throw new Error(result.error || "Failed to upload image");
-      }
-    } catch (error: any) {
-      console.error("Error uploading image:", error);
-      toast.error(error.message || "Failed to upload image");
-      setPreviewUrl(null);
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      // Validate file type
-      if (!file.type.startsWith("image/")) {
-        toast.error("Please select an image file");
-        return;
-      }
-
-      // Validate file size (e.g., 5MB limit)
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error("File size should be less than 5MB");
-        return;
-      }
-
-      setSelectedImage(file);
-      // Create preview URL
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
-
-      // Upload image immediately when selected
-      handleUpload(file);
-    }
-  };
-
-  const handleSave = async () => {
-    const updatedUser = {
-      fullName,
-      username,
-      email,
-      dateOfBirth,
-      location,
-      membershipStatus,
-      twitter,
-      instagram,
-      facebook,
-      linkedIn,
-      github,
-      securityQuestions,
-      answer,
-      phoneNumber,
     };
+
+    loadUserData();
+  }, [fetchUserProfile]);
+
+  // Handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name.startsWith("social.")) {
+      const socialField = name.split(".")[1];
+      setFormData((prev) => ({
+        ...prev,
+        social: {
+          ...prev.social,
+          [socialField]: value,
+        },
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+
+  // Handle form submission
+  const handleSave = async () => {
     setIsLoading(true);
     try {
-      // console.log(updatedUser);
+      // Transform formData back to API expected format
+      const updatedUser = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        name: formData.username,
+        email: formData.email,
+        dob: formData.dateOfBirth,
+        address: formData.address,
+        state: formData.state,
+        gender: formData.gender,
+        membership_status: formData.membershipStatus,
+        phone_number: formData.phoneNumber,
+        social: formData.social,
+        security_question: formData.securityQuestions,
+        answer: formData.answer,
+      };
+
       await editUserProfile(updatedUser);
-      setTimeout(() => {
-        localStorage.setItem("currentUser", JSON.stringify(updatedUser));
-        router.push("/dashboard/profile");
-      }, 2000);
+      localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+      toast.success("Profile updated successfully");
+      router.push("/dashboard/profile");
     } catch (error) {
-      toast.error("An error occurred, please try again");
+      toast.error("Failed to update profile");
+      console.error("Error updating profile:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    return () => {
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
-      }
-    };
-  }, [previewUrl]);
-
   return (
     <>
       <Toaster />
       <div className="md:px-20">
-        <div
-          className="relative h-20 w-20 rounded-full"
-          onClick={handleImageClick}
-        >
+        <div className="relative h-20 w-20 rounded-full">
           <div
             className={`relative h-20 w-20 ${isUploading ? "opacity-50" : ""}`}
           >
             <Image
-              src={
-                userImage === "No Profile Image is Avaialable"
-                  ? user1
-                  : userImage
-              }
+              src={`https://api.dicebear.com/9.x/identicon/svg?seed=${formData.first_name}`}
               alt="user image"
               className="w-20 h-20 rounded-full object-cover"
               width={80}
               height={80}
+              unoptimized
             />
-            {isUploading && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
-              </div>
-            )}
           </div>
-          <span className="absolute bottom-0 right-0 bg-white h-5 w-5 p-1 rounded-full flex items-center justify-center shadow-lg cursor-pointer">
-            <LuPencilLine />
-          </span>
-          <input
-            type="file"
-            ref={fileInputRef}
-            className="hidden"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
         </div>
         <div className="mt-10">
           <p className="text-2xl font-semibold mt-4">Personal Information</p>
           <div className="md:grid grid-cols-2 gap-8 mt-5">
             <div className="flex flex-col space-y-2">
-              <label className="form-label">Full Name</label>
+              <label className="form-label">First Name</label>
               <input
+                name="firstName"
                 type="text"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)} // Update state
+                value={formData.firstName}
+                onChange={handleInputChange}
+                className="form-input"
+              />
+            </div>
+            <div className="flex flex-col space-y-2">
+              <label className="form-label">Last Name</label>
+              <input
+                name="lastName"
+                type="text"
+                value={formData.lastName}
+                onChange={handleInputChange}
                 className="form-input"
               />
             </div>
             <div className="flex flex-col space-y-2">
               <label className="form-label">Username</label>
               <input
+                name="username"
                 type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)} // Update state
+                value={formData.username}
+                onChange={handleInputChange}
                 className="form-input"
               />
             </div>
             <div className="flex flex-col space-y-2">
               <label className="form-label">Email</label>
               <input
+                name="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)} // Update state
+                value={formData.email}
+                onChange={handleInputChange}
                 className="form-input"
               />
             </div>
             <div className="flex flex-col space-y-2">
               <label className="form-label">Phone Number</label>
               <input
+                name="phoneNumber"
                 type="text"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)} // Update state
+                value={formData.phoneNumber}
+                onChange={handleInputChange}
                 className="form-input"
               />
+            </div>
+            <div className="flex flex-col space-y-2">
+              <label className="form-label">Gender</label>
+              <div className="form-input">
+                <select
+                  name="gender"
+                  id="gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent outline-none"
+                >
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
             </div>
             <div className="flex flex-col space-y-2">
               <label className="form-label">Date of Birth</label>
@@ -252,26 +254,39 @@ const EditUserProfile = () => {
                 min="1900-01-01"
                 max="2010-12-31"
                 type="date"
-                value={dateOfBirth}
-                onChange={(e) => setDateOfBirth(e.target.value)} // Update state
+                name="dateOfBirth"
+                value={formData.dateOfBirth}
+                onChange={handleInputChange}
                 className="form-input"
               />
             </div>
             <div className="flex flex-col space-y-2">
-              <label className="form-label">Location</label>
+              <label className="form-label">State</label>
               <input
                 type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)} // Update state
+                name="state"
+                value={formData.state}
+                onChange={handleInputChange}
                 className="form-input"
               />
+            </div>
+            <div className="flex flex-col space-y-2">
+              <label className="form-label">Address</label>
+              <textarea
+                name="address"
+                value={formData.address}
+                onChange={handleInputChange}
+                className="form-input"
+                rows={5}
+              ></textarea>
             </div>
             <div className="flex flex-col space-y-2">
               <label className="form-label">Membership Status</label>
               <input
                 type="text"
-                value={membershipStatus}
-                onChange={(e) => setMembershipStatus(e.target.value)} // Update state
+                name="membershipStatus"
+                value={formData.membershipStatus}
+                onChange={handleInputChange}
                 className="form-input"
                 disabled
               />
@@ -285,8 +300,9 @@ const EditUserProfile = () => {
               <label className="form-label">Twitter</label>
               <input
                 type="text"
-                value={twitter}
-                onChange={(e) => setTwitter(e.target.value)} // Update state
+                name="social.twitter"
+                value={formData.social.twitter}
+                onChange={handleInputChange}
                 className="form-input"
               />
             </div>
@@ -294,8 +310,9 @@ const EditUserProfile = () => {
               <label className="form-label">Instagram</label>
               <input
                 type="text"
-                value={instagram}
-                onChange={(e) => setInstagram(e.target.value)} // Update state
+                name="social.instagram"
+                value={formData.social.instagram}
+                onChange={handleInputChange}
                 className="form-input"
               />
             </div>
@@ -303,8 +320,9 @@ const EditUserProfile = () => {
               <label className="form-label">Facebook</label>
               <input
                 type="text"
-                value={facebook}
-                onChange={(e) => setFacebook(e.target.value)} // Update state
+                name="social.facebook"
+                value={formData.social.facebook}
+                onChange={handleInputChange}
                 className="form-input"
               />
             </div>
@@ -312,8 +330,9 @@ const EditUserProfile = () => {
               <label className="form-label">LinkedIn</label>
               <input
                 type="text"
-                value={linkedIn}
-                onChange={(e) => setLinkedIn(e.target.value)} // Update state
+                name="social.linkedin"
+                value={formData.social.linkedin}
+                onChange={handleInputChange}
                 className="form-input"
               />
             </div>
@@ -321,8 +340,9 @@ const EditUserProfile = () => {
               <label className="form-label">GitHub</label>
               <input
                 type="text"
-                value={github}
-                onChange={(e) => setGithub(e.target.value)} // Update state
+                name="social.github"
+                value={formData.social.github}
+                onChange={handleInputChange}
                 className="form-input"
               />
             </div>

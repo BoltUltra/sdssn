@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { IoMdShare } from "react-icons/io";
 import { MdAnalytics } from "react-icons/md";

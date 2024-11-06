@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { IoReturnDownBackOutline } from "react-icons/io5";
 
 const Login = () => {
   const router = useRouter();
@@ -19,25 +20,7 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      // Perform login
       await login({ email, password }, router);
-
-      // Verify the `currentUser` data is in localStorage before proceeding
-      // const currentUser = JSON.parse(
-      //   localStorage.getItem("currentUser") || "{}"
-      // );
-
-      // // Redirect based on `email_verified` only after confirming the `currentUser` data is present
-      // if (currentUser && currentUser.email_verified === "1") {
-      //   console.log("Email verified - routing to dashboard");
-      //   router.push("/dashboard/projects");
-      // } else if (currentUser && currentUser.email_verified === "0") {
-      //   toast.error("Email not verified");
-      //   console.log("Email not verified - routing to email verification page");
-      //   router.push("/auth/email-not-verified");
-      // } else {
-      //   toast.error("Failed to verify email status");
-      // }
     } catch (error) {
       toast.error("An error occurred during login");
     } finally {
@@ -109,6 +92,15 @@ const Login = () => {
                 >
                   Reset
                 </Link>
+              </p>
+              <p className="flex items-center space-x-2">
+                <IoReturnDownBackOutline size={20} />
+                <span>
+                  go back to{"  "}
+                  <Link href="/" className="font-bold text-primary">
+                    homepage
+                  </Link>
+                </span>
               </p>
             </div>
           </div>

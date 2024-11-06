@@ -22,7 +22,7 @@ export default function Home() {
       <MembershipCount />
       <SharedMap />
       <What />
-      <President />
+      {/* <President /> */}
       <Partners />
       <Newsletter />
       <Footer />

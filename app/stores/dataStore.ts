@@ -13,6 +13,7 @@ interface DataState {
   fetchUserImage: () => Promise<void>;
   fetchSecurityQuestions: () => Promise<any>;
   editUserProfile: (userData: any) => Promise<void>;
+  editUserSocials: (userData: any) => Promise<void>;
   updateUserImage: (payload: any) => Promise<void>;
 }
 
@@ -44,41 +45,6 @@ export const useDataStore = create<DataState>((set) => ({
   },
 
   /**
-   * Fetch User Profile
-   */
-  fetchUserProfile: async () => {
-    set({ loading: true });
-    try {
-      const token = formatToken(localStorage.getItem("token"));
-      const currentUser = JSON.parse(
-        localStorage.getItem("currentUser") || "{}"
-      );
-      const userId = currentUser.id; // Retrieve the user ID from currentUser or however it is stored
-
-      if (!token) {
-        throw new Error("No token found. Please log in again.");
-      }
-
-      // Use the dynamic URL function with the user ID
-      const response = await axios.get(API_URLS.fetchUserProfile(userId), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      set({ userProfile: response.data, loading: false, error: null });
-      localStorage.setItem("currentUser", JSON.stringify(response.data));
-    } catch (error: any) {
-      set({
-        error: error.response?.data?.message || error.message,
-        loading: false,
-      });
-      console.error("Error fetching user profile:", error);
-    }
-  },
-
-  /**
    * Fetch Security Questions
    */
   fetchSecurityQuestions: async () => {
@@ -98,6 +64,37 @@ export const useDataStore = create<DataState>((set) => ({
   },
 
   /**
+   * Fetch Security Questions
+   */
+  fetchUserProfile: async () => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem("token"));
+      const currentUser = JSON.parse(
+        localStorage.getItem("currentUser") || "{}"
+      );
+      if (!token) {
+        throw new Error("No token found. Please log in again.");
+      }
+      const response = await axios.get(API_URLS.fetchUserProfile, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      set({ data: response.data, loading: false, error: null });
+      localStorage.setItem("currentUser", JSON.stringify(response.data.data));
+      return response.data; // return the fetched data
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      console.error("Error fetching user profile:", error);
+    }
+  },
+
+  /**
    * Edit User Profile
    */
 
@@ -108,7 +105,7 @@ export const useDataStore = create<DataState>((set) => ({
       if (!token) {
         throw new Error("No token found. Please log in again.");
       }
-      const response = await axios.post(API_URLS.editProfile, userData, {
+      const response = await axios.put(API_URLS.editProfile, userData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -116,6 +113,33 @@ export const useDataStore = create<DataState>((set) => ({
       });
       toast.success("User Profile Updated successfully");
       // console.log("Response from editUserProfile:", response);
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      console.error("Error fetching user profile:", error);
+    }
+  },
+
+  /**
+   * Edit User Profile
+   */
+
+  editUserSocials: async (userData: any) => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem("token"));
+      if (!token) {
+        throw new Error("No token found. Please log in again.");
+      }
+      const response = await axios.put(API_URLS.editProfileSocials, userData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      toast.success("User Socials Updated successfully");
     } catch (error: any) {
       set({
         error: error.response?.data?.message || error.message,

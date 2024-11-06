@@ -17,49 +17,50 @@ import {
 import {
   ArrowDown3,
   CloseCircle,
-  CloudPlus,
-  DeviceMessage,
-  Diamonds,
   HambergerMenu,
-  InfoCircle,
   Logout,
-  Message,
-  Refresh,
-  Setting4,
-  StatusUp,
-  TableDocument,
-  User,
   Verify,
 } from "iconsax-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
+import { IoCloudUploadSharp } from "react-icons/io5";
+import { TiMessages } from "react-icons/ti";
+import { RiRefreshLine } from "react-icons/ri";
+import { MdSettingsSuggest, MdTouchApp } from "react-icons/md";
+import { CiLogout } from "react-icons/ci";
+import { GrProjects } from "react-icons/gr";
 
 const navigation = [
   {
     name: "Uploads",
     href: "/admin/dashboard/uploads",
-    icon: CloudPlus,
+    icon: IoCloudUploadSharp,
+  },
+  {
+    name: "Projects",
+    href: "/admin/dashboard/projects",
+    icon: GrProjects,
   },
   {
     name: "Messages",
     href: "/admin/dashboard/messages",
-    icon: Message,
+    icon: TiMessages,
   },
   {
     name: "Updates",
     href: "/admin/dashboard/updates",
-    icon: Refresh,
+    icon: RiRefreshLine,
   },
   {
     name: "Interactions",
     href: "/admin/dashboard/interactions",
-    icon: DeviceMessage,
+    icon: MdTouchApp,
   },
   {
     name: "Settings",
     href: "/admin/dashboard/settings",
-    icon: Setting4,
+    icon: MdSettingsSuggest,
   },
 ];
 
@@ -89,11 +90,11 @@ export default function AdminDashboardLayout({
     loadUserFromLocalStorage();
   }, [loadUserFromLocalStorage]);
 
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push("/auth/login");
-    }
-  }, [isAuthenticated, isLoading, router]);
+  // useEffect(() => {
+  //   if (!isLoading && !isAuthenticated) {
+  //     router.push("/auth/login");
+  //   }
+  // }, [isAuthenticated, isLoading, router]);
 
   if (isLoading) {
     return <Loading />;
@@ -145,11 +146,12 @@ export default function AdminDashboardLayout({
               <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-primary px-6 pb-4">
                 <div className="pt-10">
                   <Image
-                    src={user?.image}
+                    src={`https://api.dicebear.com/9.x/identicon/svg?seed=admin`}
                     height={70}
                     width={70}
                     className="rounded-full border-4 border-white mx-auto"
                     alt="user-image"
+                    unoptimized
                   />
                   <h3 className="text-white text-center mt-3 font-semibold">
                     {`${user?.firstName} ${user?.lastName}`}
@@ -211,11 +213,12 @@ export default function AdminDashboardLayout({
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-primary px-6 pb-4">
             <div className="pt-10">
               <Image
-                src={user?.image}
+                src={`https://api.dicebear.com/9.x/identicon/svg?seed=admin`}
                 height={100}
                 width={100}
                 className="rounded-full border-4 border-white mx-auto"
                 alt="user-image"
+                unoptimized
               />
               <h3 className="text-white text-center mt-3 font-semibold">
                 {`${user?.firstName} ${user?.lastName}`}
@@ -237,7 +240,7 @@ export default function AdminDashboardLayout({
                             isActive(item.href)
                               ? "bg-gray-50 text-primary"
                               : "text-white hover:bg-gray-50 hover:text-primary",
-                            "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
+                            "group flex gap-x-3 rounded-md p-4 text-sm font-semibold leading-6"
                           )}
                         >
                           <item.icon
@@ -258,9 +261,9 @@ export default function AdminDashboardLayout({
                 <li className="mt-auto">
                   <button
                     onClick={handleLogout}
-                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-white hover:bg-gray-50 hover:text-primary w-full"
+                    className="group -mx-2 flex gap-x-3 rounded-md p-4 text-sm font-semibold leading-6 text-white hover:bg-gray-50 hover:text-primary w-full"
                   >
-                    <Logout
+                    <CiLogout
                       aria-hidden="true"
                       className="h-6 w-6 shrink-0 text-white group-hover:text-primary"
                     />
@@ -297,10 +300,11 @@ export default function AdminDashboardLayout({
                       <span className="sr-only">Open user menu</span>
                       <Image
                         alt="user img"
-                        src={user?.image}
+                        src={`https://api.dicebear.com/9.x/identicon/svg?seed=admin`}
                         height={36}
                         width={36}
                         className="h-9 w-9 rounded-full bg-gray-50 border-2 border-primary"
+                        unoptimized
                       />
                       <span className="hidden lg:flex lg:items-center">
                         <span
@@ -315,21 +319,6 @@ export default function AdminDashboardLayout({
                         />
                       </span>
                     </MenuButton>
-                    {/* <MenuItems
-                      transition
-                      className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-                    >
-                      {userNavigation.map((item) => (
-                        <MenuItem key={item.name}>
-                          <a
-                            href={item.href}
-                            className="block px-3 py-1 text-sm leading-6 text-gray-900 data-[focus]:bg-gray-50"
-                          >
-                            {item.name}
-                          </a>
-                        </MenuItem>
-                      ))}
-                    </MenuItems> */}
                   </Menu>
                 </div>
               </div>

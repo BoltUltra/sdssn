@@ -3,26 +3,25 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import PublicProjectPanel from "./PublicProjectPanel";
-import PrivateProjectPanel from "./PrivateProjectPanel";
-import DraftProjectPanel from "./DraftProjectPanel";
 import Button from "../Button";
 import { RiUploadCloud2Fill } from "react-icons/ri";
 import TextEditor from "../Editor";
+import PublicProjectPanel from "../UserDashboard/PublicProjectPanel";
+import PrivateProjectPanel from "../UserDashboard/PrivateProjectPanel";
+import DraftProjectPanel from "../UserDashboard/DraftProjectPanel";
 
 const categories = [
-  { name: "Public", value: "public" },
-  { name: "Private", value: "private" },
-  { name: "Draft", value: "draft" },
-  { name: "Upload Project", value: "upload" },
+  { name: "Resources", value: "resources" },
+  { name: "Certification", value: "certification" },
+  { name: "Events and News", value: "events-and-news" },
 ];
 
-export default function Project() {
+export default function Uploads() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   // Get initial tab from query params
-  const currentTab = searchParams.get("tab") || "public";
+  const currentTab = searchParams.get("tab") || "resources";
 
   // Map current tab to the tab index
   const currentTabIndex = categories.findIndex(
@@ -31,7 +30,9 @@ export default function Project() {
 
   const handleTabChange = (index: number) => {
     const selectedTab = categories[index].value;
-    router.push(`/dashboard/projects?tab=${selectedTab}`, { scroll: false });
+    router.push(`/admin/dashboard/uploads?tab=${selectedTab}`, {
+      scroll: false,
+    });
   };
 
   const [formData, setFormData] = useState({
