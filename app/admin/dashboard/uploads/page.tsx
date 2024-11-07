@@ -1,10 +1,13 @@
-import Uploads from "@/app/components/AdminDashboard/Uploads";
-import Image from "next/image";
+import { Loading } from '@/app/components';
+import Uploads from '@/app/components/AdminDashboard/Uploads';
+import { Suspense } from 'react';
 
 export default function Upload() {
   return (
     <main className="">
-      <Uploads />
+      <Suspense fallback={<Loading />}>
+        <Uploads />
+      </Suspense>
     </main>
   );
 }

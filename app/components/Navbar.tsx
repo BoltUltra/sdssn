@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { HambergerMenu } from "iconsax-react";
-import Link from "next/link";
-import Image from "next/image";
-import { logo, logoDark, logoNew } from "@/public/images";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { HambergerMenu } from 'iconsax-react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { logo, logoDark, logoNew } from '@/public/images';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About SDSSN" },
-    { href: "/membership", label: "Membership" },
-    { href: "/news-and-event", label: "News & Events" },
-    { href: "/media", label: "Media" },
-    { href: "/contact", label: "Contact Us" },
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About SDSSN' },
+    { href: '/membership', label: 'Membership' },
+    { href: '/news-and-event', label: 'News & Events' },
+    { href: '/media', label: 'Media' },
+    { href: '/contact', label: 'Contact Us' },
   ];
   useEffect(() => {
     const handleScroll = () => {
@@ -26,14 +27,14 @@ const Navbar = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navbarClasses = scrolled
-    ? "fixed top-0 left-0 w-full bg-white shadow-xl transition-all duration-300 ease-in-out z-50"
-    : "fixed top-0 left-0 w-full bg-white transition-all duration-300 ease-in-out";
+    ? 'fixed top-0 left-0 w-full bg-white shadow-xl transition-all duration-300 ease-in-out z-50'
+    : 'fixed top-0 left-0 w-full bg-white transition-all duration-300 ease-in-out';
 
   return (
     <>
@@ -50,7 +51,7 @@ const Navbar = () => {
             </Link>
             <ul
               className={`${
-                scrolled ? "text-primary" : "text-primary"
+                scrolled ? 'text-primary' : 'text-primary'
               } hidden md:flex space-x-6`}
             >
               {navLinks.map((link) => (
@@ -67,8 +68,8 @@ const Navbar = () => {
                 href="/auth/login"
                 className={`${
                   scrolled
-                    ? "bg-primary text-white"
-                    : "bg-primary text-white border-primary"
+                    ? 'bg-primary text-white'
+                    : 'bg-primary text-white border-primary'
                 } border-2 px-5 md:px-10 py-2 md:py-3 rounded-lg`}
               >
                 Join Us
@@ -79,7 +80,7 @@ const Navbar = () => {
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className={`${
-                  scrolled ? "text-primary-500" : "text-white"
+                  scrolled ? 'text-primary-500' : 'text-white'
                 } text-2xl`}
               >
                 <HambergerMenu size="32" color="#000000" />
