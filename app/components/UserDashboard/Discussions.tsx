@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
-import Loading from "../Loading";
-import Image from "next/image";
-import MapCard from "./MapCard";
-import Button from "../Button";
-import { MdAdd } from "react-icons/md";
-import { useRouter } from "next/navigation";
-import DiscussionCard from "./DiscussionCard";
+import React, { useEffect, useState } from 'react';
+import Loading from '../Loading';
+import Image from 'next/image';
+import MapCard from './MapCard';
+import Button from '../Button';
+import { MdAdd } from 'react-icons/md';
+import { useRouter } from 'next/navigation';
+import DiscussionCard from './DiscussionCard';
 
-const Discussions = () => {
+const Discussions = ({ discussions }) => {
   const router = useRouter();
   const goToUpload = () => {
-    router.push("/dashboard/projects?tab=upload");
+    router.push('/dashboard/projects?tab=upload');
   };
-  const [discussions, setDiscussions] = useState(null);
+  // const [discussions, setDiscussions] = useState(null);
 
-  useEffect(() => {
-    fetch("/data.json")
-      .then((response) => response.json())
-      .then((data) => setDiscussions(data.discussions))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+  // useEffect(() => {
+  //   fetch("/data.json")
+  //     .then((response) => response.json())
+  //     .then((data) => setDiscussions(data.discussions))
+  //     .catch((error) => console.error("Error fetching data:", error));
+  // }, []);
 
   if (!discussions) return <Loading />;
 

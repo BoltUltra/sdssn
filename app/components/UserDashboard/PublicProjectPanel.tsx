@@ -1,18 +1,34 @@
-import React from "react";
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import Button from "../Button";
-import { MdAdd } from "react-icons/md";
-import { RiUploadCloud2Fill } from "react-icons/ri";
-import { useRouter } from "next/navigation";
-import Maps from "./Maps";
-import Discussions from "./Discussions";
-import Links from "./Links";
+import React, { useEffect, useState } from 'react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import Button from '../Button';
+import { MdAdd } from 'react-icons/md';
+import { RiUploadCloud2Fill } from 'react-icons/ri';
+import { useRouter } from 'next/navigation';
+import Maps from './Maps';
+import Discussions from './Discussions';
+import Links from './Links';
+import { useDataStore } from '@/app/stores/dataStore';
 
 const PublicProjectPanel = () => {
   const router = useRouter();
+  const [discussions, setDiscussions] = useState([]);
+  const { fetchAllPosts } = useDataStore();
+
   const goToUpload = () => {
-    router.push("/dashboard/projects?tab=upload");
+    router.push('/dashboard/projects?tab=upload');
   };
+  const fetchDiscussions = async () => {
+    try {
+      const response = await fetchAllPosts();
+      console.log(response.data);
+      setDiscussions(response.data);
+    } catch (error) {
+      console.error('Error fetching discussions:', error);
+    }
+  };
+  useEffect(() => {
+    fetchDiscussions();
+  }, []);
   return (
     <TabGroup>
       <TabList className="flex md:gap-16 gap-10 pb-6">
@@ -27,11 +43,9 @@ const PublicProjectPanel = () => {
         </Tab>
       </TabList>
       <TabPanels className="mt-6">
+        <TabPanel className="">{/* <Maps /> */} No maps available</TabPanel>
         <TabPanel className="">
-          <Maps />
-        </TabPanel>
-        <TabPanel className="">
-          <Discussions />
+          <Discussions discussions={discussions} />
         </TabPanel>
         <TabPanel className="">
           <Links />
