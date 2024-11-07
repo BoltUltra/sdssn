@@ -1,10 +1,10 @@
-import React from "react";
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import { useRouter } from "next/navigation";
-import Links from "../UserDashboard/Links";
-import AllMaps from "./AllMaps";
-import AllDiscussions from "./AllDiscussions";
-import AllPodcasts from "./AllPodcasts";
+import React from 'react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { useRouter } from 'next/navigation';
+import Links from '../UserDashboard/Links';
+import AllMaps from './AllMaps';
+import AllDiscussions from './AllDiscussions';
+import AllPodcasts from './AllPodcasts';
 
 const AllProjects = () => {
   const router = useRouter();

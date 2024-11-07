@@ -5,9 +5,13 @@ import { logoNew } from "@/public/images";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { IoReturnDownBackOutline } from "react-icons/io5";
+import {
+  IoReturnDownBackOutline,
+  IoEyeOffOutline,
+  IoEyeOutline,
+} from "react-icons/io5";
 
 const Login = () => {
   const router = useRouter();
@@ -15,6 +19,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,6 +33,10 @@ const Login = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    setIsFormValid(email.trim() !== "" && password.trim() !== "");
+  }, [email, password]);
 
   return (
     <>
@@ -57,21 +67,30 @@ const Login = () => {
                 <label htmlFor="password" className="form-label">
                   Password
                 </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                  required
-                  className="form-input"
-                />
+                <div className="form-input relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                    required
+                    className="w-full bg-transparent outline-none"
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
+                  </button>
+                </div>
               </div>
               <button
                 type="submit"
                 className={`py-4 w-full text-white bg-primary rounded-lg mt-10 ${
                   isLoading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
-                disabled={isLoading}
+                disabled={isLoading || !isFormValid}
               >
                 {isLoading ? <div className="loader"></div> : "Login"}
               </button>
@@ -79,7 +98,7 @@ const Login = () => {
 
             <div className="mt-5 space-y-2">
               <p>
-                Don’t have an account yet?{" "}
+                Don't have an account yet?{" "}
                 <Link href="/auth/register" className="font-bold text-primary">
                   Sign Up
                 </Link>

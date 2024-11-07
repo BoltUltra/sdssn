@@ -52,9 +52,9 @@ const What = () => {
             <div className="h-0.5 w-40 bg-[#C30711]"></div>
           </div>
           <div className="grid md:grid-cols-4 gap-10 mt-20">
-            {members.map((item) => (
+            {members.map((item, index) => (
               <div
-                key={item.id}
+                key={index}
                 className="text-center flex flex-col items-center space-y-3"
               >
                 <div className="text-6xl text-[#C30711]">{item.icon}</div>

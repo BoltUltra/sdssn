@@ -41,9 +41,9 @@ const MembershipCount = () => {
             <div className="h-0.5 w-40 bg-[#C30711]"></div>
           </div>
           <div className="grid md:grid-cols-4 gap-10 mt-10">
-            {members.map((member) => (
+            {members.map((member, index) => (
               <div
-                key={member.id}
+                key={index}
                 className="text-center flex flex-col items-center "
               >
                 <div className="text-6xl text-[#C30711]">{member.icon}</div>

@@ -35,8 +35,8 @@ const Features = () => {
             <div className="h-0.5 w-40 bg-[#C30711]"></div>
           </div>
           <div className="grid md:grid-cols-3 gap-10 mt-10">
-            {feats.map((feat) => (
-              <div key={feat.id} className="text-center">
+            {feats.map((feat, index) => (
+              <div key={index} className="text-center">
                 <Image
                   src={feat.img}
                   alt={feat.name}
