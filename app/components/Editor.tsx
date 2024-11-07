@@ -1,23 +1,23 @@
-import React, { useEffect } from "react";
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Bold from "@tiptap/extension-bold";
-import Italic from "@tiptap/extension-italic";
-import Underline from "@tiptap/extension-underline";
-import Strike from "@tiptap/extension-strike";
-import Heading from "@tiptap/extension-heading";
-import Link from "@tiptap/extension-link";
-import Image from "@tiptap/extension-image";
-import BulletList from "@tiptap/extension-bullet-list";
-import OrderedList from "@tiptap/extension-ordered-list";
-import ListItem from "@tiptap/extension-list-item";
-import Placeholder from "@tiptap/extension-placeholder";
+import React, { useEffect } from 'react';
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import Bold from '@tiptap/extension-bold';
+import Italic from '@tiptap/extension-italic';
+import Underline from '@tiptap/extension-underline';
+import Strike from '@tiptap/extension-strike';
+import Heading from '@tiptap/extension-heading';
+import Link from '@tiptap/extension-link';
+import Image from '@tiptap/extension-image';
+import BulletList from '@tiptap/extension-bullet-list';
+import OrderedList from '@tiptap/extension-ordered-list';
+import ListItem from '@tiptap/extension-list-item';
+import Placeholder from '@tiptap/extension-placeholder';
 import {
   RxFontBold,
   RxFontItalic,
   RxStrikethrough,
   RxUnderline,
-} from "react-icons/rx";
+} from 'react-icons/rx';
 import {
   LuHeading1,
   LuHeading2,
@@ -28,8 +28,8 @@ import {
   LuListOrdered,
   LuRedoDot,
   LuUndoDot,
-} from "react-icons/lu";
-import { MdOutlineFormatListBulleted } from "react-icons/md";
+} from 'react-icons/lu';
+import { MdOutlineFormatListBulleted } from 'react-icons/md';
 
 const TextEditor = ({ content, onContentChange }) => {
   const editor = useEditor({
@@ -50,7 +50,7 @@ const TextEditor = ({ content, onContentChange }) => {
       OrderedList,
       ListItem,
       Placeholder.configure({
-        placeholder: "Start typing here...",
+        placeholder: 'Start typing here...',
       }),
     ],
     content: content,
@@ -58,7 +58,7 @@ const TextEditor = ({ content, onContentChange }) => {
 
   useEffect(() => {
     if (editor) {
-      editor.on("update", () => {
+      editor.on('update', () => {
         const html = editor.getHTML();
         onContentChange(html);
       });
@@ -77,7 +77,7 @@ const TextEditor = ({ content, onContentChange }) => {
           type="button"
           onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={!editor.can().chain().focus().toggleBold().run()}
-          className={editor.isActive("bold") ? "is-active" : ""}
+          className={editor.isActive('bold') ? 'is-active' : ''}
         >
           <RxFontBold />
         </button>
@@ -87,7 +87,7 @@ const TextEditor = ({ content, onContentChange }) => {
           type="button"
           onClick={() => editor.chain().focus().toggleItalic().run()}
           disabled={!editor.can().chain().focus().toggleItalic().run()}
-          className={editor.isActive("italic") ? "is-active" : ""}
+          className={editor.isActive('italic') ? 'is-active' : ''}
         >
           <RxFontItalic />
         </button>
@@ -97,7 +97,7 @@ const TextEditor = ({ content, onContentChange }) => {
           type="button"
           onClick={() => editor.chain().focus().toggleUnderline().run()}
           disabled={!editor.can().chain().focus().toggleUnderline().run()}
-          className={editor.isActive("underline") ? "is-active" : ""}
+          className={editor.isActive('underline') ? 'is-active' : ''}
         >
           <RxUnderline />
         </button>
@@ -107,7 +107,7 @@ const TextEditor = ({ content, onContentChange }) => {
           type="button"
           onClick={() => editor.chain().focus().toggleStrike().run()}
           disabled={!editor.can().chain().focus().toggleStrike().run()}
-          className={editor.isActive("strike") ? "is-active" : ""}
+          className={editor.isActive('strike') ? 'is-active' : ''}
         >
           <RxStrikethrough />
         </button>
@@ -119,7 +119,7 @@ const TextEditor = ({ content, onContentChange }) => {
             editor.chain().focus().toggleHeading({ level: 1 }).run()
           }
           className={
-            editor.isActive("heading", { level: 1 }) ? "is-active" : ""
+            editor.isActive('heading', { level: 1 }) ? 'is-active' : ''
           }
         >
           <LuHeading1 />
@@ -130,7 +130,7 @@ const TextEditor = ({ content, onContentChange }) => {
             editor.chain().focus().toggleHeading({ level: 2 }).run()
           }
           className={
-            editor.isActive("heading", { level: 2 }) ? "is-active" : ""
+            editor.isActive('heading', { level: 2 }) ? 'is-active' : ''
           }
         >
           <LuHeading2 />
@@ -141,7 +141,7 @@ const TextEditor = ({ content, onContentChange }) => {
             editor.chain().focus().toggleHeading({ level: 3 }).run()
           }
           className={
-            editor.isActive("heading", { level: 3 }) ? "is-active" : ""
+            editor.isActive('heading', { level: 3 }) ? 'is-active' : ''
           }
         >
           <LuHeading3 />
@@ -151,7 +151,7 @@ const TextEditor = ({ content, onContentChange }) => {
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
-          className={editor.isActive("bulletList") ? "is-active" : ""}
+          className={editor.isActive('bulletList') ? 'is-active' : ''}
         >
           <MdOutlineFormatListBulleted />
         </button>
@@ -160,7 +160,7 @@ const TextEditor = ({ content, onContentChange }) => {
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          className={editor.isActive("orderedList") ? "is-active" : ""}
+          className={editor.isActive('orderedList') ? 'is-active' : ''}
         >
           <LuListOrdered />
         </button>
@@ -169,19 +169,19 @@ const TextEditor = ({ content, onContentChange }) => {
         <button
           type="button"
           onClick={() => {
-            const url = prompt("Enter URL");
+            const url = prompt('Enter URL');
             if (url) {
               editor.chain().focus().setLink({ href: url }).run();
             }
           }}
-          className={editor.isActive("link") ? "is-active" : ""}
+          className={editor.isActive('link') ? 'is-active' : ''}
         >
           <LuLink2 />
         </button>
         <button
           type="button"
           onClick={() => editor.chain().focus().unsetLink().run()}
-          disabled={!editor.isActive("link")}
+          disabled={!editor.isActive('link')}
         >
           <LuLink2Off />
         </button>
@@ -190,7 +190,7 @@ const TextEditor = ({ content, onContentChange }) => {
         <button
           type="button"
           onClick={() => {
-            const url = prompt("Enter image URL");
+            const url = prompt('Enter image URL');
             if (url) {
               editor.chain().focus().setImage({ src: url }).run();
             }

@@ -1,6 +1,6 @@
 // const API_BASE_URL = 'https://dummyjson.com';
 // const API_BASE_URL = "http://54.247.199.29:8090";
-const API_BASE_URL = "https://sdssn-app.onrender.com/api";
+const API_BASE_URL = 'https://sdssn-app.onrender.com/api';
 
 export const API_URLS = {
   login: `${API_BASE_URL}/login`,
@@ -15,4 +15,6 @@ export const API_URLS = {
   editProfile: `${API_BASE_URL}/profile`,
   editProfileSocials: `${API_BASE_URL}/profile/socials`,
   fetchSecurityQuestions: `${API_BASE_URL}/security-questions`,
+  createProject: `${API_BASE_URL}/projects`,
+  fetchProjects: `${API_BASE_URL}/projects`,
 };
