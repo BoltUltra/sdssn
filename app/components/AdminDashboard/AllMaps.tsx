@@ -5,6 +5,7 @@ import DataTable from "react-data-table-component";
 import { GrMoreVertical } from "react-icons/gr";
 import { FaEye } from "react-icons/fa";
 import { BiEdit, BiTrash } from "react-icons/bi";
+import toast from "react-hot-toast";
 
 // Dropdown Menu for table
 const ActionDropdown = ({ row, isOpen, toggleDropdown, rowId }) => {
@@ -123,7 +124,6 @@ const customStyles = {
 };
 
 const AllMaps = () => {
-  const router = useRouter();
   const [maps, setMaps] = useState([]);
   const [data, setData] = useState([]);
   const [openDropdownId, setOpenDropdownId] = useState(null);
@@ -150,11 +150,14 @@ const AllMaps = () => {
 
   // Export CSV
   const convertArrayOfObjectsToCSV = (array) => {
-    let result;
+    if (array.length === 0) {
+      return "";
+    }
 
+    let result;
     const columnDelimiter = ",";
     const lineDelimiter = "\n";
-    const keys = Object.keys(data[0]);
+    const keys = Object.keys(array[0]);
 
     result = "";
     result += keys.join(columnDelimiter);
@@ -177,35 +180,55 @@ const AllMaps = () => {
 
   // Download CSV
   const downloadCSV = (array) => {
-    const link = document.createElement("a");
-    let csv = convertArrayOfObjectsToCSV(array);
-    if (csv == null) return;
+    try {
+      const link = document.createElement("a");
+      let csv = convertArrayOfObjectsToCSV(array);
+      if (!csv) {
+        // Handle the case where the CSV conversion failed or the data is empty
+        console.log("No data to export.");
+        toast.error("No data to export.");
+        return;
+      }
 
-    const filename = "export.csv";
+      const filename = "export.csv";
 
-    if (!csv.match(/^data:text\/csv/i)) {
-      csv = `data:text/csv;charset=utf-8,${csv}`;
+      if (!csv.match(/^data:text\/csv/i)) {
+        csv = `data:text/csv;charset=utf-8,${csv}`;
+      }
+
+      link.setAttribute("href", encodeURI(csv));
+      link.setAttribute("download", filename);
+      link.click();
+      toast.success("Data exported successfully.");
+    } catch (error) {
+      console.error("Error exporting CSV:", error);
+      // Handle the error, e.g., display a message to the user
     }
-
-    link.setAttribute("href", encodeURI(csv));
-    link.setAttribute("download", filename);
-    link.click();
   };
 
   // Export button
-  const Export = ({ onExport }) => (
-    <button
-      className="bg-primary text-white py-3 px-10 rounded-lg text-sm"
-      onClick={(e) => onExport(e.target.value)}
-    >
-      Export
-    </button>
-  );
+  const Export = ({ onExport, data }) => {
+    return (
+      <button
+        className="bg-primary text-white py-3 px-10 rounded-lg text-sm"
+        onClick={() => {
+          if (data.length > 0) {
+            onExport();
+          } else {
+            // Display a message or handle the case where there's no data to export
+            console.log("No data to export.");
+          }
+        }}
+      >
+        Export
+      </button>
+    );
+  };
 
   // Memoize export button
   const actionsMemo = useMemo(
-    () => <Export onExport={() => downloadCSV(data)} />,
-    []
+    () => <Export onExport={() => downloadCSV(data)} data={data} />,
+    [data]
   );
 
   // Memoize columns with dropdown

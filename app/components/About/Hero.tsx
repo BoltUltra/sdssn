@@ -11,7 +11,7 @@ const Hero = () => {
           text={"Spatial Data Science Society Of Nigeria (SDSSN)"}
           className={"semibold mb-6 text-center"}
         />
-        <div className="space-y-4 md:text-base text-sm md:max-w-6xl mx-auto">
+        <div className="space-y-4 md:text-base text-sm md:max-w-6xl mx-auto text-justify">
           <p>
             Established in 2020, serves as a dynamic and innovative platform
             that fosters collaboration among geospatial and data science

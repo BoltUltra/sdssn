@@ -86,9 +86,9 @@ export default function AdminDashboardLayout({
   const user = useAuthStore().user;
   const isActive = (href: any) => pathname === href;
 
-  useEffect(() => {
-    loadUserFromLocalStorage();
-  }, [loadUserFromLocalStorage]);
+  // useEffect(() => {
+  //   loadUserFromLocalStorage();
+  // }, [loadUserFromLocalStorage]);
 
   // useEffect(() => {
   //   if (!isLoading && !isAuthenticated) {
@@ -96,13 +96,13 @@ export default function AdminDashboardLayout({
   //   }
   // }, [isAuthenticated, isLoading, router]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
-  if (!isAuthenticated) {
-    return null;
-  }
+  // if (!isAuthenticated) {
+  //   return null;
+  // }
 
   const handleLogout = () => {
     logout();
@@ -165,8 +165,8 @@ export default function AdminDashboardLayout({
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
                     <li>
                       <ul role="list" className="-mx-2 space-y-5">
-                        {navigation.map((item) => (
-                          <li key={item.name}>
+                        {navigation.map((item, index) => (
+                          <li key={index}>
                             <Link
                               href={item.href}
                               className={classNames(
@@ -232,8 +232,8 @@ export default function AdminDashboardLayout({
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <ul role="list" className="-mx-2 space-y-5">
-                    {navigation.map((item) => (
-                      <li key={item.name}>
+                    {navigation.map((item, index) => (
+                      <li key={index}>
                         <Link
                           href={item.href}
                           className={classNames(

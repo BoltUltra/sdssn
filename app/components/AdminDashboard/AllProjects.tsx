@@ -26,9 +26,7 @@ const AllProjects = () => {
         <TabPanel className="">
           <AllMaps />
         </TabPanel>
-        <TabPanel className="">
-          <AllDiscussions />
-        </TabPanel>
+        <TabPanel className="">{/* <AllDiscussions /> */}</TabPanel>
         <TabPanel className="">
           <AllPodcasts />
         </TabPanel>
