@@ -1,31 +1,31 @@
-"use client";
-import { useAuthStore } from "@/app/stores/authStore";
-import { useDataStore } from "@/app/stores/dataStore";
-import { logoNew } from "@/public/images";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+'use client';
+import { useAuthStore } from '@/app/stores/authStore';
+import { useDataStore } from '@/app/stores/dataStore';
+import { logoNew } from '@/public/images';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import {
   IoReturnDownBackOutline,
   IoEyeOffOutline,
   IoEyeOutline,
-} from "react-icons/io5";
+} from 'react-icons/io5';
 
 const Register = () => {
   const router = useRouter();
   const { register } = useAuthStore();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const { fetchSecurityQuestions } = useDataStore();
   const [securityQuestions, setSecurityQuestions] = useState<any[]>([]);
-  const [selectedSecurityQuestion, setSelectedSecurityQuestion] = useState("");
-  const [securityAnswer, setSecurityAnswer] = useState("");
+  const [selectedSecurityQuestion, setSelectedSecurityQuestion] = useState('');
+  const [securityAnswer, setSecurityAnswer] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -33,6 +33,7 @@ const Register = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
@@ -44,10 +45,10 @@ const Register = () => {
       !hasLowercase ||
       !hasNumber ||
       !hasSpecialChar ||
-      !isLongEnough
+      password.length! < 8
     ) {
       toast.error(
-        "Password must contain at least 1 uppercase, 1 lowercase, 1 number, 1 special character, and be at least 8 characters long."
+        'Password must contain at least 1 uppercase, 1 lowercase, 1 number, 1 special character, and be at least 8 characters long.'
       );
       return;
     }
@@ -62,22 +63,20 @@ const Register = () => {
       security_question: selectedSecurityQuestion,
       answer: securityAnswer,
     };
-    e.preventDefault();
     setIsLoading(true);
     try {
-      await register(payload);
+      await register(payload, router);
       // toast.success("Registration successful");
-      setFirstName("");
-      setLastName("");
-      setName("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-      setSelectedSecurityQuestion("");
-      setSecurityAnswer("");
-      router.push("/auth/verify-email");
+      // setFirstName('');
+      // setLastName('');
+      // setName('');
+      // setEmail('');
+      // setPassword('');
+      // setConfirmPassword('');
+      // setSelectedSecurityQuestion('');
+      // setSecurityAnswer('');
     } catch (error) {
-      toast.error("An error occurred");
+      toast.error('An error occurred');
     } finally {
       setIsLoading(false);
     }
@@ -96,14 +95,14 @@ const Register = () => {
   useEffect(() => {
     checkPasswordStrength();
     setIsFormValid(
-      firstName.trim() !== "" &&
-        lastName.trim() !== "" &&
-        name.trim() !== "" &&
-        email.trim() !== "" &&
-        password.trim() !== "" &&
-        confirmPassword.trim() !== "" &&
-        selectedSecurityQuestion.trim() !== "" &&
-        securityAnswer.trim() !== ""
+      firstName.trim() !== '' &&
+        lastName.trim() !== '' &&
+        name.trim() !== '' &&
+        email.trim() !== '' &&
+        password.trim() !== '' &&
+        confirmPassword.trim() !== '' &&
+        selectedSecurityQuestion.trim() !== '' &&
+        securityAnswer.trim() !== ''
     );
   }, [
     firstName,
@@ -122,7 +121,7 @@ const Register = () => {
         const questions = await fetchSecurityQuestions();
         setSecurityQuestions(questions.data);
       } catch (error) {
-        console.error("Error fetching security questions:", error);
+        console.error('Error fetching security questions:', error);
       }
     };
 
@@ -205,7 +204,7 @@ const Register = () => {
                 </label>
                 <div className="form-input relative">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
@@ -225,29 +224,29 @@ const Register = () => {
                     <div
                       className={`h-full rounded-full transition-all duration-300 ${
                         passwordStrength === 1
-                          ? "bg-red-500 w-1/4"
+                          ? 'bg-red-500 w-1/4'
                           : passwordStrength === 2
-                          ? "bg-orange-500 w-1/2"
+                          ? 'bg-orange-500 w-1/2'
                           : passwordStrength === 3
-                          ? "bg-yellow-500 w-3/4"
+                          ? 'bg-yellow-500 w-3/4'
                           : passwordStrength === 4
-                          ? "bg-green-500 w-full"
+                          ? 'bg-green-500 w-full'
                           : passwordStrength > 4
-                          ? "bg-green-500 w-full"
-                          : "bg-transparent w-0"
+                          ? 'bg-green-500 w-full'
+                          : 'bg-transparent w-0'
                       }`}
                     ></div>
                   </div>
                   <span className="text-sm font-medium">
                     {passwordStrength === 1
-                      ? "Weak"
+                      ? 'Weak'
                       : passwordStrength === 2
-                      ? "Fair"
+                      ? 'Fair'
                       : passwordStrength === 3
-                      ? "Good"
+                      ? 'Good'
                       : passwordStrength === 4
-                      ? "Strong"
-                      : ""}
+                      ? 'Strong'
+                      : ''}
                   </span>
                 </div>
               </div>
@@ -258,7 +257,7 @@ const Register = () => {
                 </label>
                 <div className="form-input relative">
                   <input
-                    type={showConfirmPassword ? "text" : "password"}
+                    type={showConfirmPassword ? 'text' : 'password'}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm Password"
@@ -319,7 +318,7 @@ const Register = () => {
               <div className="flex items-center space-x-2">
                 <input type="checkbox" className="form-checkbox" />
                 <label htmlFor="terms" className="text-sm">
-                  I agree to the{" "}
+                  I agree to the{' '}
                   <Link href="/terms" className="font-bold text-primary">
                     terms and conditions
                   </Link>
@@ -329,17 +328,17 @@ const Register = () => {
               <button
                 type="submit"
                 className={`py-4 w-full text-white bg-primary rounded-lg mt-10 ${
-                  isLoading ? "opacity-50 cursor-not-allowed" : ""
+                  isLoading ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
                 disabled={isLoading || !isFormValid}
               >
-                {isLoading ? <div className="loader"></div> : "Register"}
+                {isLoading ? <div className="loader"></div> : 'Register'}
               </button>
             </form>
 
             <div className="mt-5 space-y-2">
               <p>
-                Already have an account?{" "}
+                Already have an account?{' '}
                 <Link href="/auth/login" className="font-bold text-primary">
                   Login
                 </Link>
@@ -347,7 +346,7 @@ const Register = () => {
               <p className="flex items-center space-x-2">
                 <IoReturnDownBackOutline size={20} />
                 <span>
-                  go back to{"  "}
+                  go back to{'  '}
                   <Link href="/" className="font-bold text-primary">
                     homepage
                   </Link>

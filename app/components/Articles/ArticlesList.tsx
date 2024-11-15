@@ -1,137 +1,85 @@
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
-import { FaRegFileAudio } from 'react-icons/fa';
-import { MdOutlineVideoLibrary } from 'react-icons/md';
-import Heading3 from '../Heading3';
-import Heading4 from '../Heading4';
-import Loading from '../Loading';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
-import toast from 'react-hot-toast';
-import ReactPlayer from 'react-player/lazy';
+import { formatDate } from '@/app/helpers';
+import { FaPlus } from 'react-icons/fa';
 
-const categories = [
-  { name: 'Audio', value: 'audio', icon: <FaRegFileAudio /> },
-  { name: 'Video', value: 'video', icon: <MdOutlineVideoLibrary /> },
-];
-
-const ArticlesList = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [podcasts, setPodcasts] = useState(null);
-  const [videoPodcasts, setVideoPodcasts] = useState(null);
+const ArticlesList = ({ articles }) => {
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/data.json')
-      .then((response) => response.json())
-      .then((data) => setPodcasts(data.audioPodcasts))
-      .catch((error) => console.error('Error fetching data:', error));
-
-    fetch('/data.json')
-      .then((response) => response.json())
-      .then((data) => setVideoPodcasts(data.videoPodcasts))
-      .catch((error) => console.error('Error fetching data:', error));
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
   }, []);
 
-  if (!podcasts) return <Loading />;
-  if (!videoPodcasts) return <Loading />;
-
-  const currentTab = searchParams.get('tab') || 'audio';
-
-  const currentTabIndex = categories.findIndex(
-    (cat) => cat.value === currentTab
-  );
-
-  const handleTabChange = (index: number) => {
-    const selectedTab = categories[index].value;
-    router.push(`/podcasts?tab=${selectedTab}`, { scroll: false });
-  };
-  return (
-    <div className="w-full justify-center px-4 bg-primary rounded-xl text-white md:p-14">
-      <div className="w-full">
-        <TabGroup selectedIndex={currentTabIndex} onChange={handleTabChange}>
-          <TabList className="flex items-center justify-between">
-            <Heading4 text="Latest Podcast Episodes" className="text-white" />
-            <div className="flex md:gap-16 gap-10">
-              {categories.map(({ name, icon }) => (
-                <Tab
-                  key={name}
-                  className="pb-1 flex items-center space-x-3 font-semibold border-b-2 border-b-transparent focus:outline-none data-[selected]:border-b-white data-[focus]:outline-1 data-[focus]:outline-white"
-                >
-                  <span>{icon}</span>
-                  <span>{name}</span>
-                </Tab>
+  if (loading) {
+    return (
+      <div className="w-full justify-center py-14">
+        <h3 className="uppercase text-4xl flex md:flex-col md:space-y-1 md:space-x-0 space-x-1 border-l-2 border-l-primary/10 pl-4 pt-10">
+          <span className="tracking-wide text-primary">recent</span>
+          <span className="tracking-wide text-gray-500">articles</span>
+        </h3>
+        <div className="w-full">
+          <div className="mt-20">
+            <div className="grid md:grid-cols-3 lg:gap-20 md:gap-10 gap-5">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <div key={index} className="cursor-pointer">
+                  <div className="flex flex-col space-y-4 animate-pulse">
+                    <div className="bg-gray-300 h-[300px] w-full rounded-lg"></div>
+                    <div className="bg-gray-300 h-4 w-1/3 rounded-lg"></div>
+                    <div className="bg-gray-300 h-6 w-3/4 rounded-lg"></div>
+                    <div className="flex space-x-3 items-center mt-5">
+                      <div className="bg-gray-300 h-6 w-20 rounded-lg"></div>
+                      <div className="bg-gray-300 h-6 w-6 rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
-          </TabList>
-          <TabPanels className="mt-20">
-            <TabPanel>
-              <div className="space-y-5">
-                {podcasts.map((podcast) => (
-                  <div
-                    key={podcast.id}
-                    className="flex items-center cursor-pointer"
-                  >
-                    <div className="flex space-x-4 w-[75%] border-r-2 border-r-white pr-10 mr-10">
-                      <Image
-                        src={podcast.image}
-                        alt={podcast.title}
-                        height={170}
-                        width={140}
-                        quality={80}
-                        className="object-cover w-[170px] h-[180px] object-center"
-                      />
-                      <div className="w-full space-y-3">
-                        <Heading4 text={podcast.title} className={''} />
-                        <p>{podcast.description}</p>
-                        <AudioPlayer
-                          autoPlay={false}
-                          autoPlayAfterSrcChange={false}
-                          src={podcast.podcastLink}
-                          onPlay={(e) => toast.success('Media Playing')}
-                        />
-                      </div>
-                    </div>
-                    <div className="w-[25%]">
-                      <p>By: {podcast.by}</p>
-                      <p>Date: {podcast.date}</p>
-                    </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full justify-center py-14">
+      <h3 className="uppercase text-4xl flex md:flex-col md:space-y-1 md:space-x-0 space-x-1 border-l-2 border-l-primary/10 pl-4 pt-10">
+        <span className="tracking-wide text-primary">recent</span>
+        <span className="tracking-wide text-gray-500">articles</span>
+      </h3>
+      <div className="w-full">
+        <div className="mt-20">
+          <div className="grid md:grid-cols-3 lg:gap-20 md:gap-10 gap-5">
+            {articles.map((article) => (
+              <div key={article?.id} className="cursor-pointer md:pb-0 pb-20">
+                <div className="flex flex-col space-y-4">
+                  <Image
+                    src={`https://random-image-pepebigotes.vercel.app/api/random-image`}
+                    alt={article.title}
+                    height={300}
+                    width={140}
+                    quality={80}
+                    className="object-cover h-[300px] object-center w-full"
+                  />
+                  <div className="w-full space-y-3">
+                    <p className="font-light text-sm">
+                      {formatDate(article?.created_at)}
+                    </p>
+                    <p className="text-2xl md:leading-normal pr-20">
+                      {article?.title}
+                    </p>
                   </div>
-                ))}
+                  <button className="flex space-x-3 items-center uppercase font-semibold mt-5">
+                    <span className="md:tracking-tighter">Read More</span>
+                    <FaPlus />
+                  </button>
+                </div>
               </div>
-            </TabPanel>
-            <TabPanel>
-              <div className="space-y-5">
-                {videoPodcasts.map((podcast) => (
-                  <div
-                    key={podcast.id}
-                    className="flex items-center cursor-pointer"
-                  >
-                    <div className="flex items-center space-x-4 w-[75%] border-r-2 border-r-white pr-10 mr-10">
-                      <div className="w-[293px]">
-                        <ReactPlayer
-                          url={podcast.podcastLink}
-                          width={293}
-                          height={165}
-                        />
-                      </div>
-                      <div className="space-y-3">
-                        <Heading4 text={podcast.title} className={''} />
-                        <p>{podcast.description}</p>
-                      </div>
-                    </div>
-                    <div className="w-[25%]">
-                      <p>By: {podcast.by}</p>
-                      <p>Date: {podcast.date}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </TabPanel>
-          </TabPanels>
-        </TabGroup>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
