@@ -249,16 +249,10 @@ export const useDataStore = create<DataState>((set) => ({
   /**
    * Fetch all post
    */
-  /**
-   * Fetch Security Questions
-   */
   fetchAllPosts: async () => {
     set({ loading: true });
     try {
       const token = formatToken(localStorage.getItem('token'));
-      const currentUser = JSON.parse(
-        localStorage.getItem('currentUser') || '{}'
-      );
       if (!token) {
         throw new Error('No token found. Please log in again.');
       }

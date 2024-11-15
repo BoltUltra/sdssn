@@ -33,24 +33,25 @@ const Register = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
     const isLongEnough = password.length > 8;
 
-    // if (
-    //   !hasUppercase ||
-    //   !hasLowercase ||
-    //   !hasNumber ||
-    //   !hasSpecialChar ||
-    //   !isLongEnough
-    // ) {
-    //   toast.error(
-    //     "Password must contain at least 1 uppercase, 1 lowercase, 1 number, 1 special character, and be at least 8 characters long."
-    //   );
-    //   return;
-    // }
+    if (
+      !hasUppercase ||
+      !hasLowercase ||
+      !hasNumber ||
+      !hasSpecialChar ||
+      password.length! < 8
+    ) {
+      toast.error(
+        'Password must contain at least 1 uppercase, 1 lowercase, 1 number, 1 special character, and be at least 8 characters long.'
+      );
+      return;
+    }
 
     const payload = {
       first_name: firstName,
@@ -62,20 +63,18 @@ const Register = () => {
       security_question: selectedSecurityQuestion,
       answer: securityAnswer,
     };
-    e.preventDefault();
     setIsLoading(true);
     try {
-      await register(payload);
+      await register(payload, router);
       // toast.success("Registration successful");
-      setFirstName('');
-      setLastName('');
-      setName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-      setSelectedSecurityQuestion('');
-      setSecurityAnswer('');
-      router.push('/auth/verify-email');
+      // setFirstName('');
+      // setLastName('');
+      // setName('');
+      // setEmail('');
+      // setPassword('');
+      // setConfirmPassword('');
+      // setSelectedSecurityQuestion('');
+      // setSecurityAnswer('');
     } catch (error) {
       toast.error('An error occurred');
     } finally {

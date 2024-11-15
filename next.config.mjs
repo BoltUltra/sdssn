@@ -7,6 +7,14 @@ const nextConfig = {
         hostname: 'api.dicebear.com',
       },
       {
+        protocol: 'https',
+        hostname: 'source.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'random-image-pepebigotes.vercel.app',
+      },
+      {
         protocol: 'http',
         hostname: 'sdssn-app.onrender.com',
       },

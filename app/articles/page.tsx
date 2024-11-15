@@ -1,8 +1,6 @@
 'use client';
 import React, { Suspense, useEffect, useState } from 'react';
 import { Footer, Header, Loading } from '../components';
-import PodcastHero from '../components/Podcasts/PodcastHero';
-import PodcastList from '../components/Podcasts/PodcastList';
 import { useDataStore } from '../stores/dataStore';
 import { useRouter } from 'next/navigation';
 import ArticlesHero from '../components/Articles/ArticlesHero';
@@ -13,12 +11,10 @@ export default function Articles() {
   const [articles, setArticles] = useState([]);
   const { fetchAllPosts } = useDataStore();
 
-  const goToUpload = () => {
-    router.push('/dashboard/projects?tab=upload');
-  };
   const fetchArticles = async () => {
     try {
       const response = await fetchAllPosts();
+      console.log('response:', response);
       setArticles(response.data);
     } catch (error) {
       console.error('Error fetching articles:', error);
@@ -34,7 +30,7 @@ export default function Articles() {
         <div className="section-container">
           <ArticlesHero articles={articles} />
           <Suspense fallback={<Loading />}>
-            <ArticlesList />
+            <ArticlesList articles={articles} />
           </Suspense>
         </div>
       </section>
