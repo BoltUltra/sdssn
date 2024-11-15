@@ -10,7 +10,7 @@ const ArticlesHero = ({ articles }) => {
         Featured
       </p>
       <div className="grid lg:grid-cols-2 lg:gap-32 gap-10 items-end">
-        <div className="">
+        <div className="lg:order-first order-last">
           <Image
             // src={articles[2]?.banner?.url.replace(/\\/g, '') || podcastHero}
             src={`https://random-image-pepebigotes.vercel.app/api/random-image`}
@@ -31,7 +31,7 @@ const ArticlesHero = ({ articles }) => {
 
           <div className="">
             {articles[1]?.title ? (
-              <p className="font-bold text-5xl leading-snug">
+              <p className="font-bold md:text-5xl text-2xl md:mt-0 mt-5 leading-snug pr-20">
                 {articles[1]?.title}
               </p>
             ) : (

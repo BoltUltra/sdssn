@@ -53,7 +53,7 @@ const ArticlesList = ({ articles }) => {
         <div className="mt-20">
           <div className="grid md:grid-cols-3 lg:gap-20 md:gap-10 gap-5">
             {articles.map((article) => (
-              <div key={article?.id} className="cursor-pointer">
+              <div key={article?.id} className="cursor-pointer md:pb-0 pb-20">
                 <div className="flex flex-col space-y-4">
                   <Image
                     src={`https://random-image-pepebigotes.vercel.app/api/random-image`}

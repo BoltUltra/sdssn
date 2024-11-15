@@ -26,7 +26,7 @@ export default function Articles() {
   return (
     <>
       <Header />
-      <section className="pt-44 pb-20 bg-background">
+      <section className="md:pt-44 pt-20 pb-20 bg-background">
         <div className="section-container">
           <ArticlesHero articles={articles} />
           <Suspense fallback={<Loading />}>
