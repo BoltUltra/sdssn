@@ -5,14 +5,15 @@ import { HambergerMenu } from 'iconsax-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { logo, logoDark, logoNew } from '@/public/images';
+import { useAuthStore } from '../stores/authStore';
 
 const Navbar = () => {
-  const user = JSON.parse(localStorage.getItem('currentUser'));
-  const isAuth = JSON.parse(localStorage.getItem('isAuthenticated'));
-
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [user, setUser] = useState({});
+  const [isAuth, setIsAuth] = useState(false);
+  const { logout } = useAuthStore();
 
   const navLinks = [
     { href: '/', label: 'Home' },
@@ -24,9 +25,23 @@ const Navbar = () => {
   ];
 
   const handleLogout = () => {
-    localStorage.clear();
+    logout();
     window.location.reload();
   };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUser = JSON.parse(
+        localStorage.getItem('currentUser') || '{}'
+      );
+      setUser(storedUser);
+
+      const storedAuth = JSON.parse(
+        localStorage.getItem('isAuthenticated') || 'false'
+      );
+      setIsAuth(storedAuth);
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {

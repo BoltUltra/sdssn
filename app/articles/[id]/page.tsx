@@ -27,12 +27,12 @@ export default function ArticleDetails() {
     useDataStore();
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState({});
   const [formData, setFormData] = useState({
     content: '',
   });
 
-  // check if the user is logged in
-  const user = localStorage.getItem('isAuthenticated');
+  // const user = localStorage.getItem('isAuthenticated');
 
   const fetchArticleDetails = async (id: string) => {
     try {
@@ -45,6 +45,7 @@ export default function ArticleDetails() {
       setLoading(false);
     }
   };
+
   const fetchComments = async (id: string) => {
     try {
       const response = await fetchProjectComments(id);
@@ -81,6 +82,13 @@ export default function ArticleDetails() {
   };
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedAuth = JSON.parse(
+        localStorage.getItem('isAuthenticated') || 'false'
+      );
+      setUser(storedAuth);
+    }
+
     fetchArticleDetails(id);
     fetchComments(id);
   }, []);
