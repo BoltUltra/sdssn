@@ -255,16 +255,7 @@ export const useDataStore = create<DataState>((set) => ({
   fetchAllPosts: async () => {
     set({ loading: true });
     try {
-      const token = formatToken(localStorage.getItem('token'));
-      if (!token) {
-        throw new Error('No token found. Please log in again.');
-      }
-      const response = await axios.get(API_URLS.fetchProjects, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await axios.get(API_URLS.fetchProjects);
       set({ data: response.data, loading: false, error: null });
       return response.data; // return the fetched data
     } catch (error: any) {
