@@ -11,12 +11,15 @@ interface DataState {
   fetchData: () => Promise<void>;
   fetchUserProfile: () => Promise<void>;
   fetchAllPosts: () => Promise<void>;
+  fetchSingleArticle: (id: string) => Promise<any>;
+  fetchProjectComments: (id: string) => Promise<any>;
   fetchUserImage: () => Promise<void>;
   fetchSecurityQuestions: () => Promise<any>;
   editUserProfile: (userData: any) => Promise<void>;
   editUserSocials: (userData: any) => Promise<void>;
   updateUserImage: (payload: any) => Promise<void>;
   createPost: (postData: any) => Promise<void>;
+  addComment: (id: string, payload: any) => Promise<void>;
 }
 
 const formatToken = (token: string | null): string => {
@@ -270,6 +273,75 @@ export const useDataStore = create<DataState>((set) => ({
         loading: false,
       });
       console.error('Error fetching projects:', error);
+    }
+  },
+
+  /**
+   * Fetch single project
+   */
+
+  fetchSingleArticle: async (id: string) => {
+    set({ loading: true });
+    try {
+      const response = await axios.get(API_URLS.fetchSingleProject(id));
+      set({ loading: false, error: null });
+      return response.data; // Return the fetched article
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      console.error('Error fetching single article:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Fetch project comment
+   */
+
+  fetchProjectComments: async (id: string) => {
+    set({ loading: true });
+    try {
+      const response = await axios.get(API_URLS.fetchProjectComment(id));
+      set({ loading: false, error: null });
+      return response.data; // Return the fetched comment
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      console.error('Error fetching single article:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Add comment
+   */
+
+  addComment: async (id: string, payload: any) => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.post(API_URLS.addComment(id), payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      toast.success('Comment Added Successfully');
+      console.log('Response from comment:', response);
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      toast.error('Error adding comment');
+      console.error('Error Adding comment', error);
     }
   },
 }));

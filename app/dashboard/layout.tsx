@@ -1,10 +1,10 @@
-"use client";
-import { useAuthStore } from "@/app/stores/authStore";
-import { useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { Header, Loading } from "../components";
+'use client';
+import { useAuthStore } from '@/app/stores/authStore';
+import { useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Header, Loading } from '../components';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogBackdrop,
@@ -12,7 +12,7 @@ import {
   Menu,
   MenuButton,
   TransitionChild,
-} from "@headlessui/react";
+} from '@headlessui/react';
 
 import {
   ArrowDown3,
@@ -26,26 +26,27 @@ import {
   TableDocument,
   User,
   Verify,
-} from "iconsax-react";
-import Image from "next/image";
-import Link from "next/link";
-import toast, { Toaster } from "react-hot-toast";
-import { user1 } from "@/public/images";
-import { useDataStore } from "../stores/dataStore";
-import { GrProjects } from "react-icons/gr";
-import { FaRegUser } from "react-icons/fa";
-import { MdSettingsSuggest } from "react-icons/md";
-import { CiLogout } from "react-icons/ci";
+} from 'iconsax-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import toast, { Toaster } from 'react-hot-toast';
+import { user1 } from '@/public/images';
+import { useDataStore } from '../stores/dataStore';
+import { GrProjects } from 'react-icons/gr';
+import { FaRegUser } from 'react-icons/fa';
+import { MdSettingsSuggest } from 'react-icons/md';
+import { CiLogout } from 'react-icons/ci';
+import { IoMdHome } from 'react-icons/io';
 
 const navigation = [
   {
-    name: "Projects",
-    href: "/dashboard/projects",
+    name: 'Projects',
+    href: '/dashboard/projects',
     icon: GrProjects,
   },
   {
-    name: "My Profile",
-    href: "/dashboard/profile",
+    name: 'My Profile',
+    href: '/dashboard/profile',
     icon: FaRegUser,
   },
   // {
@@ -59,8 +60,8 @@ const navigation = [
   //   icon: Diamonds,
   // },
   {
-    name: "Settings",
-    href: "/dashboard/settings",
+    name: 'Settings',
+    href: '/dashboard/settings',
     icon: MdSettingsSuggest,
   },
   // {
@@ -71,12 +72,12 @@ const navigation = [
 ];
 
 const userNavigation = [
-  { name: "Your profile", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: 'Your profile', href: '#' },
+  { name: 'Sign out', href: '#' },
 ];
 
 function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function DashboardLayout({
@@ -96,9 +97,9 @@ export default function DashboardLayout({
   const [userImage, setUserImage] = useState(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const storedUser = JSON.parse(
-        localStorage.getItem("currentUser") || "{}"
+        localStorage.getItem('currentUser') || '{}'
       );
       setCurrentUser(storedUser);
     }
@@ -110,7 +111,7 @@ export default function DashboardLayout({
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      router.push("/auth/login");
+      router.push('/auth/login');
     }
   }, [isAuthenticated, isLoading, router]);
 
@@ -124,7 +125,11 @@ export default function DashboardLayout({
 
   const handleLogout = () => {
     logout();
-    router.push("/auth/login");
+    router.push('/auth/login');
+  };
+
+  const handleHome = () => {
+    router.push('/');
   };
 
   return (
@@ -174,7 +179,7 @@ export default function DashboardLayout({
                   <h3 className="text-white text-center mt-3 font-semibold">
                     {currentUser
                       ? `${currentUser?.first_name} ${currentUser?.last_name}`
-                      : "John Doe"}
+                      : 'John Doe'}
                   </h3>
                   <p className="flex items-center text-white text-sm justify-center space-x-2">
                     <span>{currentUser?.name}</span>
@@ -191,17 +196,17 @@ export default function DashboardLayout({
                               href={item.href}
                               className={classNames(
                                 isActive(item.href)
-                                  ? "bg-gray-50 text-primary"
-                                  : "text-white hover:bg-gray-50 hover:text-primary",
-                                "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
+                                  ? 'bg-gray-50 text-primary'
+                                  : 'text-white hover:bg-gray-50 hover:text-primary',
+                                'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6'
                               )}
                             >
                               <item.icon
                                 className={classNames(
                                   isActive(item.href)
-                                    ? "text-primary"
-                                    : "text-gray-400 group-hover:text-primary",
-                                  "h-6 w-6 shrink-0"
+                                    ? 'text-primary'
+                                    : 'text-gray-400 group-hover:text-primary',
+                                  'h-6 w-6 shrink-0'
                                 )}
                               />
                               {item.name}
@@ -210,7 +215,17 @@ export default function DashboardLayout({
                         ))}
                       </ul>
                     </li>
-                    <li className="mt-auto">
+                    <li className="mt-auto flex flex-col space-y-5">
+                      <button
+                        onClick={handleHome}
+                        className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-white hover:bg-gray-50 hover:text-primary w-full"
+                      >
+                        <IoMdHome
+                          aria-hidden="true"
+                          className="h-6 w-6 shrink-0 text-white group-hover:text-primary"
+                        />
+                        Go Home
+                      </button>
                       <button
                         onClick={handleLogout}
                         className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-white hover:bg-gray-50 hover:text-primary w-full"
@@ -243,7 +258,7 @@ export default function DashboardLayout({
               <h3 className="text-white text-center mt-3 font-semibold">
                 {currentUser
                   ? `${currentUser?.first_name} ${currentUser?.last_name}`
-                  : "John Doe"}
+                  : 'John Doe'}
               </h3>
               <p className="flex items-center text-white text-sm justify-center space-x-2">
                 <span>{currentUser?.name}</span>
@@ -260,17 +275,17 @@ export default function DashboardLayout({
                           href={item.href}
                           className={classNames(
                             isActive(item.href)
-                              ? "bg-gray-50 text-primary"
-                              : "text-white hover:bg-gray-50 hover:text-primary",
-                            "group flex gap-x-3 rounded-md p-4 text-sm font-semibold leading-6"
+                              ? 'bg-gray-50 text-primary'
+                              : 'text-white hover:bg-gray-50 hover:text-primary',
+                            'group flex gap-x-3 rounded-md p-4 text-sm font-semibold leading-6'
                           )}
                         >
                           <item.icon
                             className={classNames(
                               isActive(item.href)
-                                ? "text-primary"
-                                : "text-gray-400 group-hover:text-primary",
-                              "h-6 w-6 shrink-0"
+                                ? 'text-primary'
+                                : 'text-gray-400 group-hover:text-primary',
+                              'h-6 w-6 shrink-0'
                             )}
                           />
                           {item.name}
@@ -280,7 +295,17 @@ export default function DashboardLayout({
                   </ul>
                 </li>
 
-                <li className="mt-auto">
+                <li className="mt-auto flex flex-col space-y-5">
+                  <button
+                    onClick={handleHome}
+                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-white hover:bg-gray-50 hover:text-primary w-full"
+                  >
+                    <IoMdHome
+                      aria-hidden="true"
+                      className="h-6 w-6 shrink-0 text-white group-hover:text-primary"
+                    />
+                    Go Home
+                  </button>
                   <button
                     onClick={handleLogout}
                     className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-white hover:bg-gray-50 hover:text-primary w-full"
@@ -335,7 +360,7 @@ export default function DashboardLayout({
                         >
                           {currentUser
                             ? `${currentUser?.first_name} ${currentUser?.last_name}`
-                            : "John Doe"}
+                            : 'John Doe'}
                         </span>
                         <ArrowDown3
                           aria-hidden="true"

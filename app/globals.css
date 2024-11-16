@@ -203,11 +203,11 @@ button:disabled {
 /* dom purity */
 
 .article-description h1 {
-  @apply text-3xl font-bold;
+  @apply md:text-3xl text-2xl font-bold py-3;
 }
 
 .article-description h2 {
-  @apply text-2xl font-bold;
+  @apply md:text-2xl text-xl font-bold py-3;
 }
 
 .article-description h3 {
@@ -222,12 +222,12 @@ button:disabled {
   @apply text-base font-bold;
 }
 
-.article-description ul {
-  @apply list-disc ml-5;
+.article-description ul>li {
+  @apply list-disc ml-10;
 }
 
-.article-description ol {
-  @apply list-decimal ml-5;
+.article-description ol>li {
+  @apply list-decimal ml-10;
 }
 
 .article-description p {
@@ -271,7 +271,7 @@ button:disabled {
 }
 
 .article-description strong {
-  @apply font-bold text-7xl;
+  @apply font-bold;
 }
 
 .article-description em {
