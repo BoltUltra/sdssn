@@ -7,8 +7,13 @@ import Image from 'next/image';
 import { logo, logoDark, logoNew } from '@/public/images';
 
 const Navbar = () => {
+  const user = JSON.parse(localStorage.getItem('currentUser'));
+  const isAuth = JSON.parse(localStorage.getItem('isAuthenticated'));
+
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About SDSSN' },
@@ -17,6 +22,12 @@ const Navbar = () => {
     { href: '/media', label: 'Media' },
     { href: '/contact', label: 'Contact Us' },
   ];
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
@@ -63,28 +74,96 @@ const Navbar = () => {
               ))}
             </ul>
 
-            <div className="hidden md:flex space-x-6">
-              <Link
-                href="/auth/login"
-                className={`${
-                  scrolled
-                    ? 'bg-primary text-white'
-                    : 'bg-primary text-white border-primary'
-                } border-2 px-5 md:px-10 py-2 md:py-3 rounded-lg`}
-              >
-                Join Us
-              </Link>
+            <div className="hidden md:flex">
+              {isAuth ? (
+                <div className="relative">
+                  <Image
+                    src={`https://api.dicebear.com/9.x/identicon/svg?seed=${user?.name}`}
+                    height={70}
+                    width={70}
+                    className="rounded-full border-4 border-white mx-auto cursor-pointer"
+                    alt="user-image"
+                    unoptimized
+                    onClick={() => setShowDropdown(!showDropdown)}
+                  />
+                  {showDropdown && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                      <Link
+                        href="/dashboard/projects"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Dashboard
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  href="/auth/login"
+                  className={`${
+                    scrolled
+                      ? 'bg-primary text-white'
+                      : 'bg-primary text-white border-primary'
+                  } border-2 px-5 md:px-10 py-2 md:py-3 rounded-lg`}
+                >
+                  Join Us
+                </Link>
+              )}
             </div>
 
             <div className="md:hidden">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className={`${
-                  scrolled ? 'text-primary-500' : 'text-white'
-                } text-2xl`}
-              >
-                <HambergerMenu size="32" color="#000000" />
-              </button>
+              {isAuth ? (
+                <div className="relative flex items-center space-x-2">
+                  <Image
+                    src={`https://api.dicebear.com/9.x/identicon/svg?seed=${user?.name}`}
+                    height={40}
+                    width={40}
+                    className="rounded-full border-4 border-white mx-auto cursor-pointer"
+                    alt="user-image"
+                    unoptimized
+                    onClick={() => setShowDropdown(!showDropdown)}
+                  />
+                  {showDropdown && (
+                    <div className="absolute right-0 top-10 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                      <Link
+                        href="/dashboard/projects"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Dashboard
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                  <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className={`${
+                      scrolled ? 'text-primary-500' : 'text-white'
+                    } text-2xl`}
+                  >
+                    <HambergerMenu size="32" color="#000000" />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className={`${
+                    scrolled ? 'text-primary-500' : 'text-white'
+                  } text-2xl`}
+                >
+                  <HambergerMenu size="32" color="#000000" />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -123,20 +202,22 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <div className="flex space-x-5 mt-5">
-            <Link
-              href="/auth/login"
-              className="text-black-800 border-primary-500 hover:bg-primary-500 border-2 rounded-lg px-5 md:px-10 py-2 md:py-3 hover:text-white transition-all duration-300 ease-in-out w-full text-center"
-            >
-              Login
-            </Link>
-            <Link
-              href="auth/register"
-              className="bg-primary text-white px-5 py-3 rounded-lg w-full text-center"
-            >
-              Register
-            </Link>
-          </div>
+          {!isAuth && (
+            <div className="flex space-x-5 mt-5">
+              <Link
+                href="/auth/login"
+                className="text-black-800 border-primary-500 hover:bg-primary-500 border-2 rounded-lg px-5 md:px-10 py-2 md:py-3 hover:text-white transition-all duration-300 ease-in-out w-full text-center"
+              >
+                Login
+              </Link>
+              <Link
+                href="auth/register"
+                className="bg-primary text-white px-5 py-3 rounded-lg w-full text-center"
+              >
+                Register
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </>

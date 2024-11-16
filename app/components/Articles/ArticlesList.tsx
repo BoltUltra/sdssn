@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { formatDate } from '@/app/helpers';
 import { FaPlus } from 'react-icons/fa';
+import Link from 'next/link';
 
 const ArticlesList = ({ articles }) => {
   const [loading, setLoading] = useState(true);
@@ -71,10 +72,13 @@ const ArticlesList = ({ articles }) => {
                       {article?.title}
                     </p>
                   </div>
-                  <button className="flex space-x-3 items-center uppercase font-semibold mt-5">
+                  <Link
+                    href={`/articles/${article?.id}`}
+                    className="flex space-x-3 items-center uppercase font-semibold mt-5"
+                  >
                     <span className="md:tracking-tighter">Read More</span>
                     <FaPlus />
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}

@@ -17,4 +17,8 @@ export const API_URLS = {
   fetchSecurityQuestions: `${API_BASE_URL}/security-questions`,
   createProject: `${API_BASE_URL}/projects`,
   fetchProjects: `${API_BASE_URL}/projects`,
+  fetchSingleProject: (id: string) => `${API_BASE_URL}/projects/${id}`,
+  fetchProjectComment: (id: string) =>
+    `${API_BASE_URL}/projects/${id}/comments`,
+  addComment: (id: string) => `${API_BASE_URL}/projects/${id}/comments`,
 };
