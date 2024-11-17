@@ -9,17 +9,27 @@ import ArticlesList from '../components/Articles/ArticlesList';
 export default function Articles() {
   const router = useRouter();
   const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { fetchAllPosts } = useDataStore();
 
   const fetchArticles = async () => {
+    setIsLoading(true);
+
     try {
       const response = await fetchAllPosts();
-      console.log('response:', response);
-      setArticles(response.data);
+      const allArticles = response.data
+        .filter((post) => post.category === 'discussion')
+        // Sort by createdAt date in descending order (newest first)
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+      setArticles(allArticles);
     } catch (error) {
-      console.error('Error fetching articles:', error);
+      console.error('Error fetching content:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
   useEffect(() => {
     fetchArticles();
   }, []);

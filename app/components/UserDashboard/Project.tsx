@@ -62,6 +62,17 @@ export default function Project() {
     status: '',
   });
 
+  const isFormValid = () => {
+    return (
+      formData.banner !== null &&
+      formData.category !== '' &&
+      formData.title.trim() !== '' &&
+      formData.description.trim() !== '' &&
+      formData.tags.trim() !== '' &&
+      formData.status !== ''
+    );
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -98,6 +109,14 @@ export default function Project() {
       console.error('Error updating profile:', error);
     } finally {
       setIsLoading(false);
+      setFormData({
+        banner: null,
+        category: '',
+        title: '',
+        description: '',
+        tags: '',
+        status: '',
+      });
     }
   };
 
@@ -164,7 +183,6 @@ export default function Project() {
                           <option value="">Category</option>
                           <option value="map">Maps</option>
                           <option value="discussion">Discussions</option>
-                          <option value="link">Links</option>
                         </select>
                       </div>
                     </div>
@@ -226,8 +244,11 @@ export default function Project() {
                       <button
                         type="button"
                         onClick={handleSubmit}
+                        disabled={!isFormValid()}
                         className={`flex items-center justify-center space-x-3 bg-primary text-white py-4 px-10 md:w-fit w-full rounded-lg ${
                           isLoading ? 'bg-primary/50' : ''
+                        } ${
+                          !isFormValid() ? 'opacity-50 cursor-not-allowed' : ''
                         }`}
                       >
                         {isLoading ? (

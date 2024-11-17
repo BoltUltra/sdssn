@@ -147,22 +147,7 @@ const UserProfile = () => {
             height={80}
             unoptimized
           />
-          {/* {isUploading && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
-            </div>
-          )} */}
         </div>
-        {/* <span className="absolute bottom-0 right-0 bg-white h-5 w-5 p-1 rounded-full flex items-center justify-center shadow-lg cursor-pointer">
-          <LuPencilLine />
-        </span> */}
-        {/* <input
-          type="file"
-          ref={fileInputRef}
-          className="hidden"
-          accept="image/*"
-          onChange={handleFileChange}
-        /> */}
       </div>
 
       {/* Rest of the component remains the same */}

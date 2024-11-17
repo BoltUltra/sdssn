@@ -99,7 +99,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       const response = await axios.post(API_URLS.register, userData);
       toast.success('Registration successful');
-      router.push('/auth/email-verification');
+      router.push('/auth/verify-email');
       return response.data;
     } catch (error: any) {
       console.error('Registration error:', error);
