@@ -13,9 +13,11 @@ export const API_URLS = {
   uploadProfileImage: `${API_BASE_URL}/userProfile/imageUpload`,
   fetchUserImage: `${API_BASE_URL}/userProfile/viewProfileImage`,
   editProfile: `${API_BASE_URL}/profile`,
+  fetchSocials: `${API_BASE_URL}/profile/socials`,
   editProfileSocials: `${API_BASE_URL}/profile/socials`,
   fetchSecurityQuestions: `${API_BASE_URL}/security-questions`,
   createProject: `${API_BASE_URL}/projects`,
+  updateProject: (id: string) => `${API_BASE_URL}/projects`,
   fetchProjects: `${API_BASE_URL}/projects`,
   fetchSingleProject: (id: string) => `${API_BASE_URL}/projects/${id}`,
   fetchProjectComment: (id: string) =>

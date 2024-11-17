@@ -7,9 +7,17 @@ import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { SiPrivateinternetaccess } from 'react-icons/si';
 import { SlOptionsVertical } from 'react-icons/sl';
 import DOMPurify from 'dompurify';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { CiEdit } from 'react-icons/ci';
 
 const DiscussionCard = ({ discussion }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const router = useRouter();
+
+  const goToUpdate = () => {
+    router.push(`/dashboard/projects/${discussion.id}`);
+  };
 
   useEffect(() => {
     const handleDocumentClick = (event) => {
@@ -41,13 +49,22 @@ const DiscussionCard = ({ discussion }) => {
   return (
     <div key={discussion.id}>
       <div className="max-w-4xl">
-        <div className="bg-background flex items-center justify-between md:p-10 p-5 -mt-1 rounded-lg">
-          <div className="space-y-2">
-            <p className="font-semibold">{discussion.title}</p>
-            <div
-              className="md:pr-20 my-2 md:text-sm text-base text-justify"
-              dangerouslySetInnerHTML={{ __html: slicedContent }}
+        <div className="bg-background flex items-center justify-between p-5 -mt-1 rounded-lg">
+          <div className="flex items-center space-x-5">
+            <Image
+              src={`https://random-image-pepebigotes.vercel.app/api/random-image`}
+              alt="Article image"
+              width={200}
+              height={200}
+              className="object-cover"
             />
+            <div className="space-y-2">
+              <p className="font-semibold">{discussion.title}</p>
+              <div
+                className="md:pr-20 my-2 md:text-sm text-base text-justify"
+                dangerouslySetInnerHTML={{ __html: slicedContent }}
+              />
+            </div>
           </div>
           <div className="relative" data-dropdown-id={discussion.id}>
             <button
@@ -77,9 +94,12 @@ const DiscussionCard = ({ discussion }) => {
                     <MdAnalytics />
                     <span>Analytics</span>
                   </button>
-                  <button className="flex items-center p-3 space-x-3 hover:text-white hover:bg-primary w-full">
-                    <IoMdShare />
-                    <span>Share</span>
+                  <button
+                    onClick={goToUpdate}
+                    className="flex items-center p-3 space-x-3 hover:text-white hover:bg-primary w-full"
+                  >
+                    <CiEdit />
+                    <span>Update</span>
                   </button>
                   <button className="flex items-center p-3 space-x-3 hover:text-white hover:bg-primary w-full">
                     <RiDeleteBin6Fill />

@@ -1,11 +1,11 @@
-import { teammember, user1 } from "@/public/images";
-import Image from "next/image";
-import React, { useState, useRef, useEffect } from "react";
-import { LuPencilLine } from "react-icons/lu";
-import Button from "../Button";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import { useDataStore } from "@/app/stores/dataStore";
+import { teammember, user1 } from '@/public/images';
+import Image from 'next/image';
+import React, { useState, useRef, useEffect } from 'react';
+import { LuPencilLine } from 'react-icons/lu';
+import Button from '../Button';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { useDataStore } from '@/app/stores/dataStore';
 
 const UserProfile = () => {
   const router = useRouter();
@@ -15,35 +15,41 @@ const UserProfile = () => {
   const [isUploading, setIsUploading] = useState(false);
   const { updateUserImage } = useDataStore();
   const [currentUser, setCurrentUser] = useState(null);
-  const [userImage, setUserImage] = useState(null);
-  const { fetchUserProfile } = useDataStore();
+  const [userSocials, setUserSocials] = useState(null);
+  const { fetchUserProfile, fetchUserSocials } = useDataStore();
 
   const getUserProfile = async () => {
     try {
       const response = await fetchUserProfile();
       console.log(response);
-      // if (response.success) {
-      //   setCurrentUser(response.data);
-      //   localStorage.setItem("currentUser", JSON.stringify(response.data));
-      // } else {
-      //   throw new Error(response.error || "Failed to fetch user profile");
-      // }
     } catch (error: any) {
-      console.error("Error fetching user profile:", error);
-      toast.error(error.message || "Failed to fetch user profile");
+      console.error('Error fetching user profile:', error);
+      toast.error(error.message || 'Failed to fetch user profile');
+    }
+  };
+  const getUserSocials = async () => {
+    try {
+      const response = await fetchUserSocials();
+      console.log(response);
+    } catch (error: any) {
+      console.error('Error fetching user socials:', error);
+      toast.error(error.message || 'Failed to fetch user profile');
     }
   };
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       // Access localStorage here only if on client side
       const storedUser = JSON.parse(
-        localStorage.getItem("currentUser") || "{}"
+        localStorage.getItem('currentUser') || '{}'
       );
-      const storedImage = JSON.parse(localStorage.getItem("userImage") || "{}");
+      const storedSocials = JSON.parse(
+        localStorage.getItem('currentUserSocials') || '{}'
+      );
       setCurrentUser(storedUser);
-      setUserImage(storedImage);
+      setUserSocials(storedSocials);
     }
     getUserProfile();
+    getUserSocials();
   }, []);
 
   const handleImageClick = () => {
@@ -57,7 +63,7 @@ const UserProfile = () => {
       // console.log("Selected file:", file); // Debug log
 
       if (!file) {
-        throw new Error("No file selected");
+        throw new Error('No file selected');
       }
 
       const result = await updateUserImage({
@@ -69,15 +75,15 @@ const UserProfile = () => {
           ...currentUser,
           profileImage: result.data.imageUrl, // adjust based on your API response structure
         };
-        localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
 
-        toast.success("Image uploaded successfully");
+        toast.success('Image uploaded successfully');
       } else {
-        throw new Error(result.error || "Failed to upload image");
+        throw new Error(result.error || 'Failed to upload image');
       }
     } catch (error: any) {
-      console.error("Error uploading image:", error);
-      toast.error(error.message || "Failed to upload image");
+      console.error('Error uploading image:', error);
+      toast.error(error.message || 'Failed to upload image');
       setPreviewUrl(null);
     } finally {
       setIsUploading(false);
@@ -88,14 +94,14 @@ const UserProfile = () => {
     const file = event.target.files?.[0];
     if (file) {
       // Validate file type
-      if (!file.type.startsWith("image/")) {
-        toast.error("Please select an image file");
+      if (!file.type.startsWith('image/')) {
+        toast.error('Please select an image file');
         return;
       }
 
       // Validate file size (e.g., 5MB limit)
       if (file.size > 5 * 1024 * 1024) {
-        toast.error("File size should be less than 5MB");
+        toast.error('File size should be less than 5MB');
         return;
       }
 
@@ -109,10 +115,10 @@ const UserProfile = () => {
     }
   };
   const goToEditProfile = () => {
-    router.push("/dashboard/profile/edit-profile");
+    router.push('/dashboard/profile/edit-profile');
   };
   const goToEditSocials = () => {
-    router.push("/dashboard/profile/edit-social-links");
+    router.push('/dashboard/profile/edit-social-links');
   };
 
   // Cleanup preview URL when component unmounts
@@ -131,7 +137,7 @@ const UserProfile = () => {
         onClick={handleImageClick}
       >
         <div
-          className={`relative h-20 w-20 ${isUploading ? "opacity-50" : ""}`}
+          className={`relative h-20 w-20 ${isUploading ? 'opacity-50' : ''}`}
         >
           <Image
             src={`https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`}
@@ -162,13 +168,13 @@ const UserProfile = () => {
       {/* Rest of the component remains the same */}
       <div className="mt-10">
         <p className="text-2xl font-semibold mt-4">Personal Information</p>
-        <div className="md:grid grid-cols-2 gap-8 mt-5">
+        <div className="grid md:grid-cols-2 gap-8 mt-5">
           <div className="flex flex-col space-y-2">
             <p className="form-label">Full Name</p>
             <p id="fullName" className="">
               {currentUser
                 ? `${currentUser?.first_name} ${currentUser?.last_name}`
-                : "Null"}
+                : 'Null'}
             </p>
           </div>
           <div className="flex flex-col space-y-2">
@@ -188,37 +194,37 @@ const UserProfile = () => {
             <p id="phone_number" className="">
               {currentUser?.phone_number !== null
                 ? currentUser?.phone_number
-                : "Null"}
+                : 'Null'}
             </p>
           </div>
           <div className="flex flex-col space-y-2">
             <p className="form-label">Date of Birth</p>
             <p id="dob" className="">
-              {currentUser?.dob !== null ? currentUser?.dob : "Null"}
+              {currentUser?.dob !== null ? currentUser?.dob : 'Null'}
             </p>
           </div>
           <div className="flex flex-col space-y-2">
             <p className="form-label">Gender</p>
             <p id="gender" className="">
-              {currentUser?.gender !== null ? currentUser?.gender : "Null"}
+              {currentUser?.gender !== null ? currentUser?.gender : 'Null'}
             </p>
           </div>
           <div className="flex flex-col space-y-2">
             <p className="form-label">State</p>
             <p id="state" className="">
-              {currentUser?.state !== null ? currentUser?.state : "Null"}
+              {currentUser?.state !== null ? currentUser?.state : 'Null'}
             </p>
           </div>
           <div className="flex flex-col space-y-2">
             <p className="form-label">Address</p>
             <p id="address" className="">
-              {currentUser?.address !== null ? currentUser?.address : "Null"}
+              {currentUser?.address !== null ? currentUser?.address : 'Null'}
             </p>
           </div>
           <div className="flex flex-col space-y-2">
             <p className="form-label">Membership Status</p>
             <p id="membership_status" className="capitalize">
-              {`${currentUser?.membership_status}` || "Null"}
+              {`${currentUser?.membership_status}` || 'Null'}
             </p>
           </div>
         </div>
@@ -230,45 +236,37 @@ const UserProfile = () => {
       </div>
       <div className="mt-10">
         <p className="text-2xl font-semibold mt-4">Social Links</p>
-        <div className="md:grid grid-cols-2 gap-8 mt-5">
+        <div className="grid md:grid-cols-2 gap-8 mt-5">
           <div className="flex flex-col space-y-2">
             <p className="form-label">Twitter</p>
             <p id="twitter" className="">
-              {currentUser?.social?.twitter !== null
-                ? currentUser?.social?.twitter
-                : "Null"}
+              {userSocials?.twitter !== null ? userSocials?.twitter : 'Null'}
             </p>
           </div>
           <div className="flex flex-col space-y-2">
             <p className="form-label">Instagram</p>
             <p id="instagram" className="">
-              {currentUser?.social?.instagram !== null
-                ? currentUser?.social?.instagram
-                : "Null"}
+              {userSocials?.instagram !== null
+                ? userSocials?.instagram
+                : 'Null'}
             </p>
           </div>
           <div className="flex flex-col space-y-2">
             <p className="form-label">Facebook</p>
             <p id="facebook" className="">
-              {currentUser?.social?.facebook !== null
-                ? currentUser?.social?.facebook
-                : "Null"}
+              {userSocials?.facebook !== null ? userSocials?.facebook : 'Null'}
             </p>
           </div>
           <div className="flex flex-col space-y-2">
             <p className="form-label">LinkedIn</p>
             <p id="linkedin" className="">
-              {currentUser?.social?.linkedin !== null
-                ? currentUser?.social?.linkedin
-                : "Null"}
+              {userSocials?.linkedin !== null ? userSocials?.linkedin : 'Null'}
             </p>
           </div>
           <div className="flex flex-col space-y-2">
             <p className="form-label">GitHub</p>
             <p id="github" className="">
-              {currentUser?.social?.github !== null
-                ? currentUser?.social?.github
-                : "Null"}
+              {userSocials?.github !== null ? userSocials?.github : 'Null'}
             </p>
           </div>
         </div>

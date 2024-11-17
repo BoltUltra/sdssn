@@ -223,11 +223,11 @@ button:disabled {
 }
 
 .article-description ul>li {
-  @apply list-disc ml-10;
+  @apply list-disc ml-10 py-1;
 }
 
 .article-description ol>li {
-  @apply list-decimal ml-10;
+  @apply list-decimal ml-10 py-1;
 }
 
 .article-description p {

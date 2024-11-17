@@ -10,6 +10,7 @@ interface DataState {
   error: string | null;
   fetchData: () => Promise<void>;
   fetchUserProfile: () => Promise<void>;
+  fetchUserSocials: () => Promise<void>;
   fetchAllPosts: () => Promise<void>;
   fetchSingleArticle: (id: string) => Promise<any>;
   fetchProjectComments: (id: string) => Promise<any>;
@@ -19,6 +20,7 @@ interface DataState {
   editUserSocials: (userData: any) => Promise<void>;
   updateUserImage: (payload: any) => Promise<void>;
   createPost: (postData: any) => Promise<void>;
+  updatePost: (id: string, postData: any) => Promise<void>;
   addComment: (id: string, payload: any) => Promise<void>;
 }
 
@@ -69,7 +71,7 @@ export const useDataStore = create<DataState>((set) => ({
   },
 
   /**
-   * Fetch Security Questions
+   * Fetch User Profile
    */
   fetchUserProfile: async () => {
     set({ loading: true });
@@ -96,6 +98,40 @@ export const useDataStore = create<DataState>((set) => ({
         loading: false,
       });
       console.error('Error fetching user profile:', error);
+    }
+  },
+
+  /**
+   * Fetch User Socials
+   */
+  fetchUserSocials: async () => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      const currentUserSocials = JSON.parse(
+        localStorage.getItem('currentUserSocials') || '{}'
+      );
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.get(API_URLS.fetchSocials, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      set({ data: response.data, loading: false, error: null });
+      localStorage.setItem(
+        'currentUserSocials',
+        JSON.stringify(response.data.data)
+      );
+      return response.data; // return the fetched data
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      console.error('Error fetching user socials:', error);
     }
   },
 
@@ -246,6 +282,36 @@ export const useDataStore = create<DataState>((set) => ({
         loading: false,
       });
       console.error('Error fetching user profile:', error);
+    }
+  },
+
+  /**
+   * Update Post
+   */
+
+  updatePost: async (id: string, postData: any) => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.put(API_URLS.updateProject(id), postData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      toast.loading('Project update in progress');
+      console.log('Response from update post:', response);
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      console.error('Error while updating post', error);
+    } finally {
+      toast.success('Project updated successfully');
     }
   },
 
