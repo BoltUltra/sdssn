@@ -6,7 +6,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { formatDate, sanitizeHTML } from '@/app/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaComment, FaFacebook } from 'react-icons/fa';
+import { FaComment, FaFacebook, FaRegEye } from 'react-icons/fa';
 import { FaSquareXTwitter } from 'react-icons/fa6';
 import { RiMailSendFill } from 'react-icons/ri';
 import { AiFillLike } from 'react-icons/ai';
@@ -23,8 +23,13 @@ export default function ArticleDetails() {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const { fetchSingleArticle, fetchProjectComments, addComment } =
-    useDataStore();
+  const {
+    fetchSingleArticle,
+    fetchProjectComments,
+    addComment,
+    likePost,
+    sharePost,
+  } = useDataStore();
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({});
@@ -78,6 +83,23 @@ export default function ArticleDetails() {
     } finally {
       setFormData({ content: '' });
       setIsLoading(false);
+    }
+  };
+
+  const likeArticle = async () => {
+    try {
+      await likePost(id);
+      fetchArticleDetails(id);
+    } catch (error) {
+      console.error('Error liking post:', error);
+    }
+  };
+  const shareArticle = async () => {
+    try {
+      await sharePost(id);
+      fetchArticleDetails(id);
+    } catch (error) {
+      console.error('Error sharing post:', error);
     }
   };
 
@@ -159,6 +181,7 @@ export default function ArticleDetails() {
             <div className="flex space-x-5 justify-end mt-5">
               <button
                 disabled={!user}
+                onClick={likeArticle}
                 className="flex items-center space-x-2 disabled:bg-transparent"
               >
                 <AiFillLike size={20} /> <span>{article?.likes}</span>
@@ -174,6 +197,9 @@ export default function ArticleDetails() {
                 onClick={() => setIsShareModalOpen(true)}
               >
                 <CiShare2 size={20} /> <span>{article?.shares}</span>
+              </button>
+              <button className="flex items-center space-x-2">
+                <FaRegEye size={20} /> <span>{`${article?.views} views`}</span>
               </button>
             </div>
 
@@ -246,7 +272,9 @@ export default function ArticleDetails() {
 
       <ShareModal
         isOpen={isShareModalOpen}
-        onClose={() => setIsShareModalOpen(false)}
+        onClose={() => {
+          shareArticle(), setIsShareModalOpen(false);
+        }}
         url={typeof window !== 'undefined' ? window.location.href : ''}
         title={article?.title || ''}
       />

@@ -222,13 +222,13 @@ export default function Project() {
                       />
                     </div>
                     <div className="flex flex-col space-y-2">
-                      <label htmlFor="category" className="form-label">
-                        Category
+                      <label htmlFor="status" className="form-label">
+                        Status
                       </label>
                       <div className="form-input">
                         <select
                           name="status"
-                          id="category"
+                          id="status"
                           className="w-full bg-transparent outline-none"
                           value={formData.status}
                           onChange={handleInputChange}
@@ -265,8 +265,8 @@ export default function Project() {
           </TabGroup>
         </div>
       </div>
-      {/* Modal */}
 
+      {/* Modal */}
       <Dialog
         open={isOpen}
         as="div"

@@ -7,7 +7,7 @@ const ArticlesHero = ({ articles }) => {
   const router = useRouter();
 
   const goToArticle = () => {
-    router.push(`/data/${articles[0]?.id}`);
+    router.push(`/articles/${articles[0]?.id}`);
   };
   return (
     <section className="mb-10">
