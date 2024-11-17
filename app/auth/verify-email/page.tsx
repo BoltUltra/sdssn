@@ -1,22 +1,22 @@
-"use client";
-import Button from "@/app/components/Button";
-import { useAuthStore } from "@/app/stores/authStore";
-import { useDataStore } from "@/app/stores/dataStore";
-import { logoNew } from "@/public/images";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import { FaUnlockKeyhole } from "react-icons/fa6";
-import { RiMailCheckFill } from "react-icons/ri";
+'use client';
+import Button from '@/app/components/Button';
+import { useAuthStore } from '@/app/stores/authStore';
+import { useDataStore } from '@/app/stores/dataStore';
+import { logoNew } from '@/public/images';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import { FaUnlockKeyhole } from 'react-icons/fa6';
+import { RiMailCheckFill } from 'react-icons/ri';
 
 const VerifyEmail = () => {
   const router = useRouter();
-  const email = "boltultra144@gmail.com";
+  const email = 'boltultra144@gmail.com';
 
   const goToLogin = () => {
-    router.push("/auth/login");
+    router.push('/auth/login');
   };
 
   return (
@@ -32,10 +32,9 @@ const VerifyEmail = () => {
 
               <h3 className="text-3xl font-bold">Email Confirmation</h3>
               <p className="md:px-32 py-5">
-                We have sent an email to{" "}
-                <span className="underline text-primary">{email}</span> to
-                confirm the validity of your email address. After receiving the
-                email, click the link to verify your email address.
+                We have sent an email to your email to confirm the validity of
+                your email address. After receiving the email, click the link to
+                verify your email address.
               </p>
 
               <Button
@@ -45,7 +44,7 @@ const VerifyEmail = () => {
               />
               <hr />
               <p>
-                If you did not get the email{" "}
+                If you did not get the email{' '}
                 <span className="underline text-primary font-bold">
                   Resend Confirmation mail
                 </span>

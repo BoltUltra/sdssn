@@ -10,7 +10,7 @@ const DataList = ({ maps }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 4000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -19,7 +19,7 @@ const DataList = ({ maps }) => {
       <div className="w-full justify-center py-14">
         <h3 className="uppercase text-4xl flex md:flex-col md:space-y-1 md:space-x-0 space-x-1 border-l-2 border-l-primary/10 pl-4 pt-10">
           <span className="tracking-wide text-primary">recent</span>
-          <span className="tracking-wide text-gray-500">articles</span>
+          <span className="tracking-wide text-gray-500">data</span>
         </h3>
         <div className="w-full">
           <div className="mt-20">

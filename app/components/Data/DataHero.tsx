@@ -34,9 +34,9 @@ const DataHero = ({ maps }) => {
             <div className="bg-gray-300 h-10 w-full animate-pulse block rounded-lg"></div>
           )}
 
-          <div className="cursor-pointer" onClick={goToData}>
+          <div className="cursor-pointer mt-3" onClick={goToData}>
             {maps[0]?.title ? (
-              <p className="font-bold md:text-5xl text-2xl md:mt-0 mt-5 leading-snug pr-20">
+              <p className="md:text-5xl text-2xl md:mt-0 mt-5 md:leading-none uppercase pr-20">
                 {maps[0]?.title}
               </p>
             ) : (

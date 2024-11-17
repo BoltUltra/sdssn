@@ -1,8 +1,14 @@
 import { formatDate } from '@/app/helpers';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const ArticlesHero = ({ articles }) => {
+  const router = useRouter();
+
+  const goToArticle = () => {
+    router.push(`/data/${articles[0]?.id}`);
+  };
   return (
     <section className="mb-10">
       <p className="text-5xl py-2 mb-14 font-extralight uppercase text-primary">
@@ -28,9 +34,9 @@ const ArticlesHero = ({ articles }) => {
             <div className="bg-gray-300 h-10 w-full animate-pulse block rounded-lg"></div>
           )}
 
-          <div className="">
+          <div className="cursor-pointer mt-3" onClick={goToArticle}>
             {articles[1]?.title ? (
-              <p className="font-bold md:text-5xl text-2xl md:mt-0 mt-5 leading-snug pr-20">
+              <p className="md:text-5xl text-2xl md:mt-0 mt-5 md:leading-none uppercase pr-20">
                 {articles[1]?.title}
               </p>
             ) : (
