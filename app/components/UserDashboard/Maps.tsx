@@ -1,28 +1,25 @@
-import React, { useEffect, useState } from "react";
-import Loading from "../Loading";
-import Image from "next/image";
-import MapCard from "./MapCard";
-import Button from "../Button";
-import { MdAdd } from "react-icons/md";
-import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from 'react';
+import Loading from '../Loading';
+import MapCard from './MapCard';
+import Button from '../Button';
+import { MdAdd } from 'react-icons/md';
+import { useRouter } from 'next/navigation';
 
-const Maps = () => {
+const Maps = ({ maps, isLoading }) => {
   const router = useRouter();
   const goToUpload = () => {
-    router.push("/dashboard/projects?tab=upload");
+    router.push('/dashboard/projects?tab=upload');
   };
-  const [maps, setMaps] = useState(null);
 
-  useEffect(() => {
-    fetch("/data.json")
-      .then((response) => response.json())
-      .then((data) => setMaps(data.maps))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <Loading />
+      </div>
+    );
+  }
 
-  if (!maps) return <Loading />;
-
-  if (maps.length === 0) {
+  if (!maps || maps.length === 0) {
     return (
       <div className="text-center flex flex-col space-y-4 items-center mt-72">
         <h3 className="md:text-2xl text-xl">Upload your project</h3>

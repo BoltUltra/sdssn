@@ -1,25 +1,30 @@
-import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import { IoMdShare } from "react-icons/io";
-import { MdAnalytics } from "react-icons/md";
-import { RiDeleteBin6Fill } from "react-icons/ri";
-import { SiPrivateinternetaccess } from "react-icons/si";
-import { SlOptionsVertical } from "react-icons/sl";
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import { CiEdit } from 'react-icons/ci';
+import { IoMdShare } from 'react-icons/io';
+import { MdAnalytics } from 'react-icons/md';
+import { RiDeleteBin6Fill } from 'react-icons/ri';
+import { SiPrivateinternetaccess } from 'react-icons/si';
+import { SlOptionsVertical } from 'react-icons/sl';
 
 const MapCard = ({ map }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const router = useRouter();
 
+  const goToUpdate = () => {
+    router.push(`/dashboard/projects/${map.id}`);
+  };
   useEffect(() => {
     const handleDocumentClick = (event) => {
       if (event.target.closest(`[data-dropdown-id="${map.id}"]`) === null) {
         setActiveDropdown(null);
       }
     };
-
-    document.addEventListener("click", handleDocumentClick);
+    document.addEventListener('click', handleDocumentClick);
 
     return () => {
-      document.removeEventListener("click", handleDocumentClick);
+      document.removeEventListener('click', handleDocumentClick);
     };
   }, [map.id]);
 
@@ -27,9 +32,9 @@ const MapCard = ({ map }) => {
     <div key={map.id}>
       <div className="text-center">
         <Image
-          src={map.mapImg}
+          src={`https://random-image-pepebigotes.vercel.app/api/random-image`}
           alt={map.title}
-          className="w-full"
+          className="w-full rounded-t-lg"
           height={250}
           width={250}
         />
@@ -51,9 +56,9 @@ const MapCard = ({ map }) => {
               <div
                 className="absolute right-0 mt-1 w-40 bg-white rounded-lg shadow-md overflow-hidden"
                 style={{
-                  transition: "opacity 0.3s ease-in-out",
+                  transition: 'opacity 0.3s ease-in-out',
                   opacity: 1,
-                  visibility: "visible",
+                  visibility: 'visible',
                 }}
               >
                 <div className="text-sm text-gray-700">
@@ -65,9 +70,12 @@ const MapCard = ({ map }) => {
                     <MdAnalytics />
                     <span>Analytics</span>
                   </button>
-                  <button className="flex items-center p-3 space-x-3 hover:text-white hover:bg-primary w-full">
-                    <IoMdShare />
-                    <span>Share</span>
+                  <button
+                    onClick={goToUpdate}
+                    className="flex items-center p-3 space-x-3 hover:text-white hover:bg-primary w-full"
+                  >
+                    <CiEdit />
+                    <span>Update</span>
                   </button>
                   <button className="flex items-center p-3 space-x-3 hover:text-white hover:bg-primary w-full">
                     <RiDeleteBin6Fill />

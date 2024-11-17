@@ -1,29 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Loading from '../Loading';
-import Image from 'next/image';
-import MapCard from './MapCard';
 import Button from '../Button';
 import { MdAdd } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
 import DiscussionCard from './DiscussionCard';
 
-const Discussions = ({ discussions }) => {
+const Discussions = ({ discussions, isLoading }) => {
   const router = useRouter();
   const goToUpload = () => {
     router.push('/dashboard/projects?tab=upload');
   };
-  // const [discussions, setDiscussions] = useState(null);
 
-  // useEffect(() => {
-  //   fetch("/data.json")
-  //     .then((response) => response.json())
-  //     .then((data) => setDiscussions(data.discussions))
-  //     .catch((error) => console.error("Error fetching data:", error));
-  // }, []);
+  // Show loading spinner while data is being fetched
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <Loading />
+      </div>
+    );
+  }
 
-  if (!discussions) return <Loading />;
-
-  if (discussions.length === 0) {
+  // Show empty state if no discussions
+  if (!discussions || discussions.length === 0) {
     return (
       <div className="text-center flex flex-col space-y-4 items-center mt-72">
         <h3 className="md:text-2xl text-xl">Upload your project</h3>
@@ -40,10 +38,11 @@ const Discussions = ({ discussions }) => {
     );
   }
 
+  // Show discussions grid when data is loaded
   return (
     <div className="grid gap-6">
       {discussions.map((discussion) => (
-        <DiscussionCard discussion={discussion} />
+        <DiscussionCard key={discussion.id} discussion={discussion} />
       ))}
     </div>
   );

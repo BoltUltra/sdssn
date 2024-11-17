@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useDataStore } from "@/app/stores/dataStore";
-import toast from "react-hot-toast";
-import Button from "../Button";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from 'react';
+import { useDataStore } from '@/app/stores/dataStore';
+import toast from 'react-hot-toast';
+import Button from '../Button';
+import { useRouter } from 'next/navigation';
 
 const EditSocialLinks = () => {
-  const { editUserSocials, fetchUserProfile } = useDataStore();
+  const { editUserSocials, fetchUserSocials } = useDataStore();
   const router = useRouter();
 
   const [formData, setFormData] = useState({
-    social: {
-      twitter: "",
-      instagram: "",
-      facebook: "",
-      linkedin: "",
-      github: "",
-    },
+    twitter: '',
+    instagram: '',
+    facebook: '',
+    linkedin: '',
+    github: '',
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -24,37 +22,32 @@ const EditSocialLinks = () => {
   useEffect(() => {
     const loadUserData = async () => {
       try {
-        const response = await fetchUserProfile();
+        const response = await fetchUserSocials();
         const userData = response.data;
+        console.log('userData', userData);
 
         setFormData({
-          social: {
-            twitter: userData.social?.twitter || "",
-            instagram: userData.social?.instagram || "",
-            facebook: userData.social?.facebook || "",
-            linkedin: userData.social?.linkedin || "",
-            github: userData.social?.github || "",
-          },
+          twitter: userData?.twitter || '',
+          instagram: userData?.instagram || '',
+          facebook: userData?.facebook || '',
+          linkedin: userData?.linkedin || '',
+          github: userData?.github || '',
         });
       } catch (error) {
-        toast.error("Failed to load user data");
-        console.error("Error loading user data:", error);
+        toast.error('Failed to load user data');
+        console.error('Error loading user data:', error);
       }
     };
 
     loadUserData();
-  }, [fetchUserProfile]);
+  }, [fetchUserSocials]);
 
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const socialField = name.split(".")[1];
     setFormData((prev) => ({
       ...prev,
-      social: {
-        ...prev.social,
-        [socialField]: value,
-      },
+      [name]: value,
     }));
   };
 
@@ -62,19 +55,15 @@ const EditSocialLinks = () => {
   const handleSave = async () => {
     setIsLoading(true);
     try {
-      const updatedUser = {
-        social: formData.social,
-      };
-
-      await editUserSocials(updatedUser);
-      localStorage.setItem("currentUser", JSON.stringify(updatedUser));
-      toast.success("Social links updated successfully");
-      router.push("/dashboard/profile");
+      await editUserSocials(formData);
+      localStorage.setItem('currentUserSocials', JSON.stringify(formData));
+      toast.success('Social links updated successfully');
     } catch (error) {
-      toast.error("Failed to update social links");
-      console.error("Error updating social links:", error);
+      toast.error('Failed to update social links');
+      console.error('Error updating social links:', error);
     } finally {
       setIsLoading(false);
+      router.push('/dashboard/profile');
     }
   };
 
@@ -82,13 +71,13 @@ const EditSocialLinks = () => {
     <>
       <div className="mt-10">
         <p className="text-2xl font-semibold mt-4">Social Links</p>
-        <div className="md:grid grid-cols-2 gap-8 mt-5">
+        <div className="grid md:grid-cols-2 gap-8 mt-5">
           <div className="flex flex-col space-y-2">
             <label className="form-label">Twitter</label>
             <input
               type="text"
-              name="social.twitter"
-              value={formData.social.twitter}
+              name="twitter"
+              value={formData.twitter}
               onChange={handleInputChange}
               className="form-input"
             />
@@ -97,8 +86,8 @@ const EditSocialLinks = () => {
             <label className="form-label">Instagram</label>
             <input
               type="text"
-              name="social.instagram"
-              value={formData.social.instagram}
+              name="instagram"
+              value={formData.instagram}
               onChange={handleInputChange}
               className="form-input"
             />
@@ -107,8 +96,8 @@ const EditSocialLinks = () => {
             <label className="form-label">Facebook</label>
             <input
               type="text"
-              name="social.facebook"
-              value={formData.social.facebook}
+              name="facebook"
+              value={formData.facebook}
               onChange={handleInputChange}
               className="form-input"
             />
@@ -117,8 +106,8 @@ const EditSocialLinks = () => {
             <label className="form-label">LinkedIn</label>
             <input
               type="text"
-              name="social.linkedin"
-              value={formData.social.linkedin}
+              name="linkedin"
+              value={formData.linkedin}
               onChange={handleInputChange}
               className="form-input"
             />
@@ -127,17 +116,17 @@ const EditSocialLinks = () => {
             <label className="form-label">GitHub</label>
             <input
               type="text"
-              name="social.github"
-              value={formData.social.github}
+              name="github"
+              value={formData.github}
               onChange={handleInputChange}
               className="form-input"
             />
           </div>
         </div>
         <Button
-          text={isLoading ? <div className="loader"></div> : "Save"}
+          text={isLoading ? <div className="loader"></div> : 'Save'}
           className={`${
-            isLoading ? "bg-primary/50 mt-10" : "mt-10"
+            isLoading ? 'bg-primary/50 mt-10' : 'mt-10'
           } "mt-10 text-white"`}
           onClick={handleSave}
         ></Button>
