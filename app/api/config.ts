@@ -23,4 +23,6 @@ export const API_URLS = {
   fetchProjectComment: (id: string) =>
     `${API_BASE_URL}/projects/${id}/comments`,
   addComment: (id: string) => `${API_BASE_URL}/projects/${id}/comments`,
+  likePost: (id: string) => `${API_BASE_URL}/projects/${id}/likes`,
+  sharePost: (id: string) => `${API_BASE_URL}/projects/${id}/shares`,
 };

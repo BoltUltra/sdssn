@@ -22,6 +22,8 @@ interface DataState {
   createPost: (postData: any) => Promise<void>;
   updatePost: (id: string, postData: any) => Promise<void>;
   addComment: (id: string, payload: any) => Promise<void>;
+  likePost: (id: string) => Promise<void>;
+  sharePost: (id: string) => Promise<void>;
 }
 
 const formatToken = (token: string | null): string => {
@@ -399,6 +401,68 @@ export const useDataStore = create<DataState>((set) => ({
       });
       toast.error('Error adding comment');
       console.error('Error Adding comment', error);
+    }
+  },
+
+  /**
+   * Like a post
+   */
+
+  likePost: async (id: string) => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.put(API_URLS.likePost(id), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Response from comment:', response);
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      toast.error('Error adding comment');
+      console.error('Error Adding comment', error);
+    } finally {
+      set({ loading: false });
+      toast.success('Post liked');
+    }
+  },
+
+  /**
+   * Share a post
+   */
+
+  sharePost: async (id: string) => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.put(API_URLS.sharePost(id), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Response from share:', response);
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      toast.error('Error sharing');
+      console.error('Error sharing', error);
+    } finally {
+      set({ loading: false });
+      toast.success('Post shared');
     }
   },
 }));
