@@ -57,7 +57,7 @@ const DataList = ({ maps }) => {
               <div key={map?.id} className="cursor-pointer md:pb-0 pb-20">
                 <div className="flex flex-col space-y-4">
                   <Image
-                    src={`https://random-image-pepebigotes.vercel.app/api/random-image`}
+                    src={map?.banner?.url}
                     alt={map.title}
                     height={300}
                     width={140}

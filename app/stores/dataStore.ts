@@ -298,13 +298,12 @@ export const useDataStore = create<DataState>((set) => ({
       if (!token) {
         throw new Error('No token found. Please log in again.');
       }
-      const response = await axios.put(API_URLS.updateProject(id), postData, {
+      const response = await axios.post(API_URLS.updateProject(id), postData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
-      toast.loading('Project update in progress');
       console.log('Response from update post:', response);
     } catch (error: any) {
       set({

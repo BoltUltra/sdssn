@@ -100,23 +100,21 @@ export default function Project() {
     console.log(formData);
     setIsLoading(true);
     try {
-      // Transform formData back to API expected format
-
       await createPost(formData);
       setIsOpen(true);
     } catch (error) {
-      toast.error('Failed to update profile');
-      console.error('Error updating profile:', error);
+      toast.error('Failed to create discussion');
+      console.error('Error creating discussion:', error);
     } finally {
       setIsLoading(false);
-      setFormData({
-        banner: null,
-        category: '',
-        title: '',
-        description: '',
-        tags: '',
-        status: '',
-      });
+      // setFormData({
+      //   banner: null,
+      //   category: '',
+      //   title: '',
+      //   description: '',
+      //   tags: '',
+      //   status: '',
+      // });
     }
   };
 
@@ -289,6 +287,9 @@ export default function Project() {
                   <span className="font-semibold">"{formData.title}"</span> is
                   now {formData.status}!
                 </h3>
+                {/* <h3 className="md:text-3xl text-xl mt-4 md:px-20 px-3">
+                  Congratulations! Your project is has be successfully created!
+                </h3> */}
               </div>
               <div className="mt-10 flex items-center justify-end">
                 <button

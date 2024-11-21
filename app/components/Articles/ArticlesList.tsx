@@ -3,14 +3,16 @@ import Image from 'next/image';
 import { formatDate } from '@/app/helpers';
 import { FaPlus } from 'react-icons/fa';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const ArticlesList = ({ articles }) => {
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 4000);
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -44,6 +46,10 @@ const ArticlesList = ({ articles }) => {
     );
   }
 
+  if (!articles.length || articles.length === 0) {
+    return <div className="text-center">No Articles found</div>;
+  }
+
   return (
     <div className="w-full justify-center py-14">
       <h3 className="uppercase text-4xl flex md:flex-col md:space-y-1 md:space-x-0 space-x-1 border-l-2 border-l-primary/10 pl-4 pt-10">
@@ -54,10 +60,16 @@ const ArticlesList = ({ articles }) => {
         <div className="mt-20">
           <div className="grid md:grid-cols-3 lg:gap-20 md:gap-10 gap-5">
             {articles.map((article) => (
-              <div key={article?.id} className="cursor-pointer md:pb-0 pb-20">
+              <div
+                key={article?.id}
+                className="cursor-pointer md:pb-0 pb-20"
+                onClick={() => {
+                  router.push(`/articles/${article?.id}`);
+                }}
+              >
                 <div className="flex flex-col space-y-4">
                   <Image
-                    src={`https://random-image-pepebigotes.vercel.app/api/random-image`}
+                    src={article?.banner?.url}
                     alt={article.title}
                     height={300}
                     width={140}

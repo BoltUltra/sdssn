@@ -163,17 +163,16 @@ export default function ArticleDetails() {
             </div>
             <div>
               <Image
-                src={`https://random-image-pepebigotes.vercel.app/api/random-image`}
+                src={article?.banner?.url}
                 alt="Article image"
                 width={1000}
                 height={500}
-                className="w-full"
+                className="w-full h-[500px] object-cover"
               />
 
-              <div className="mt-6">{article?.content}</div>
               <div
                 dangerouslySetInnerHTML={sanitizeHTML(article?.description)}
-                className="article-description space-y-5 text-justify mb-10"
+                className="article-description space-y-5 text-justify my-10"
               ></div>
               <div className="flex flex-wrap gap-2 mt-2">
                 {article?.tags?.split(',').map((tag, index) => (
@@ -215,17 +214,19 @@ export default function ArticleDetails() {
 
             <div className="mt-10">
               {user ? (
-                <div className="border-2 w-full border-primary">
-                  <textarea
-                    name="content" // Changed from "comment" to match formData structure
-                    id="comment"
-                    rows={3}
-                    className="border-none outline-none block w-full bg-transparent p-3"
-                    onChange={handleChange}
-                    placeholder="Write a comment..."
-                    value={formData.content}
-                  ></textarea>
-                  <div className="flex items-center justify-end">
+                <>
+                  <div className="border-2 w-full border-primary">
+                    <textarea
+                      name="content" // Changed from "comment" to match formData structure
+                      id="comment"
+                      rows={5}
+                      className="border-none outline-none block w-full bg-transparent p-3"
+                      onChange={handleChange}
+                      placeholder="Write a comment..."
+                      value={formData.content}
+                    ></textarea>
+                  </div>
+                  <div className="flex items-center justify-end mt-5">
                     <button
                       onClick={handleSubmit}
                       disabled={isLoading}
@@ -238,7 +239,7 @@ export default function ArticleDetails() {
                       )}
                     </button>
                   </div>
-                </div>
+                </>
               ) : (
                 <div className="text-center mt-5 bg-primary text-white flex flex-col items-center py-10 rounded-xl space-y-5">
                   <div>
