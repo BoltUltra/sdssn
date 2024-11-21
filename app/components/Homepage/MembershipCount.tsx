@@ -38,7 +38,7 @@ const MembershipCount = () => {
         <div className="max-w-[1440px] mx-auto md:px-20 px-5">
           <div className="flex flex-col items-center justify-center space-y-2">
             <Heading3 text={'Our Members'} style="" />
-            <div className="h-0.5 w-40 bg-[#C30711]"></div>
+            <div className="h-0.5 w-40 bg-[#052440]"></div>
           </div>
           <div className="grid md:grid-cols-4 gap-10 mt-10">
             {members.map((member, index) => (
@@ -46,7 +46,7 @@ const MembershipCount = () => {
                 key={index}
                 className="text-center flex flex-col items-center "
               >
-                <div className="text-6xl text-[#C30711]">{member.icon}</div>
+                <div className="text-6xl text-[#052440]">{member.icon}</div>
                 <p className="text-lg">{member.name}</p>
                 <h4 className="text-4xl font-bold">{member.number}</h4>
               </div>
