@@ -15,13 +15,14 @@ const UserProfile = () => {
   const [isUploading, setIsUploading] = useState(false);
   const { updateUserImage } = useDataStore();
   const [currentUser, setCurrentUser] = useState(null);
-  const [userSocials, setUserSocials] = useState(null);
+  const [userSocials, setUserSocials] = useState({});
   const { fetchUserProfile, fetchUserSocials } = useDataStore();
 
   const getUserProfile = async () => {
     try {
       const response = await fetchUserProfile();
       console.log(response);
+      setCurrentUser(response.data);
     } catch (error: any) {
       console.error('Error fetching user profile:', error);
       toast.error(error.message || 'Failed to fetch user profile');
@@ -31,23 +32,13 @@ const UserProfile = () => {
     try {
       const response = await fetchUserSocials();
       console.log(response);
+      setUserSocials(response.data);
     } catch (error: any) {
       console.error('Error fetching user socials:', error);
       toast.error(error.message || 'Failed to fetch user profile');
     }
   };
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Access localStorage here only if on client side
-      const storedUser = JSON.parse(
-        localStorage.getItem('currentUser') || '{}'
-      );
-      const storedSocials = JSON.parse(
-        localStorage.getItem('currentUserSocials') || '{}'
-      );
-      setCurrentUser(storedUser);
-      setUserSocials(storedSocials);
-    }
     getUserProfile();
     getUserSocials();
   }, []);

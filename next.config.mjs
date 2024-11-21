@@ -18,6 +18,10 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'sdssn-app.onrender.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'ik.imagekit.io',
+      },
     ],
   },
   eslint: {

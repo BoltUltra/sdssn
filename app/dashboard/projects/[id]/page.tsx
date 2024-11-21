@@ -71,7 +71,7 @@ export default function UpdateProject() {
     try {
       // Transform formData back to API expected format
 
-      await updatePost(formData);
+      await updatePost(id, formData);
       setIsOpen(true);
     } catch (error) {
       toast.error('Failed to update profile');

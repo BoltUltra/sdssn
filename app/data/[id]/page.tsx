@@ -163,11 +163,11 @@ export default function ArticleDetails() {
             </div>
             <div>
               <Image
-                src={`https://random-image-pepebigotes.vercel.app/api/random-image`}
+                src={article?.banner?.url}
                 alt="Article image"
-                width={1000}
+                width={600}
                 height={500}
-                className="w-full"
+                className="w-full h-[500px] object-cover"
               />
 
               <div className="mt-6">{article?.content}</div>

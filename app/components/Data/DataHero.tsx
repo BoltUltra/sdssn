@@ -18,7 +18,7 @@ const DataHero = ({ maps }) => {
         <div className="lg:order-first order-last">
           <Image
             // src={maps[2]?.banner?.url.replace(/\\/g, '') || podcastHero}
-            src={`https://random-image-pepebigotes.vercel.app/api/random-image`}
+            src={maps[0]?.banner?.url}
             width={427.18}
             height={482.02}
             alt="Article Banner"
@@ -28,7 +28,7 @@ const DataHero = ({ maps }) => {
         <div>
           {maps[0]?.created_at ? (
             <p className="text-sm font-light">
-              {formatDate(maps[1]?.created_at)}
+              {formatDate(maps[0]?.created_at)}
             </p>
           ) : (
             <div className="bg-gray-300 h-10 w-full animate-pulse block rounded-lg"></div>

@@ -52,7 +52,7 @@ const DiscussionCard = ({ discussion }) => {
         <div className="bg-background flex items-center justify-between p-5 -mt-1 rounded-lg">
           <div className="flex items-center space-x-5">
             <Image
-              src={`https://random-image-pepebigotes.vercel.app/api/random-image`}
+              src={discussion?.banner?.url}
               alt="Article image"
               width={200}
               height={200}

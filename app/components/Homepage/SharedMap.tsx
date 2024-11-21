@@ -65,7 +65,7 @@ const SharedMap = () => {
               : displayedMaps.map((map) => (
                   <div key={map.id} className="text-center">
                     <Image
-                      src={`https://random-image-pepebigotes.vercel.app/api/random-image`}
+                      src={map?.banner?.url}
                       alt={map.title}
                       height={300}
                       width={140}
