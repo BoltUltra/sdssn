@@ -18,7 +18,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 export default function Home() {
   return (
     <>
-      <section className="relative">
+      <section className="relative text-primary">
         <Header />
         <Hero />
         <About />
