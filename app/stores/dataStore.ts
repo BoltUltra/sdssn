@@ -24,6 +24,14 @@ interface DataState {
   addComment: (id: string, payload: any) => Promise<void>;
   likePost: (id: string) => Promise<void>;
   sharePost: (id: string) => Promise<void>;
+
+  // Admin
+  fetchAllUsers: () => Promise<void>;
+  fetchResources: () => Promise<void>;
+  fetchAdminPosts: () => Promise<void>;
+  approveProject: (id: string) => Promise<void>;
+  createPodcast: (postData: any) => Promise<void>;
+  fetchPodcasts: () => Promise<void>;
 }
 
 const formatToken = (token: string | null): string => {
@@ -166,7 +174,7 @@ export const useDataStore = create<DataState>((set) => ({
   },
 
   /**
-   * Edit User Profile
+   * Edit User Socials
    */
 
   editUserSocials: async (userData: any) => {
@@ -232,7 +240,7 @@ export const useDataStore = create<DataState>((set) => ({
   },
 
   /**
-   * Fetch User Profile
+   * Fetch User Image
    */
   fetchUserImage: async () => {
     set({ loading: true });
@@ -259,10 +267,10 @@ export const useDataStore = create<DataState>((set) => ({
       console.error('Error fetching user profile:', error);
     }
   },
+
   /**
    * Create Post
    */
-
   createPost: async (postData: any) => {
     set({ loading: true });
     try {
@@ -283,6 +291,7 @@ export const useDataStore = create<DataState>((set) => ({
         error: error.response?.data?.message || error.message,
         loading: false,
       });
+      toast.error('Error creating project');
       console.error('Error fetching user profile:', error);
     }
   },
@@ -305,6 +314,7 @@ export const useDataStore = create<DataState>((set) => ({
         },
       });
       console.log('Response from update post:', response);
+      toast.success('Project updated successfully');
     } catch (error: any) {
       set({
         error: error.response?.data?.message || error.message,
@@ -312,7 +322,7 @@ export const useDataStore = create<DataState>((set) => ({
       });
       console.error('Error while updating post', error);
     } finally {
-      toast.success('Project updated successfully');
+      set({ loading: false });
     }
   },
 
@@ -421,6 +431,7 @@ export const useDataStore = create<DataState>((set) => ({
         },
       });
       console.log('Response from comment:', response);
+      toast.success('Post liked');
     } catch (error: any) {
       set({
         error: error.response?.data?.message || error.message,
@@ -430,7 +441,6 @@ export const useDataStore = create<DataState>((set) => ({
       console.error('Error Adding comment', error);
     } finally {
       set({ loading: false });
-      toast.success('Post liked');
     }
   },
 
@@ -452,6 +462,7 @@ export const useDataStore = create<DataState>((set) => ({
         },
       });
       console.log('Response from share:', response);
+      toast.success('Post shared');
     } catch (error: any) {
       set({
         error: error.response?.data?.message || error.message,
@@ -461,7 +472,166 @@ export const useDataStore = create<DataState>((set) => ({
       console.error('Error sharing', error);
     } finally {
       set({ loading: false });
-      toast.success('Post shared');
+    }
+  },
+
+  // Admin
+
+  /**
+   * Fetch All Users
+   */
+  fetchAllUsers: async () => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.get(API_URLS.fetchUsers, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      set({ data: response.data, loading: false, error: null });
+      return response.data; // return the fetched data
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      console.error('Error fetching users:', error);
+    }
+  },
+
+  /**
+   * Fetch Resources
+   */
+  fetchResources: async () => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.get(API_URLS.fetchResources, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      set({ data: response.data, loading: false, error: null });
+      return response.data; // return the fetched data
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      console.error('Error fetching users:', error);
+    }
+  },
+
+  /**
+   * Fetch all post for Admin
+   */
+  fetchAdminPosts: async () => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.get(API_URLS.fetchAdminProjects, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      set({ data: response.data, loading: false, error: null });
+      return response.data; // return the fetched data
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      console.error('Error fetching projects:', error);
+    }
+  },
+
+  /**
+   * Approve a project
+   */
+
+  approveProject: async (id: string) => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.put(API_URLS.approveProject(id), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Response from comment:', response);
+      toast.success('Project Approved');
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      toast.error('Error approving project');
+      console.error(error);
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  /**
+   * Create Podcast
+   */
+  createPodcast: async (postData: any) => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.post(API_URLS.createPodcast, postData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      toast.success('Podcast created successfully');
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      toast.error('Error creating podcast');
+      console.error('Error creating podcast:', error);
+    }
+  },
+
+  /**
+   * Fetch all podcasts
+   */
+  fetchPodcasts: async () => {
+    set({ loading: true });
+    try {
+      const response = await axios.get(API_URLS.fetchPodcasts);
+      set({ data: response.data, loading: false, error: null });
+      return response.data; // return the fetched data
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      console.error('Error fetching projects:', error);
     }
   },
 }));

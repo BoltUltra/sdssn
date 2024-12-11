@@ -1,10 +1,43 @@
-import React from "react";
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import PrivateMaps from "../UserDashboard/PrivateMaps";
-import PrivateDiscussions from "../UserDashboard/PrivateDiscussions";
-import PrivateLinks from "../UserDashboard/PrivateLinks";
+import React, { useEffect, useState } from 'react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { useRouter } from 'next/navigation';
+import { useDataStore } from '@/app/stores/dataStore';
+import ApprovedMaps from './ApprovedMaps';
+import ApprovedDicussions from './ApprovedDiscussion';
 
 const ApprovedProjects = () => {
+  const router = useRouter();
+  const [discussions, setDiscussions] = useState([]);
+  const [maps, setMaps] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { fetchAdminPosts } = useDataStore();
+
+  const fetchDiscussions = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await fetchAdminPosts();
+      console.log('All posts:', response.data.data);
+
+      const userDiscussions = response.data.data.filter(
+        (post) => post.category === 'discussion' && post.approved_by !== null
+      );
+      const userMaps = response.data.data.filter(
+        (post) => post.category === 'map' && post.approved_by !== null
+      );
+
+      setDiscussions(userDiscussions);
+      setMaps(userMaps);
+    } catch (error) {
+      console.error('Error fetching content:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDiscussions();
+  }, []);
   return (
     <TabGroup>
       <TabList className="flex md:gap-16 gap-10 pb-6">
@@ -17,10 +50,10 @@ const ApprovedProjects = () => {
       </TabList>
       <TabPanels className="mt-6">
         <TabPanel className="">
-          <PrivateMaps />
+          <ApprovedMaps maps={maps} />
         </TabPanel>
         <TabPanel className="">
-          <PrivateDiscussions />
+          <ApprovedDicussions discussions={discussions} />
         </TabPanel>
       </TabPanels>
     </TabGroup>

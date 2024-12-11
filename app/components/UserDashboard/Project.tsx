@@ -103,8 +103,8 @@ export default function Project() {
       await createPost(formData);
       setIsOpen(true);
     } catch (error) {
-      toast.error('Failed to create discussion');
-      console.error('Error creating discussion:', error);
+      toast.error('Failed to create project');
+      console.error('Error creating project:', error);
     } finally {
       setIsLoading(false);
       // setFormData({

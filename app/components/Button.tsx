@@ -4,7 +4,7 @@ import React from 'react';
 
 interface ButtonProps {
   icon?: React.ReactNode;
-  text: string;
+  text?: string;
   className?: string;
   onClick?: () => void;
 }

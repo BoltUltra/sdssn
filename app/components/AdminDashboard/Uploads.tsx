@@ -1,19 +1,20 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import Button from "../Button";
-import { RiUploadCloud2Fill } from "react-icons/ri";
-import TextEditor from "../Editor";
-import PublicProjectPanel from "../UserDashboard/PublicProjectPanel";
-import PrivateProjectPanel from "../UserDashboard/PrivateProjectPanel";
-import DraftProjectPanel from "../UserDashboard/DraftProjectPanel";
+import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import Button from '../Button';
+import { RiUploadCloud2Fill } from 'react-icons/ri';
+import TextEditor from '../Editor';
+import PublicProjectPanel from '../UserDashboard/PublicProjectPanel';
+import PrivateProjectPanel from '../UserDashboard/PrivateProjectPanel';
+import DraftProjectPanel from '../UserDashboard/DraftProjectPanel';
+import ProjectUpload from './ProjectUpload';
 
 const categories = [
-  { name: "Resources", value: "resources" },
-  { name: "Certification", value: "certification" },
-  { name: "Events and News", value: "events-and-news" },
+  { name: 'Resources', value: 'resources' },
+  { name: 'Certification', value: 'certification' },
+  { name: 'Events and News', value: 'events-and-news' },
 ];
 
 export default function Uploads() {
@@ -21,7 +22,7 @@ export default function Uploads() {
   const searchParams = useSearchParams();
 
   // Get initial tab from query params
-  const currentTab = searchParams.get("tab") || "resources";
+  const currentTab = searchParams.get('tab') || 'resources';
 
   // Map current tab to the tab index
   const currentTabIndex = categories.findIndex(
@@ -37,12 +38,12 @@ export default function Uploads() {
 
   const [formData, setFormData] = useState({
     file: null,
-    category: "",
-    title: "",
-    description: "",
-    editorContent: "",
-    tags: "",
-    status: "",
+    category: '',
+    title: '',
+    description: '',
+    editorContent: '',
+    tags: '',
+    status: '',
   });
 
   const handleInputChange = (e) => {
@@ -88,7 +89,7 @@ export default function Uploads() {
           </TabList>
           <TabPanels className="mt-6">
             <TabPanel>
-              <PublicProjectPanel />
+              <ProjectUpload />
             </TabPanel>
             <TabPanel>
               <PrivateProjectPanel />

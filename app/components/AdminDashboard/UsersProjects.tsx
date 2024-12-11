@@ -1,7 +1,7 @@
-import React from "react";
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import ApprovedProjects from "./ApprovedProjects";
-import AwaitingApproval from "./AwaitingApproval";
+import React from 'react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import ApprovedProjects from './ApprovedProjects';
+import AwaitingApproval from './AwaitingApproval';
 
 const UsersProjects = () => {
   return (
