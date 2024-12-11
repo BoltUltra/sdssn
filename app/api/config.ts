@@ -1,6 +1,6 @@
 // const API_BASE_URL = 'https://dummyjson.com';
 // const API_BASE_URL = "http://54.247.199.29:8090";
-const API_BASE_URL = 'https://sdssn-app.onrender.com/api';
+const API_BASE_URL = 'https://sdssn-app-ypwa.onrender.com/api';
 
 export const API_URLS = {
   login: `${API_BASE_URL}/login`,
@@ -25,4 +25,14 @@ export const API_URLS = {
   addComment: (id: string) => `${API_BASE_URL}/projects/${id}/comments`,
   likePost: (id: string) => `${API_BASE_URL}/projects/${id}/likes`,
   sharePost: (id: string) => `${API_BASE_URL}/projects/${id}/shares`,
+
+  // Admin
+
+  fetchUsers: `${API_BASE_URL}/admin/users`,
+  fetchResources: `${API_BASE_URL}/admin`,
+  fetchAdminProjects: `${API_BASE_URL}/admin/projects/all/`,
+  approveProject: (id: string) =>
+    `${API_BASE_URL}/admin/projects/${id}/approve`,
+  createPodcast: `${API_BASE_URL}/podcasts`,
+  fetchPodcasts: `${API_BASE_URL}/podcasts`,
 };

@@ -1,13 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
 import Links from '../UserDashboard/Links';
 import AllMaps from './AllMaps';
 import AllDiscussions from './AllDiscussions';
 import AllPodcasts from './AllPodcasts';
+import ApprovedMaps from './ApprovedMaps';
+import ApprovedDicussions from './ApprovedDiscussion';
+import { useDataStore } from '@/app/stores/dataStore';
 
 const AllProjects = () => {
   const router = useRouter();
+  const [discussions, setDiscussions] = useState([]);
+  const [maps, setMaps] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { fetchAllPosts } = useDataStore();
+
+  const fetchDiscussions = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await fetchAllPosts();
+      console.log('All posts:', response.data);
+
+      const userDiscussions = response.data.filter(
+        (post) => post.category === 'discussion' && post.approved_by !== null
+      );
+      const userMaps = response.data.filter(
+        (post) => post.category === 'map' && post.approved_by !== null
+      );
+
+      setDiscussions(userDiscussions);
+      setMaps(userMaps);
+    } catch (error) {
+      console.error('Error fetching content:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDiscussions();
+  }, []);
 
   return (
     <TabGroup>
@@ -24,10 +58,10 @@ const AllProjects = () => {
       </TabList>
       <TabPanels className="mt-6">
         <TabPanel className="">
-          <AllMaps />
+          <ApprovedMaps maps={maps} />
         </TabPanel>
         <TabPanel className="">
-          <AllDiscussions />
+          <ApprovedDicussions discussions={discussions} />
         </TabPanel>
         <TabPanel className="">
           <AllPodcasts />

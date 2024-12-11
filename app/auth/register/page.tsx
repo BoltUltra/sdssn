@@ -20,6 +20,7 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [state, setState] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const { fetchSecurityQuestions } = useDataStore();
@@ -62,6 +63,7 @@ const Register = () => {
       password_confirmation: confirmPassword,
       security_question: selectedSecurityQuestion,
       answer: securityAnswer,
+      state,
     };
     setIsLoading(true);
     try {
@@ -102,7 +104,8 @@ const Register = () => {
         password.trim() !== '' &&
         confirmPassword.trim() !== '' &&
         selectedSecurityQuestion.trim() !== '' &&
-        securityAnswer.trim() !== ''
+        securityAnswer.trim() !== '' &&
+        state.trim() !== ''
     );
   }, [
     firstName,
@@ -113,6 +116,7 @@ const Register = () => {
     confirmPassword,
     selectedSecurityQuestion,
     securityAnswer,
+    state,
   ]);
 
   useEffect(() => {
@@ -193,6 +197,20 @@ const Register = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"
+                  required
+                  className="form-input"
+                />
+              </div>
+
+              <div className="flex flex-col space-y-2">
+                <label htmlFor="state" className="form-label">
+                  State
+                </label>
+                <input
+                  type="state"
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  placeholder="State"
                   required
                   className="form-input"
                 />

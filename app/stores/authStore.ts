@@ -16,10 +16,13 @@ interface AuthState {
     credentials: { email: string; password: string },
     router
   ) => Promise<void>;
-  adminLogin: (credentials: {
-    username: string;
-    password: string;
-  }) => Promise<void>;
+  adminLogin: (
+    credentials: {
+      email: string;
+      password: string;
+    },
+    router
+  ) => Promise<void>;
   resetPassword: (payload: ChangePasswordData) => Promise<void>;
   register: (userData: RegistrationData, login) => Promise<void>;
   logout: () => void;
@@ -77,15 +80,18 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
   },
 
-  adminLogin: async (credentials) => {
+  adminLogin: async (credentials, router) => {
     try {
-      const response = await axios.post(API_URLS.adminLogin, credentials);
+      const response = await axios.post(API_URLS.login, credentials);
       const adminData = response.data;
 
       set({ isAuthenticated: true, auth: adminData, isLoading: false });
       localStorage.setItem('admin', JSON.stringify(adminData));
       localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('token', JSON.stringify(adminData.token));
+      localStorage.setItem('isAuthenticated', 'true');
       toast.success('Login successful');
+      router.push('/admin/dashboard/projects');
     } catch (error: any) {
       console.error('Admin login error:', error);
       const errorMessage =

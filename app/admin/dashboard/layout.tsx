@@ -1,10 +1,9 @@
-"use client";
-import { useAuthStore } from "@/app/stores/authStore";
-import { useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { Header, Loading } from "../../components";
-
-import { useState } from "react";
+'use client';
+import { useAuthStore } from '@/app/stores/authStore';
+import { useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Header, Loading } from '../../components';
+import { useState } from 'react';
 import {
   Dialog,
   DialogBackdrop,
@@ -12,65 +11,70 @@ import {
   Menu,
   MenuButton,
   TransitionChild,
-} from "@headlessui/react";
-
+} from '@headlessui/react';
 import {
   ArrowDown3,
   CloseCircle,
   HambergerMenu,
   Logout,
   Verify,
-} from "iconsax-react";
-import Image from "next/image";
-import Link from "next/link";
-import { Toaster } from "react-hot-toast";
-import { IoCloudUploadSharp } from "react-icons/io5";
-import { TiMessages } from "react-icons/ti";
-import { RiRefreshLine } from "react-icons/ri";
-import { MdSettingsSuggest, MdTouchApp } from "react-icons/md";
-import { CiLogout } from "react-icons/ci";
-import { GrProjects } from "react-icons/gr";
+} from 'iconsax-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Toaster } from 'react-hot-toast';
+import { IoCloudUploadSharp } from 'react-icons/io5';
+import { TiMessages } from 'react-icons/ti';
+import { MdSettingsSuggest, MdTouchApp } from 'react-icons/md';
+import { CiLogout } from 'react-icons/ci';
+import { GrProjects } from 'react-icons/gr';
+import { PiUsers } from 'react-icons/pi';
+import { TfiStatsUp } from 'react-icons/tfi';
 
 const navigation = [
   {
-    name: "Uploads",
-    href: "/admin/dashboard/uploads",
+    name: 'Uploads',
+    href: '/admin/dashboard/uploads',
     icon: IoCloudUploadSharp,
   },
   {
-    name: "Projects",
-    href: "/admin/dashboard/projects",
+    name: 'Projects',
+    href: '/admin/dashboard/projects',
     icon: GrProjects,
   },
+  // {
+  //   name: 'Messages',
+  //   href: '/admin/dashboard/messages',
+  //   icon: TiMessages,
+  // },
   {
-    name: "Messages",
-    href: "/admin/dashboard/messages",
-    icon: TiMessages,
+    name: 'Users',
+    href: '/admin/dashboard/users',
+    icon: PiUsers,
   },
   {
-    name: "Updates",
-    href: "/admin/dashboard/updates",
-    icon: RiRefreshLine,
+    name: 'Stats',
+    href: '/admin/dashboard/stats',
+    icon: TfiStatsUp,
   },
+  // {
+  //   name: 'Interactions',
+  //   href: '/admin/dashboard/interactions',
+  //   icon: MdTouchApp,
+  // },
   {
-    name: "Interactions",
-    href: "/admin/dashboard/interactions",
-    icon: MdTouchApp,
-  },
-  {
-    name: "Settings",
-    href: "/admin/dashboard/settings",
+    name: 'Settings',
+    href: '/admin/dashboard/settings',
     icon: MdSettingsSuggest,
   },
 ];
 
 const userNavigation = [
-  { name: "Your profile", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: 'Your profile', href: '#' },
+  { name: 'Sign out', href: '#' },
 ];
 
 function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function AdminDashboardLayout({
@@ -78,35 +82,40 @@ export default function AdminDashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isAuthenticated, isLoading, loadUserFromLocalStorage, logout } =
-    useAuthStore();
+  const {
+    isAuthenticated,
+    isLoading,
+    loadUserFromLocalStorage,
+    logout,
+    loadAdminFromLocalStorage,
+  } = useAuthStore();
   const router = useRouter();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const user = useAuthStore().user;
   const isActive = (href: any) => pathname === href;
 
-  // useEffect(() => {
-  //   loadUserFromLocalStorage();
-  // }, [loadUserFromLocalStorage]);
+  useEffect(() => {
+    loadAdminFromLocalStorage();
+  }, [loadAdminFromLocalStorage]);
 
-  // useEffect(() => {
-  //   if (!isLoading && !isAuthenticated) {
-  //     router.push("/auth/login");
-  //   }
-  // }, [isAuthenticated, isLoading, router]);
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push('/admin/login');
+    }
+  }, [isAuthenticated, isLoading, router]);
 
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
+  if (isLoading) {
+    return <Loading />;
+  }
 
-  // if (!isAuthenticated) {
-  //   return null;
-  // }
+  if (!isAuthenticated) {
+    return null;
+  }
 
   const handleLogout = () => {
     logout();
-    router.push("/auth/login");
+    router.push('/auth/login');
   };
 
   return (
@@ -164,24 +173,24 @@ export default function AdminDashboardLayout({
                 <nav className="flex flex-1 flex-col">
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
                     <li>
-                      <ul role="list" className="-mx-2 space-y-5">
+                      <ul role="list" className="-mx-2 space-y-3">
                         {navigation.map((item, index) => (
                           <li key={index}>
                             <Link
                               href={item.href}
                               className={classNames(
                                 isActive(item.href)
-                                  ? "bg-gray-50 text-primary"
-                                  : "text-white hover:bg-gray-50 hover:text-primary",
-                                "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
+                                  ? 'bg-gray-50 text-primary'
+                                  : 'text-white hover:bg-gray-50 hover:text-primary',
+                                'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6'
                               )}
                             >
                               <item.icon
                                 className={classNames(
                                   isActive(item.href)
-                                    ? "text-primary"
-                                    : "text-gray-400 group-hover:text-primary",
-                                  "h-6 w-6 shrink-0"
+                                    ? 'text-primary'
+                                    : 'text-gray-400 group-hover:text-primary',
+                                  'h-6 w-6 shrink-0'
                                 )}
                               />
                               {item.name}
@@ -221,7 +230,7 @@ export default function AdminDashboardLayout({
                 unoptimized
               />
               <h3 className="text-white text-center mt-3 font-semibold">
-                {"Admin"}
+                {'Admin'}
               </h3>
               {/* <p className="flex items-center text-white text-sm justify-center space-x-2">
                 <span>Admin</span>
@@ -231,24 +240,24 @@ export default function AdminDashboardLayout({
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
-                  <ul role="list" className="-mx-2 space-y-5">
+                  <ul role="list" className="-mx-2 space-y-3">
                     {navigation.map((item, index) => (
                       <li key={index}>
                         <Link
                           href={item.href}
                           className={classNames(
                             isActive(item.href)
-                              ? "bg-gray-50 text-primary"
-                              : "text-white hover:bg-gray-50 hover:text-primary",
-                            "group flex gap-x-3 rounded-md p-4 text-sm font-semibold leading-6"
+                              ? 'bg-gray-50 text-primary'
+                              : 'text-white hover:bg-gray-50 hover:text-primary',
+                            'group flex gap-x-3 rounded-md p-4 text-sm font-semibold leading-6'
                           )}
                         >
                           <item.icon
                             className={classNames(
                               isActive(item.href)
-                                ? "text-primary"
-                                : "text-gray-400 group-hover:text-primary",
-                              "h-6 w-6 shrink-0"
+                                ? 'text-primary'
+                                : 'text-gray-400 group-hover:text-primary',
+                              'h-6 w-6 shrink-0'
                             )}
                           />
                           {item.name}
@@ -276,7 +285,7 @@ export default function AdminDashboardLayout({
         </div>
 
         <div className="lg:pl-72">
-          <div className="sticky top-0 z-40 lg:mx-auto lg:max-w-7xl lg:px-8">
+          <div className="sticky top-0 z-40 lg:mx-auto lg:max-w-7xl lg:px-8 bg-white">
             <div className="flex h-16 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-0 lg:shadow-none">
               <button
                 type="button"

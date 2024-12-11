@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
-import Maps from './Maps';
-import Discussions from './Discussions';
-import Links from './Links';
 import { useDataStore } from '@/app/stores/dataStore';
+import Maps from '../UserDashboard/Maps';
+import Discussions from '../UserDashboard/Discussions';
+import UploadMaps from './UploadMaps';
+import UploadDiscussions from './UploadDiscussions';
+import UploadPodcasts from './UploadPodcasts';
 
-const PublicProjectPanel = () => {
+const ProjectUpload = () => {
   const router = useRouter();
   const [discussions, setDiscussions] = useState([]);
   const [maps, setMaps] = useState([]);
@@ -61,23 +63,23 @@ const PublicProjectPanel = () => {
         <Tab className="pb-1 font-semibold text-primary border-b-2 border-b-transparent focus:outline-none data-[selected]:border-b-primary data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">
           Discussion
         </Tab>
-        {/* <Tab className="pb-1 font-semibold text-primary border-b-2 border-b-transparent focus:outline-none data-[selected]:border-b-primary data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">
-          Links
-        </Tab> */}
+        <Tab className="pb-1 font-semibold text-primary border-b-2 border-b-transparent focus:outline-none data-[selected]:border-b-primary data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">
+          Podcasts
+        </Tab>
       </TabList>
       <TabPanels className="mt-6">
         <TabPanel className="">
-          <Maps maps={maps} isLoading={isLoading} />
+          <UploadMaps />
         </TabPanel>
         <TabPanel className="">
-          <Discussions discussions={discussions} isLoading={isLoading} />{' '}
+          <UploadDiscussions />
         </TabPanel>
-        {/* <TabPanel className="">
-          <Maps />
-        </TabPanel> */}
+        <TabPanel className="">
+          <UploadPodcasts />
+        </TabPanel>
       </TabPanels>
     </TabGroup>
   );
 };
 
-export default PublicProjectPanel;
+export default ProjectUpload;
