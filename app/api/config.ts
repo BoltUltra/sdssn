@@ -1,6 +1,5 @@
-// const API_BASE_URL = 'https://dummyjson.com';
-// const API_BASE_URL = "http://54.247.199.29:8090";
-const API_BASE_URL = 'https://sdssn-app-ypwa.onrender.com/api';
+// const API_BASE_URL = 'https://sdssn-app-ypwa.onrender.com/api';
+const API_BASE_URL = 'https://app.sdssn.org/api';
 
 export const API_URLS = {
   login: `${API_BASE_URL}/login`,
@@ -10,7 +9,7 @@ export const API_URLS = {
   changePassword: `${API_BASE_URL}/userProfile/passwordReset`,
   fetchData: `${API_BASE_URL}/data`,
   fetchUserProfile: `${API_BASE_URL}/profile`,
-  uploadProfileImage: `${API_BASE_URL}/userProfile/imageUpload`,
+  uploadProfileImage: `${API_BASE_URL}/profile/picture`,
   fetchUserImage: `${API_BASE_URL}/userProfile/viewProfileImage`,
   editProfile: `${API_BASE_URL}/profile`,
   fetchSocials: `${API_BASE_URL}/profile/socials`,
@@ -25,9 +24,10 @@ export const API_URLS = {
   addComment: (id: string) => `${API_BASE_URL}/projects/${id}/comments`,
   likePost: (id: string) => `${API_BASE_URL}/projects/${id}/likes`,
   sharePost: (id: string) => `${API_BASE_URL}/projects/${id}/shares`,
+  fetchAllUsers: `${API_BASE_URL}/users`,
+  fetchUser: (username: string) => `${API_BASE_URL}/profile/${username}`,
 
   // Admin
-
   fetchUsers: `${API_BASE_URL}/admin/users`,
   fetchResources: `${API_BASE_URL}/admin`,
   fetchAdminProjects: `${API_BASE_URL}/admin/projects/all/`,
@@ -35,4 +35,6 @@ export const API_URLS = {
     `${API_BASE_URL}/admin/projects/${id}/approve`,
   createPodcast: `${API_BASE_URL}/podcasts`,
   fetchPodcasts: `${API_BASE_URL}/podcasts`,
+  assignAdmin: (email: string, role: string) =>
+    `${API_BASE_URL}/assign-role?email=${email}&role=${role}`,
 };

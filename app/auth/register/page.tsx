@@ -20,7 +20,7 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [state, setState] = useState('');
+  const [state, setState] = useState('State');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const { fetchSecurityQuestions } = useDataStore();
@@ -104,8 +104,9 @@ const Register = () => {
         password.trim() !== '' &&
         confirmPassword.trim() !== '' &&
         selectedSecurityQuestion.trim() !== '' &&
-        securityAnswer.trim() !== '' &&
-        state.trim() !== ''
+        securityAnswer.trim() !== ''
+      // &&
+      // state.trim() !== ''
     );
   }, [
     firstName,
@@ -116,7 +117,7 @@ const Register = () => {
     confirmPassword,
     selectedSecurityQuestion,
     securityAnswer,
-    state,
+    // state,
   ]);
 
   useEffect(() => {
@@ -202,7 +203,7 @@ const Register = () => {
                 />
               </div>
 
-              <div className="flex flex-col space-y-2">
+              <div className="hidden flex-col space-y-2">
                 <label htmlFor="state" className="form-label">
                   State
                 </label>

@@ -144,7 +144,11 @@ export default function ArticleDetails() {
                 {article?.title}
               </h1>
               <div className="space-y-3 mt-3">
-                <p>{`By ${article?.user?.first_name} ${article?.user?.last_name}`}</p>
+                <p className="hover:underline underline-offset-4">
+                  <Link
+                    href={`/user/${article?.user?.name}`}
+                  >{`By ${article?.user?.first_name} ${article?.user?.last_name}`}</Link>
+                </p>{' '}
                 <p className="text-sm text-gray-500">
                   {formatDate(article?.created_at)}
                 </p>

@@ -24,6 +24,7 @@ interface DataState {
   addComment: (id: string, payload: any) => Promise<void>;
   likePost: (id: string) => Promise<void>;
   sharePost: (id: string) => Promise<void>;
+  fetchUser: (username: string) => Promise<any>;
 
   // Admin
   fetchAllUsers: () => Promise<void>;
@@ -32,6 +33,7 @@ interface DataState {
   approveProject: (id: string) => Promise<void>;
   createPodcast: (postData: any) => Promise<void>;
   fetchPodcasts: () => Promise<void>;
+  assignRole: (email: string, role: string) => Promise<void>;
 }
 
 const formatToken = (token: string | null): string => {
@@ -204,38 +206,40 @@ export const useDataStore = create<DataState>((set) => ({
    * upload User image
    */
 
-  updateUserImage: async (payload: { file: File }) => {
+  /**
+   * Upload Profile Image
+   */
+  updateUserImage: async (file: File) => {
     set({ loading: true });
     try {
       const token = formatToken(localStorage.getItem('token'));
       if (!token) {
-        toast.error('No token found. Please log in again.');
-        throw new Error('No token found');
+        throw new Error('No token found. Please log in again.');
       }
 
-      // Create FormData and append file
       const formData = new FormData();
-      formData.append('file', payload.file);
-
-      // console.log("Uploading file:", payload.file);
-      // console.log("FormData entries:", [...formData.entries()]);
+      formData.append('picture', file);
 
       const response = await axios.post(API_URLS.uploadProfileImage, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
       });
 
+      const imageUrl = response.data.imageUrl;
+      localStorage.setItem('profileImage', imageUrl);
       set({ loading: false });
-      // console.log("Upload response:", response);
       toast.success('Profile image uploaded successfully');
+      console.log('Uploaded Profile Image:', response);
+      return imageUrl;
     } catch (error: any) {
-      console.error('Upload error details:', error.response || error);
       set({
-        error: error.response?.data || error.message,
+        error: error.response?.data?.message || error.message,
         loading: false,
       });
       toast.error('Error uploading profile image');
+      console.error('Error uploading profile image:', error);
     }
   },
 
@@ -577,7 +581,9 @@ export const useDataStore = create<DataState>((set) => ({
       });
 
       console.log('Response from comment:', response);
+      set({ data: response.data, loading: false, error: null });
       toast.success('Project Approved');
+      return response.data;
     } catch (error: any) {
       set({
         error: error.response?.data?.message || error.message,
@@ -632,6 +638,62 @@ export const useDataStore = create<DataState>((set) => ({
         loading: false,
       });
       console.error('Error fetching projects:', error);
+    }
+  },
+
+  /**
+   * Assign Role
+   */
+  assignRole: async (email: string, role: string) => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+
+      const response = await axios.get(
+        API_URLS.assignAdmin(email, role),
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log('Response from assign role:', response);
+      toast.success(response.data.message || 'Role assigned successfully');
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      toast.error('Error assigning role');
+      console.error(error);
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  /**
+   * Fetch User Profile
+   */
+
+  fetchUser: async (username: string) => {
+    set({ loading: true });
+    try {
+      const response = await axios.get(API_URLS.fetchUser(username));
+      set({ loading: false, error: null });
+      return response.data; // Return the fetched comment
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      console.error('Error fetching user profile:', error);
+      throw error;
     }
   },
 }));
