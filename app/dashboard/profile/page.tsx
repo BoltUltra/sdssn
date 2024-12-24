@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import UserProfile from "@/app/components/UserDashboard/UserProfile";
-import { useAuthStore } from "@/app/stores/authStore";
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import UserProfile from '@/app/components/UserDashboard/UserProfile';
+import { useAuthStore } from '@/app/stores/authStore';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const categories = [
-  { name: "Profile", value: "profile" },
-  { name: "Certification", value: "certification" },
+  { name: 'Profile', value: 'profile' },
+  { name: 'Certification', value: 'certification' },
 ];
 
 export default function Profile() {
@@ -16,7 +16,7 @@ export default function Profile() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const currentTab = searchParams.get("tab") || "profile";
+  const currentTab = searchParams.get('tab') || 'profile';
 
   const currentTabIndex = categories.findIndex(
     (cat) => cat.value === currentTab
@@ -46,7 +46,7 @@ export default function Profile() {
               <TabPanel>
                 <UserProfile />
               </TabPanel>
-              <TabPanel>Boss</TabPanel>
+              <TabPanel>No certifications yet!</TabPanel>
             </TabPanels>
           </TabGroup>
         </div>

@@ -69,14 +69,12 @@ export default function UpdateProject() {
     console.log(formData);
     setIsLoading(true);
     try {
-      // Transform formData back to API expected format
-
       await updatePost(id, formData);
-      setIsOpen(true);
     } catch (error) {
       toast.error('Failed to update profile');
       console.error('Error updating profile:', error);
     } finally {
+      setIsOpen(true);
       setIsLoading(false);
     }
   };
@@ -129,7 +127,7 @@ export default function UpdateProject() {
                         <p className="md:text-xl text-base font-semibold">
                           Upload Photo
                         </p>
-                        <p>Higher resolution recommended. (Max 5MB)</p>
+                        <p>Higher resolution recommended. (Max 2MB)</p>
                       </div>
                     </label>
                     <input

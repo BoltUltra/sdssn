@@ -15,6 +15,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { IoReturnDownBack } from 'react-icons/io5';
 import { GiPadlock } from 'react-icons/gi';
 import ShareModal from '@/app/components/ShareModal';
+import axios from 'axios';
+import { API_URLS } from '@/app/api/config';
 
 export default function ArticleDetails() {
   const router = useRouter();
@@ -86,14 +88,40 @@ export default function ArticleDetails() {
     }
   };
 
-  const likeArticle = async () => {
+  // const likeArticle = async () => {
+  //   try {
+  //     await likePost(id);
+  //     fetchArticleDetails(id);
+  //   } catch (error) {
+  //     console.error('Error liking post:', error);
+  //   }
+  // };
+
+  const formatToken = (token: string | null): string => {
+    if (!token) return '';
+    return token.replace(/^["']|["']$/g, '');
+  };
+
+  const likeArticle = async (id: string) => {
     try {
-      await likePost(id);
-      fetchArticleDetails(id);
-    } catch (error) {
-      console.error('Error liking post:', error);
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.put(API_URLS.likePost(id), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Response from comment:', response);
+      toast.success('Post liked');
+    } catch (error: any) {
+      toast.error('Error adding comment');
+      console.error('Error Adding comment', error);
     }
   };
+
   const shareArticle = async () => {
     try {
       await sharePost(id);
@@ -144,7 +172,11 @@ export default function ArticleDetails() {
                 {article?.title}
               </h1>
               <div className="space-y-3 mt-3">
-                <p>{`By ${article?.user?.first_name} ${article?.user?.last_name}`}</p>
+                <p className="hover:underline underline-offset-4">
+                  <Link
+                    href={`/user/${article?.user?.name}`}
+                  >{`By ${article?.user?.first_name} ${article?.user?.last_name}`}</Link>
+                </p>
                 <p className="text-sm text-gray-500">
                   {formatDate(article?.created_at)}
                 </p>

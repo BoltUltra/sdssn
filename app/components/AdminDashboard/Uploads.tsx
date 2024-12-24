@@ -110,7 +110,7 @@ export default function Uploads() {
                         <p className="md:text-xl text-base font-semibold">
                           Upload Photo
                         </p>
-                        <p>Higher resolution recommended. (Max 5MB)</p>
+                        <p>Higher resolution recommended. (Max 2MB)</p>
                       </div>
                     </label>
                     <input

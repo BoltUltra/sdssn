@@ -48,17 +48,46 @@ const AwaitingApprovalDiscussion = ({ discussions }) => {
     router.push('/dashboard/projects?tab=upload');
   };
 
-  const handleApprove = async (id, e) => {
+  // const handleApprove = async (id, e) => {
+  //   e.stopPropagation();
+  //   // setIsLoading(true);
+  //   alert('Approving project');
+  //   try {
+  //     await approveProject(id);
+  //   } catch (error) {
+  //     console.error('Error liking post:', error);
+  //   } finally {
+  //     // setIsLoading(false);
+  //   }
+  // };
+
+  const handleApprove = (id, e) => {
     e.stopPropagation();
-    // setIsLoading(true);
-    alert('Approving project');
-    try {
-      await approveProject(id);
-    } catch (error) {
-      console.error('Error liking post:', error);
-    } finally {
-      // setIsLoading(false);
-    }
+    // Add your approve logic here
+    // try {
+    //     const token = formatToken(localStorage.getItem('token'));
+    //     if (!token) {
+    //       throw new Error('No token found. Please log in again.');
+    //     }
+    //     const response = await axios.put(API_URLS.approveProject(id), {
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //         'Content-Type': 'application/json',
+    //       },
+    //     });
+
+    //     console.log('Response from comment:', response);
+    //     toast.success('Project Approved');
+    //   } catch (error: any) {
+    //     set({
+    //       error: error.response?.data?.message || error.message,
+    //       loading: false,
+    //     });
+    //     toast.error('Error approving project');
+    //     console.error(error);
+    //   } finally {
+    //     set({ loading: false });
+    //   }
   };
 
   const handleDelete = (id, e) => {

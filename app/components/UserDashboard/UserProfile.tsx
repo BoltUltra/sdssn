@@ -6,19 +6,20 @@ import Button from '../Button';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useDataStore } from '@/app/stores/dataStore';
+import Loading from '../Loading';
 
 const UserProfile = () => {
   const router = useRouter();
-  const fileInputRef = useRef(null);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const { updateUserImage } = useDataStore();
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [userSocials, setUserSocials] = useState({});
-  const { fetchUserProfile, fetchUserSocials } = useDataStore();
+  const { fetchUserProfile, fetchUserSocials, updateUserImage } =
+    useDataStore();
 
   const getUserProfile = async () => {
+    setLoading(true);
     try {
       const response = await fetchUserProfile();
       console.log(response);
@@ -26,9 +27,13 @@ const UserProfile = () => {
     } catch (error: any) {
       console.error('Error fetching user profile:', error);
       toast.error(error.message || 'Failed to fetch user profile');
+    } finally {
+      setLoading(false);
     }
   };
+
   const getUserSocials = async () => {
+    setLoading(true);
     try {
       const response = await fetchUserSocials();
       console.log(response);
@@ -36,75 +41,41 @@ const UserProfile = () => {
     } catch (error: any) {
       console.error('Error fetching user socials:', error);
       toast.error(error.message || 'Failed to fetch user profile');
+    } finally {
+      setLoading(false);
     }
   };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+      setPreviewImage(URL.createObjectURL(file));
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!selectedImage) {
+      toast.error('Please select an image to upload');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const imageUrl = await updateUserImage(selectedImage);
+      console.log('Image URL:', imageUrl);
+    } catch (error) {
+      console.error('Upload failed:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getUserProfile();
     getUserSocials();
   }, []);
 
-  const handleImageClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleUpload = async (file: File) => {
-    try {
-      setIsUploading(true);
-
-      // console.log("Selected file:", file); // Debug log
-
-      if (!file) {
-        throw new Error('No file selected');
-      }
-
-      const result = await updateUserImage({
-        file,
-      });
-
-      if (result.success) {
-        const updatedUser = {
-          ...currentUser,
-          profileImage: result.data.imageUrl, // adjust based on your API response structure
-        };
-        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-
-        toast.success('Image uploaded successfully');
-      } else {
-        throw new Error(result.error || 'Failed to upload image');
-      }
-    } catch (error: any) {
-      console.error('Error uploading image:', error);
-      toast.error(error.message || 'Failed to upload image');
-      setPreviewUrl(null);
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      // Validate file type
-      if (!file.type.startsWith('image/')) {
-        toast.error('Please select an image file');
-        return;
-      }
-
-      // Validate file size (e.g., 5MB limit)
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error('File size should be less than 5MB');
-        return;
-      }
-
-      setSelectedImage(file);
-      // Create preview URL
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
-
-      // Upload image immediately when selected
-      handleUpload(file);
-    }
-  };
   const goToEditProfile = () => {
     router.push('/dashboard/profile/edit-profile');
   };
@@ -112,18 +83,13 @@ const UserProfile = () => {
     router.push('/dashboard/profile/edit-social-links');
   };
 
-  // Cleanup preview URL when component unmounts
-  useEffect(() => {
-    return () => {
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
-      }
-    };
-  }, [previewUrl]);
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="md:px-20">
-      <div
+      {/* <div
         className="relative h-20 w-20 rounded-full"
         onClick={handleImageClick}
       >
@@ -139,7 +105,76 @@ const UserProfile = () => {
             unoptimized
           />
         </div>
+      </div> */}
+
+      <div className="profile-image-uploader flex items-center">
+        <div className="flex items-center space-x-4">
+          <Image
+            src={
+              previewImage ||
+              `https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`
+            }
+            alt="user image"
+            className="w-20 h-20 rounded-full object-cover"
+            width={80}
+            height={80}
+            unoptimized
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            disabled={loading}
+          />
+        </div>
+        <div>
+          <button
+            onClick={handleUpload}
+            disabled={loading}
+            className="bg-primary text-white fon-light px-10 py-3 rounded-lg"
+          >
+            {loading ? 'Uploading...' : 'Upload Image'}
+          </button>
+        </div>
       </div>
+
+      {/* 
+      <div
+        className="relative h-20 w-20 rounded-full"
+        onClick={handleImageClick}
+      >
+        <div
+          className={`relative h-20 w-20 ${isUploading ? 'opacity-50' : ''}`}
+        >
+          <Image
+            src={
+              currentUser?.image
+                ? user1
+                : `https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`
+            }
+            alt="user image"
+            className="w-20 h-20 rounded-full object-cover"
+            width={80}
+            height={80}
+            unoptimized
+          />
+          {isUploading && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+            </div>
+          )}
+        </div>
+        <span className="absolute bottom-0 right-0 bg-white h-5 w-5 p-1 rounded-full flex items-center justify-center shadow-lg cursor-pointer">
+          <LuPencilLine />
+        </span>
+        <input
+          type="file"
+          ref={fileInputRef}
+          className="hidden"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+      </div> */}
 
       {/* Rest of the component remains the same */}
       <div className="mt-10">
@@ -181,14 +216,58 @@ const UserProfile = () => {
           </div>
           <div className="flex flex-col space-y-2">
             <p className="form-label">Gender</p>
-            <p id="gender" className="">
+            <p id="gender" className="capitalize">
               {currentUser?.gender !== null ? currentUser?.gender : 'Null'}
+            </p>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <p className="form-label">Profession</p>
+            <p id="gender" className="">
+              {currentUser?.profession !== null
+                ? currentUser?.profession
+                : 'Null'}
+            </p>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <p className="form-label">Organization</p>
+            <p id="gender" className="">
+              {currentUser?.organization !== null
+                ? currentUser?.organization
+                : 'Null'}
+            </p>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <p className="form-label">Organization Category</p>
+            <p id="gender" className="">
+              {currentUser?.organization_category !== null
+                ? currentUser?.organization_category
+                : 'Null'}
+            </p>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <p className="form-label">Organization Role</p>
+            <p id="gender" className="">
+              {currentUser?.organization_role !== null
+                ? currentUser?.organization_role
+                : 'Null'}
+            </p>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <p className="form-label">Country</p>
+            <p id="gender" className="">
+              {currentUser?.country !== null ? currentUser?.country : 'Null'}
             </p>
           </div>
           <div className="flex flex-col space-y-2">
             <p className="form-label">State</p>
             <p id="state" className="">
               {currentUser?.state !== null ? currentUser?.state : 'Null'}
+            </p>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <p className="form-label">City</p>
+            <p id="state" className="">
+              {currentUser?.city !== null ? currentUser?.city : 'Null'}
             </p>
           </div>
           <div className="flex flex-col space-y-2">

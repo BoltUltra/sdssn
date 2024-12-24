@@ -156,7 +156,7 @@ export default function Project() {
                           <p className="md:text-xl text-base font-semibold">
                             Upload Photo
                           </p>
-                          <p>Higher resolution recommended. (Max 5MB)</p>
+                          <p>Higher resolution recommended. (Max 2MB)</p>
                         </div>
                       </label>
                       <input
@@ -296,7 +296,7 @@ export default function Project() {
                   className="bg-primary border border-primary py-3 rounded-md text-white w-full md:mx-20 mx-5"
                   onClick={goToProjects}
                 >
-                  Go To Discussion
+                  Go To Project
                 </button>
               </div>
             </DialogPanel>
