@@ -70,11 +70,11 @@ export default function UpdateProject() {
     setIsLoading(true);
     try {
       await updatePost(id, formData);
+      setIsOpen(true);
     } catch (error) {
       toast.error('Failed to update profile');
       console.error('Error updating profile:', error);
     } finally {
-      setIsOpen(true);
       setIsLoading(false);
     }
   };
@@ -100,7 +100,6 @@ export default function UpdateProject() {
       setLoading(false);
     }
   };
-  console.log(article);
 
   useEffect(() => {
     fetchArticleDetails(id);

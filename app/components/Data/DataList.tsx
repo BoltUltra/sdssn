@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { formatDate } from '@/app/helpers';
 import { FaPlus } from 'react-icons/fa';
 import Link from 'next/link';
+import ProjectImage from '../ProjectImage';
 
 const DataList = ({ maps }) => {
   const [loading, setLoading] = useState(true);
@@ -56,14 +57,7 @@ const DataList = ({ maps }) => {
             {maps.map((map) => (
               <div key={map?.id} className="cursor-pointer md:pb-0 pb-20">
                 <div className="flex flex-col space-y-4">
-                  <Image
-                    src={map?.banner?.url}
-                    alt={map.title}
-                    height={300}
-                    width={140}
-                    quality={80}
-                    className="object-cover h-[300px] object-center w-full"
-                  />
+                  <ProjectImage src={map?.banner?.url} alt={map.title} />
                   <div className="w-full space-y-3">
                     <p className="font-light text-sm">
                       {formatDate(map?.created_at)}

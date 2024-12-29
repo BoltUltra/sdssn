@@ -2,12 +2,14 @@
 const API_BASE_URL = 'https://app.sdssn.org/api';
 
 export const API_URLS = {
+  // Auth
   login: `${API_BASE_URL}/login`,
   adminLogin: `${API_BASE_URL}/auth/login`,
   register: `${API_BASE_URL}/register`,
   reset: `${API_BASE_URL}/auth/register`,
   changePassword: `${API_BASE_URL}/userProfile/passwordReset`,
-  fetchData: `${API_BASE_URL}/data`,
+
+  // User
   fetchUserProfile: `${API_BASE_URL}/profile`,
   uploadProfileImage: `${API_BASE_URL}/profile/picture`,
   fetchUserImage: `${API_BASE_URL}/userProfile/viewProfileImage`,
@@ -15,6 +17,9 @@ export const API_URLS = {
   fetchSocials: `${API_BASE_URL}/profile/socials`,
   editProfileSocials: `${API_BASE_URL}/profile/socials`,
   fetchSecurityQuestions: `${API_BASE_URL}/security-questions`,
+
+  // Project
+  fetchData: `${API_BASE_URL}/data`,
   createProject: `${API_BASE_URL}/projects`,
   updateProject: (id: string) => `${API_BASE_URL}/projects/${id}/update`,
   fetchProjects: `${API_BASE_URL}/projects`,
@@ -24,10 +29,13 @@ export const API_URLS = {
   addComment: (id: string) => `${API_BASE_URL}/projects/${id}/comments`,
   likePost: (id: string) => `${API_BASE_URL}/projects/${id}/likes`,
   sharePost: (id: string) => `${API_BASE_URL}/projects/${id}/shares`,
-  fetchAllUsers: `${API_BASE_URL}/users`,
-  fetchUser: (username: string) => `${API_BASE_URL}/profile/${username}`,
+
+  // Podcast
+  likePodcast: (id: string) => `${API_BASE_URL}/podcasts/${id}/likes`,
+  sharePodcast: (id: string) => `${API_BASE_URL}/podcasts/${id}/shares`,
 
   // Admin
+  fetchAllUsers: `${API_BASE_URL}/users`,
   fetchUsers: `${API_BASE_URL}/admin/users`,
   fetchResources: `${API_BASE_URL}/admin`,
   fetchAdminProjects: `${API_BASE_URL}/admin/projects/all/`,
@@ -37,4 +45,7 @@ export const API_URLS = {
   fetchPodcasts: `${API_BASE_URL}/podcasts`,
   assignAdmin: (email: string, role: string) =>
     `${API_BASE_URL}/assign-role?email=${email}&role=${role}`,
+
+  // Others
+  fetchUser: (username: string) => `${API_BASE_URL}/profile/${username}`,
 };

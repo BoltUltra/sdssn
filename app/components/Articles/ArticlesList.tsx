@@ -4,6 +4,7 @@ import { formatDate } from '@/app/helpers';
 import { FaPlus } from 'react-icons/fa';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import ProjectImage from '../ProjectImage';
 
 const ArticlesList = ({ articles }) => {
   const router = useRouter();
@@ -68,14 +69,11 @@ const ArticlesList = ({ articles }) => {
                 }}
               >
                 <div className="flex flex-col space-y-4">
-                  <Image
+                  <ProjectImage
                     src={article?.banner?.url}
                     alt={article.title}
-                    height={300}
-                    width={140}
-                    quality={80}
-                    className="object-cover h-[300px] object-center w-full"
                   />
+
                   <div className="w-full space-y-3">
                     <p className="font-light text-sm">
                       {formatDate(article?.created_at)}

@@ -265,7 +265,7 @@ const EditUserProfile = () => {
     <>
       <Toaster />
       <div className="md:px-20">
-        <div className="relative h-20 w-20 rounded-full">
+        {/* <div className="relative h-20 w-20 rounded-full">
           <div className={`relative h-20 w-20`}>
             <Image
               src={`https://api.dicebear.com/9.x/identicon/svg?seed=${formData.firstName}`}
@@ -276,7 +276,7 @@ const EditUserProfile = () => {
               unoptimized
             />
           </div>
-        </div>
+        </div> */}
         <div className="mt-10">
           <p className="text-2xl font-semibold mt-4">Personal Information</p>
           <div className="md:grid grid-cols-2 gap-8 mt-5">

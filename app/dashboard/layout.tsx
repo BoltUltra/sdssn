@@ -169,7 +169,10 @@ export default function DashboardLayout({
               <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-primary px-6 pb-4">
                 <div className="pt-10">
                   <Image
-                    src={`https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`}
+                    src={
+                      currentUser?.picture?.asset?.url ||
+                      `https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`
+                    }
                     height={70}
                     width={70}
                     className="rounded-full border-4 border-white mx-auto"
@@ -248,7 +251,10 @@ export default function DashboardLayout({
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-primary px-6 pb-4">
             <div className="pt-10">
               <Image
-                src={`https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`}
+                src={
+                  currentUser?.picture?.asset?.url ||
+                  `https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`
+                }
                 height={100}
                 width={100}
                 className="rounded-full border-4 border-white mx-auto"
@@ -331,7 +337,11 @@ export default function DashboardLayout({
                 className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
               >
                 <span className="sr-only">Open sidebar</span>
-                <HambergerMenu aria-hidden="true" className="h-6 w-6" />
+                <HambergerMenu
+                  aria-hidden="true"
+                  className="h-6 w-6"
+                  color="#052440"
+                />
               </button>
 
               {/* Separator */}
@@ -347,7 +357,10 @@ export default function DashboardLayout({
                       <span className="sr-only">Open user menu</span>
                       <Image
                         alt="user img"
-                        src={`https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`}
+                        src={
+                          currentUser?.picture?.asset?.url ||
+                          `https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`
+                        }
                         height={36}
                         width={36}
                         className="h-9 w-9 rounded-full bg-gray-50 border-2 border-primary"

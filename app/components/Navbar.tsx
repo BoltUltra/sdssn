@@ -93,7 +93,10 @@ const Navbar = () => {
               {isAuth ? (
                 <div className="relative">
                   <Image
-                    src={`https://api.dicebear.com/9.x/identicon/svg?seed=${user?.name}`}
+                    src={
+                      user?.picture?.asset?.url ||
+                      `https://api.dicebear.com/9.x/identicon/svg?seed=${user?.first_name}`
+                    }
                     height={70}
                     width={70}
                     className="rounded-full border-4 border-white mx-auto cursor-pointer"
@@ -136,7 +139,10 @@ const Navbar = () => {
               {isAuth ? (
                 <div className="relative flex items-center space-x-2">
                   <Image
-                    src={`https://api.dicebear.com/9.x/identicon/svg?seed=${user?.name}`}
+                    src={
+                      user?.picture?.asset?.url ||
+                      `https://api.dicebear.com/9.x/identicon/svg?seed=${user?.first_name}`
+                    }
                     height={40}
                     width={40}
                     className="rounded-full border-4 border-white mx-auto cursor-pointer"

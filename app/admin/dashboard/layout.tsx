@@ -32,8 +32,8 @@ import { TfiStatsUp } from 'react-icons/tfi';
 
 const navigation = [
   {
-    name: 'Uploads',
-    href: '/admin/dashboard/uploads',
+    name: 'Upload',
+    href: '/admin/dashboard/upload',
     icon: IoCloudUploadSharp,
   },
   {

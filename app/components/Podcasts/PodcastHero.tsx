@@ -2,10 +2,10 @@ import { podcastHero } from '@/public/images';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import Heading3 from '../Heading3';
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
 import toast from 'react-hot-toast';
 import { useDataStore } from '@/app/stores/dataStore';
+import YouTubeAudioPlayer from '../AudioPlayer';
+import Loading from '../Loading';
 
 const PodcastHero = () => {
   const [podcasts, setPodcasts] = useState([]);
@@ -33,8 +33,13 @@ const PodcastHero = () => {
   useEffect(() => {
     fetchAllPodcasts();
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
-    <div className="grid md:grid-cols-2 mb-10">
+    <div className="grid md:grid-cols-2 mb-10 md:items-end">
       <div>
         <p className="text-xl">Most Recent</p>
         <Heading3
@@ -45,12 +50,7 @@ const PodcastHero = () => {
           By {podcasts.length > 0 && podcasts[0]?.user?.first_name}
         </p>
         <div className="mt-5">
-          <AudioPlayer
-            autoPlay={false}
-            autoPlayAfterSrcChange={false}
-            src="/podcasts/podcast1.mp3"
-            onPlay={(e) => toast.success('Media Playing')}
-          />
+          <YouTubeAudioPlayer url={podcasts[0]?.audio_url} />
         </div>
       </div>
       <div>

@@ -1,7 +1,8 @@
 import { formatDate } from '@/app/helpers';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
+import HeroImage from '../HeroImage';
 
 const DataHero = ({ maps }) => {
   const router = useRouter();
@@ -16,14 +17,7 @@ const DataHero = ({ maps }) => {
       </p>
       <div className="grid lg:grid-cols-2 lg:gap-32 gap-10 items-end">
         <div className="lg:order-first order-last">
-          <Image
-            // src={maps[2]?.banner?.url.replace(/\\/g, '') || podcastHero}
-            src={maps[0]?.banner?.url}
-            width={427.18}
-            height={482.02}
-            alt="Article Banner"
-            className="lg:h-[482.02px] w-full float-end items-center object-cover"
-          />
+          <HeroImage src={maps[0]?.banner?.url} alt={maps[0]?.title} />
         </div>
         <div>
           {maps[0]?.created_at ? (

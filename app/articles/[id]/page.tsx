@@ -17,6 +17,7 @@ import { GiPadlock } from 'react-icons/gi';
 import ShareModal from '@/app/components/ShareModal';
 import axios from 'axios';
 import { API_URLS } from '@/app/api/config';
+import DetailsImage from '@/app/components/DetailsImage';
 
 export default function ArticleDetails() {
   const router = useRouter();
@@ -44,7 +45,7 @@ export default function ArticleDetails() {
   const fetchArticleDetails = async (id: string) => {
     try {
       const response = await fetchSingleArticle(id);
-      console.log('Fetched article:', response.data);
+      // console.log('Fetched article:', response.data);
       setArticle(response.data);
     } catch (error) {
       console.error('Error fetching article:', error);
@@ -56,7 +57,7 @@ export default function ArticleDetails() {
   const fetchComments = async (id: string) => {
     try {
       const response = await fetchProjectComments(id);
-      console.log('Fetched comments:', response.data);
+      // console.log('Fetched comments:', response.data);
       setComments(response.data);
     } catch (error) {
       console.error('Error fetching article:', error);
@@ -75,7 +76,7 @@ export default function ArticleDetails() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     setIsLoading(true);
     try {
       await addComment(id, formData);
@@ -88,37 +89,12 @@ export default function ArticleDetails() {
     }
   };
 
-  // const likeArticle = async () => {
-  //   try {
-  //     await likePost(id);
-  //     fetchArticleDetails(id);
-  //   } catch (error) {
-  //     console.error('Error liking post:', error);
-  //   }
-  // };
-
-  const formatToken = (token: string | null): string => {
-    if (!token) return '';
-    return token.replace(/^["']|["']$/g, '');
-  };
-
-  const likeArticle = async (id: string) => {
+  const likeArticle = async () => {
     try {
-      const token = formatToken(localStorage.getItem('token'));
-      if (!token) {
-        throw new Error('No token found. Please log in again.');
-      }
-      const response = await axios.put(API_URLS.likePost(id), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      console.log('Response from comment:', response);
-      toast.success('Post liked');
-    } catch (error: any) {
-      toast.error('Error adding comment');
-      console.error('Error Adding comment', error);
+      await likePost(id);
+      fetchArticleDetails(id);
+    } catch (error) {
+      console.error('Error liking post:', error);
     }
   };
 
@@ -180,7 +156,7 @@ export default function ArticleDetails() {
                 <p className="text-sm text-gray-500">
                   {formatDate(article?.created_at)}
                 </p>
-                <div className="flex space-x-5 justify-center">
+                {/* <div className="flex space-x-5 justify-center">
                   <Link href={article?.user?.socials?.faceboo || ''}>
                     <FaFacebook />
                   </Link>
@@ -190,17 +166,11 @@ export default function ArticleDetails() {
                   <Link href={`mailto:${article?.user?.email}`}>
                     <RiMailSendFill />
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
             <div>
-              <Image
-                src={article?.banner?.url}
-                alt="Article image"
-                width={1000}
-                height={500}
-                className="w-full h-[500px] object-cover"
-              />
+              <DetailsImage src={article?.banner?.url} alt={article?.title} />
 
               <div
                 dangerouslySetInnerHTML={sanitizeHTML(article?.description)}

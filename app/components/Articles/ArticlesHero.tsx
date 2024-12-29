@@ -1,10 +1,13 @@
 import { formatDate } from '@/app/helpers';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+
+import React, { useState } from 'react';
+import HeroImage from '../HeroImage';
 
 const ArticlesHero = ({ articles }) => {
   const router = useRouter();
+  const [imgSrc, setImgSrc] = useState(articles[0]?.banner?.url);
 
   const goToArticle = () => {
     router.push(`/articles/${articles[0]?.id}`);
@@ -17,24 +20,13 @@ const ArticlesHero = ({ articles }) => {
       <div className="grid lg:grid-cols-2 lg:gap-20 gap-10 items-end">
         <div className="lg:order-first order-last">
           {articles[0]?.banner?.url ? (
-            <Image
+            <HeroImage
               src={articles[0]?.banner?.url}
-              width={427.18}
-              height={482.02}
-              alt="Article Banner"
-              className="lg:h-[482.02px] w-full float-end items-center object-cover"
+              alt={articles[0]?.title}
             />
           ) : (
             <div className="bg-gray-300 lg:h-[482.02px] w-full animate-pulse block rounded-lg"></div>
           )}
-          {/* <Image
-            // src={articles[2]?.banner?.url.replace(/\\/g, '') || podcastHero}
-            src={articles[0]?.banner?.url}
-            width={427.18}
-            height={482.02}
-            alt="Article Banner"
-            className="lg:h-[482.02px] w-full float-end items-center object-cover"
-          /> */}
         </div>
         <div>
           {articles[0]?.created_at ? (

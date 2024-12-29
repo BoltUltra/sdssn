@@ -14,10 +14,12 @@ import Newsletter from './components/Homepage/Newsletter';
 import Link from 'next/link';
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import FeatureAnnouncementModal from './components/FeatureAnnouncementModal';
 
 export default function Home() {
   return (
     <>
+      <FeatureAnnouncementModal />
       <section className="relative text-primary">
         <Header />
         <Hero />

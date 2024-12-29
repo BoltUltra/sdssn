@@ -89,29 +89,12 @@ const UserProfile = () => {
 
   return (
     <div className="md:px-20">
-      {/* <div
-        className="relative h-20 w-20 rounded-full"
-        onClick={handleImageClick}
-      >
-        <div
-          className={`relative h-20 w-20 ${isUploading ? 'opacity-50' : ''}`}
-        >
-          <Image
-            src={`https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`}
-            alt="user image"
-            className="w-20 h-20 rounded-full object-cover"
-            width={80}
-            height={80}
-            unoptimized
-          />
-        </div>
-      </div> */}
-
       <div className="profile-image-uploader flex items-center">
         <div className="flex items-center space-x-4">
           <Image
             src={
               previewImage ||
+              currentUser?.picture?.asset?.url ||
               `https://api.dicebear.com/9.x/identicon/svg?seed=${currentUser?.first_name}`
             }
             alt="user image"
