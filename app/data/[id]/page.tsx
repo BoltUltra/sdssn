@@ -15,6 +15,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { IoReturnDownBack } from 'react-icons/io5';
 import { GiPadlock } from 'react-icons/gi';
 import ShareModal from '@/app/components/ShareModal';
+import DetailsImage from '@/app/components/DetailsImage';
 
 export default function ArticleDetails() {
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function ArticleDetails() {
   const fetchArticleDetails = async (id: string) => {
     try {
       const response = await fetchSingleArticle(id);
-      console.log('Fetched article:', response.data);
+      // console.log('Fetched article:', response.data);
       setArticle(response.data);
     } catch (error) {
       console.error('Error fetching article:', error);
@@ -54,7 +55,7 @@ export default function ArticleDetails() {
   const fetchComments = async (id: string) => {
     try {
       const response = await fetchProjectComments(id);
-      console.log('Fetched comments:', response.data);
+      // console.log('Fetched comments:', response.data);
       setComments(response.data);
     } catch (error) {
       console.error('Error fetching article:', error);
@@ -73,7 +74,7 @@ export default function ArticleDetails() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     setIsLoading(true);
     try {
       await addComment(id, formData);
@@ -152,27 +153,10 @@ export default function ArticleDetails() {
                 <p className="text-sm text-gray-500">
                   {formatDate(article?.created_at)}
                 </p>
-                <div className="flex space-x-5 justify-center">
-                  <Link href={article?.user?.socials?.faceboo || ''}>
-                    <FaFacebook />
-                  </Link>
-                  <Link href={article?.user?.socials?.facebook || ''}>
-                    <FaSquareXTwitter />
-                  </Link>
-                  <Link href={`mailto:${article?.user?.email}`}>
-                    <RiMailSendFill />
-                  </Link>
-                </div>
               </div>
             </div>
             <div>
-              <Image
-                src={article?.banner?.url}
-                alt="Article image"
-                width={600}
-                height={500}
-                className="w-full h-[500px] object-cover"
-              />
+              <DetailsImage src={article?.banner?.url} alt={article?.title} />
 
               <div className="mt-6">{article?.content}</div>
               <div

@@ -3,51 +3,20 @@
 import React, { useEffect, useState } from 'react';
 import {
   FaGithub,
-  FaEnvelope,
-  FaGlobe,
   FaTwitter,
   FaLinkedin,
   FaFacebook,
   FaInstagram,
 } from 'react-icons/fa';
-import { HiOutlineLocationMarker, HiOutlineCalendar } from 'react-icons/hi';
-import { FiMoreHorizontal } from 'react-icons/fi';
 import { useDataStore } from '@/app/stores/dataStore';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { MdEmail, MdLocationOn, MdPhone, MdWork } from 'react-icons/md';
 import Image from 'next/image';
 import { Footer, Header, Loading } from '@/app/components';
 import { RiVerifiedBadgeFill } from 'react-icons/ri';
 import Link from 'next/link';
 
-// Sample user data
-const sampleUserData = {
-  name: 'Saurabh Rai',
-  username: 'srbh077',
-  bio: 'Software Developer | Dev Rel | Building ResumeMatcher.fyi | Working on AI Search 🔍',
-  location: 'India',
-  joinDate: 'Sep 25, 2019',
-  email: 'srbh077@gmail.com',
-  website: 'https://www.srbhr.com/',
-  education: 'Computer Science (Bachelors Degree)',
-  pronouns: 'He/Him',
-  work: 'Software Developer, Dev Rel',
-  badges: [
-    { id: 1, count: 7, color: 'bg-pink-500' },
-    { id: 2, count: 16, color: 'bg-blue-500' },
-    { id: 3, count: 8, color: 'bg-yellow-500' },
-    { id: 4, count: 4, color: 'bg-green-500' },
-  ],
-  organizations: [
-    { name: 'Gitroom', role: 'Member' },
-    { name: 'SWIRL', role: 'Contributor' },
-    { name: 'Vector Podcast', role: 'Host' },
-    { name: 'Resume Matcher', role: 'Founder' },
-  ],
-};
-
-const UserProfile = ({ userData = sampleUserData }) => {
-  const router = useRouter();
+const UserProfile = () => {
   const params = useParams();
   const id = params.id;
 
@@ -84,10 +53,10 @@ const UserProfile = ({ userData = sampleUserData }) => {
               <Image
                 className="h-48 w-full object-cover md:w-48"
                 src={
-                  user.picture ||
+                  user?.picture?.asset?.url ||
                   `https://api.dicebear.com/9.x/identicon/svg?seed=${user?.first_name}`
                 }
-                alt={`${user.first_name} ${user.last_name}`}
+                alt={`${user?.first_name} ${user?.last_name}`}
                 height={200}
                 width={200}
                 unoptimized
@@ -95,19 +64,19 @@ const UserProfile = ({ userData = sampleUserData }) => {
             </div>
             <div className="p-8">
               <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-                {user.profession}
+                {user?.profession}
               </div>
               <h1 className="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 flex items-center space-x-3">
                 <span>
-                  {user.first_name} {user.last_name}{' '}
+                  {user?.first_name} {user?.last_name}{' '}
                 </span>
-                {user.membership_status === 'free' && (
+                {user?.membership_status === 'free' && (
                   <RiVerifiedBadgeFill color="#ECECEC" />
                 )}
               </h1>
-              <p className="mt-2 text-gray-500">@{user.name}</p>
+              <p className="mt-2 text-gray-500">@{user?.name}</p>
               {/* <p className="mt-2 text-gray-500 capitalize">
-                {user.membership_status} member
+                {user?.membership_status} member
               </p> */}
             </div>
           </div>
@@ -119,19 +88,20 @@ const UserProfile = ({ userData = sampleUserData }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex items-center">
                 <MdEmail className="text-gray-600 mr-2" />
-                <span>{user.email}</span>
+                <span>{user?.email}</span>
               </div>
               <div className="flex items-center">
                 <MdPhone className="text-gray-600 mr-2" />
-                <span>{user.phone_number}</span>
+                <span>{user?.phone_number}</span>
               </div>
               <div className="flex items-center">
                 <MdLocationOn className="text-gray-600 mr-2" />
-                <span>{`${user.address}, ${user.city}, ${user.state}, ${user.country}`}</span>
+                {/* <span>{`${user?.address}, ${user?.city}, ${user?.state}, ${user?.country}`}</span> */}
+                <span>{`${user?.country}`}</span>
               </div>
               <div className="flex items-center">
                 <MdWork className="text-gray-600 mr-2" />
-                <span>{`${user.organization_role} at ${user.organization}`}</span>
+                <span>{`${user?.organization_role}`}</span>
               </div>
             </div>
           </div>
@@ -142,7 +112,7 @@ const UserProfile = ({ userData = sampleUserData }) => {
             </h2>
             <div className="flex space-x-4">
               <a
-                href={user.social.github}
+                href={user?.social.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-gray-800"
@@ -150,7 +120,7 @@ const UserProfile = ({ userData = sampleUserData }) => {
                 <FaGithub size={24} />
               </a>
               <a
-                href={user.social.linkedin}
+                href={user?.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-gray-800"
@@ -158,7 +128,7 @@ const UserProfile = ({ userData = sampleUserData }) => {
                 <FaLinkedin size={24} />
               </a>
               <a
-                href={user.social.twitter}
+                href={user?.social.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-gray-800"
@@ -166,7 +136,7 @@ const UserProfile = ({ userData = sampleUserData }) => {
                 <FaTwitter size={24} />
               </a>
               <a
-                href={user.social.facebook}
+                href={user?.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-gray-800"
@@ -174,7 +144,7 @@ const UserProfile = ({ userData = sampleUserData }) => {
                 <FaFacebook size={24} />
               </a>
               <a
-                href={user.social.instagram}
+                href={user?.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-gray-800"
@@ -187,7 +157,7 @@ const UserProfile = ({ userData = sampleUserData }) => {
           <div className="px-8 py-6 border-t border-gray-200">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Projects</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {user.projects.map((project) => (
+              {user?.projects.map((project) => (
                 <div key={project.id} className="bg-gray-50 rounded-lg p-4">
                   <Link
                     href={
@@ -203,7 +173,7 @@ const UserProfile = ({ userData = sampleUserData }) => {
                       {project.title}
                     </h3>
                   </Link>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="text-sm text-gray-600 mt-1 capitalize">
                     Category: {project.category}
                   </p>
                   <div className="flex justify-between mt-2 text-sm text-gray-500">

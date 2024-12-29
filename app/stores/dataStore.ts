@@ -33,6 +33,8 @@ interface DataState {
   approveProject: (id: string) => Promise<void>;
   createPodcast: (postData: any) => Promise<void>;
   fetchPodcasts: () => Promise<void>;
+  likePodcast: (id: string) => Promise<void>;
+  sharePodcast: (id: string) => Promise<void>;
   assignRole: (email: string, role: string) => Promise<void>;
 }
 
@@ -227,7 +229,7 @@ export const useDataStore = create<DataState>((set) => ({
         },
       });
 
-      const imageUrl = response.data.imageUrl;
+      const imageUrl = response.data.data.picture.asset.url;
       localStorage.setItem('profileImage', imageUrl);
       set({ loading: false });
       toast.success('Profile image uploaded successfully');
@@ -428,12 +430,16 @@ export const useDataStore = create<DataState>((set) => ({
       if (!token) {
         throw new Error('No token found. Please log in again.');
       }
-      const response = await axios.put(API_URLS.likePost(id), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await axios.put(
+        API_URLS.likePost(id),
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       console.log('Response from comment:', response);
       toast.success('Post liked');
     } catch (error: any) {
@@ -459,12 +465,16 @@ export const useDataStore = create<DataState>((set) => ({
       if (!token) {
         throw new Error('No token found. Please log in again.');
       }
-      const response = await axios.put(API_URLS.sharePost(id), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await axios.put(
+        API_URLS.sharePost(id),
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       console.log('Response from share:', response);
       toast.success('Post shared');
     } catch (error: any) {
@@ -638,6 +648,76 @@ export const useDataStore = create<DataState>((set) => ({
         loading: false,
       });
       console.error('Error fetching projects:', error);
+    }
+  },
+
+  /**
+   * Like a post
+   */
+
+  likePodcast: async (id: string) => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.put(
+        API_URLS.likePodcast(id),
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log('Response:', response);
+      toast.success('Podcast liked');
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      toast.error('Error');
+      console.error('Error', error);
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  /**
+   * Share a post
+   */
+
+  sharePodcast: async (id: string) => {
+    set({ loading: true });
+    try {
+      const token = formatToken(localStorage.getItem('token'));
+      if (!token) {
+        throw new Error('No token found. Please log in again.');
+      }
+      const response = await axios.put(
+        API_URLS.sharePodcast(id),
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log('Response:', response);
+      toast.success('Podcast shared');
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      toast.error('Error sharing');
+      console.error('Error sharing', error);
+    } finally {
+      set({ loading: false });
     }
   },
 

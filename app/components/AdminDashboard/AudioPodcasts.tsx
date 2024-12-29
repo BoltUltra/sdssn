@@ -5,13 +5,14 @@ import { MdAdd } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
 import { formatDate, sanitizeHTML } from '@/app/helpers';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
+import YouTubeAudioPlayer from '../AudioPlayer';
 
 const PodcastModal = ({ audioPodcast, onClose }) => {
   if (!audioPodcast) return null;
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="max-w-2xl w-full h-[80%] flex items-start rounded-lg">
-        <div className="bg-white p-6 rounded-lg overflow-hidden h-full overflow-y-scroll w-full">
+      <div className="max-w-2xl w-full flex items-start rounded-lg">
+        <div className="bg-white p-6 rounded-lg w-full">
           <h2 className="text-2xl font-bold mb-4">{audioPodcast.title}</h2>
           <div className="mb-4">
             <p>
@@ -25,6 +26,7 @@ const PodcastModal = ({ audioPodcast, onClose }) => {
               dangerouslySetInnerHTML={sanitizeHTML(audioPodcast?.description)}
               className="article-description space-y-5 text-justify my-10"
             ></div>{' '}
+            <YouTubeAudioPlayer url={audioPodcast?.audio_url} />
           </div>
         </div>
         <div className="flex items-center justify-end text-white ml-5">

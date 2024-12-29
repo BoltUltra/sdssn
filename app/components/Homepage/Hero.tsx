@@ -1,6 +1,7 @@
 import React from 'react';
 import MapWithUsers from '../Map';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Hero = () => {
   return (
@@ -32,12 +33,16 @@ const Hero = () => {
               professionals in any field{' '}
             </p>
             <div className="flex md:flex-row flex-col items-center md:space-x-6 md:space-y-0 space-y-6 mt-16">
-              <button className="bg-white text-primary px-5 py-3 rounded-lg border border-white md:w-56 w-full">
-                Become a member
-              </button>
-              <button className="bg-transparent text-white px-5 py-3 rounded-lg border border-white md:w-56 w-full">
-                Learn more
-              </button>
+              <Link href="/auth/register">
+                <button className="bg-white text-primary px-5 py-3 rounded-lg border border-white md:w-56 w-full">
+                  Become a member
+                </button>
+              </Link>
+              <Link href="/about">
+                <button className="bg-transparent text-white px-5 py-3 rounded-lg border border-white md:w-56 w-full">
+                  Learn more
+                </button>
+              </Link>
             </div>
           </div>
           <div className="w-full md:h-[30rem] h-96 rounded-lg overflow-hidden">
