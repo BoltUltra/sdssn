@@ -18,7 +18,7 @@ export default function NigeriaStatesMap({ data }: NigeriaChoroplethMapProps) {
   const mapRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !data || data.length === 0) return;
+    // if (typeof window === 'undefined' || !data || data.length === 0) return;
 
     if (!mapRef.current) {
       mapRef.current = L.map('map').setView([9.082, 8.6753], 6);
