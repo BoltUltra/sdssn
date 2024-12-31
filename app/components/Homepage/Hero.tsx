@@ -2,8 +2,11 @@ import React from 'react';
 import MapWithUsers from '../Map';
 import Image from 'next/image';
 import Link from 'next/link';
-import NigeriaChoroplethMap from '../ChoroplethMap';
-import NigeriaStatesMap from '../ChoroplethMap';
+import dynamic from 'next/dynamic';
+
+const NigeriaStatesMap = dynamic(() => import('../ChoroplethMap'), {
+  ssr: false,
+});
 
 const Hero = ({ data }) => {
   return (

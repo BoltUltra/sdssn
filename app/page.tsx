@@ -14,7 +14,6 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import FeatureAnnouncementModal from './components/FeatureAnnouncementModal';
 import { useDataStore } from './stores/dataStore';
-import NigeriaStatesMap from './components/ChoroplethMap';
 
 interface StateData {
   state: string;
@@ -56,7 +55,6 @@ export default function Home() {
       <section className="relative text-primary">
         <Header />
         <Hero data={mapData} />
-        {/* <NigeriaStatesMap data={mapData} /> */}
         <About />
         <Features />
         <MembershipCount />
