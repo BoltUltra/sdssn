@@ -22,7 +22,6 @@ const ProjectUpload = () => {
 
     try {
       const response = await fetchAllPosts();
-      console.log('All posts:', response.data);
 
       // Filter posts to only include those matching the user's ID
       const userPosts = response.data.filter(

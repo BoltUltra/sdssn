@@ -18,8 +18,6 @@ export default function Articles() {
       const mapPost = response.data
         .filter((post) => post.category === 'map')
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-      console.log('Response', response);
-      console.log('User maps:', mapPost);
       setMaps(mapPost);
     } catch (error) {
       console.error('Error fetching content:', error);

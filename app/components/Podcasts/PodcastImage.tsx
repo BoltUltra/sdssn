@@ -18,7 +18,7 @@ const PodcastImage: React.FC<PodcastImageProps> = ({ src, alt }) => {
       height={170}
       width={140}
       quality={80}
-      className="object-cover w-[170px] h-[180px] object-center"
+      className="object-cover w-[170px] h-[180px] object-center md:block hidden"
       onError={() => {
         setImgSrc('/images/others/podcast.webp');
       }}

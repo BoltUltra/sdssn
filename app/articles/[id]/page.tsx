@@ -45,7 +45,6 @@ export default function ArticleDetails() {
   const fetchArticleDetails = async (id: string) => {
     try {
       const response = await fetchSingleArticle(id);
-      // console.log('Fetched article:', response.data);
       setArticle(response.data);
     } catch (error) {
       console.error('Error fetching article:', error);
@@ -57,10 +56,9 @@ export default function ArticleDetails() {
   const fetchComments = async (id: string) => {
     try {
       const response = await fetchProjectComments(id);
-      // console.log('Fetched comments:', response.data);
       setComments(response.data);
     } catch (error) {
-      console.error('Error fetching article:', error);
+      console.error('Error fetching comments:', error);
     } finally {
       setLoading(false);
     }
@@ -76,13 +74,12 @@ export default function ArticleDetails() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
     setIsLoading(true);
     try {
       await addComment(id, formData);
       fetchComments(id);
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error('Error updating article:', error);
     } finally {
       setFormData({ content: '' });
       setIsLoading(false);

@@ -14,17 +14,14 @@ import { useDataStore } from '@/app/stores/dataStore';
 const ActionDropdown = ({ row, isOpen, toggleDropdown, rowId }) => {
   const handleView = (e) => {
     e.stopPropagation();
-    console.log('View', row);
   };
 
   const handleEdit = (e) => {
     e.stopPropagation();
-    console.log('Edit', row);
   };
 
   const handleDelete = (e) => {
     e.stopPropagation();
-    console.log('Delete', row);
   };
 
   return (
@@ -199,7 +196,7 @@ const AllUsers = () => {
       let csv = convertArrayOfObjectsToCSV(array);
       if (!csv) {
         // Handle the case where the CSV conversion failed or the data is empty
-        console.log('No data to export.');
+
         toast.error('No data to export.');
         return;
       }
@@ -230,7 +227,6 @@ const AllUsers = () => {
             onExport();
           } else {
             // Display a message or handle the case where there's no data to export
-            console.log('No data to export.');
           }
         }}
       >
@@ -263,7 +259,7 @@ const AllUsers = () => {
   const fetchUsers = async () => {
     try {
       const response = await fetchAllUsers();
-      console.log(response.data.data);
+
       setUsers(response.data.data || response.data);
       setData(response.data.data || response.data);
     } catch (error: any) {

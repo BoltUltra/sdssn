@@ -66,7 +66,6 @@ export default function UpdateProject() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     setIsLoading(true);
     try {
       await updatePost(id, formData);
@@ -82,7 +81,6 @@ export default function UpdateProject() {
   const fetchArticleDetails = async (id: string) => {
     try {
       const response = await fetchSingleArticle(id);
-      console.log('Fetched article:', response.data);
       setArticle(response.data);
       // Initialize formData with fetched article data
       setFormData({

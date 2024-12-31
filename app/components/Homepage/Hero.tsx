@@ -2,8 +2,10 @@ import React from 'react';
 import MapWithUsers from '../Map';
 import Image from 'next/image';
 import Link from 'next/link';
+import NigeriaChoroplethMap from '../ChoroplethMap';
+import NigeriaStatesMap from '../ChoroplethMap';
 
-const Hero = () => {
+const Hero = ({ data }) => {
   return (
     <section className="pt-44 pb-20 bg-primary text-white md:text-left text-center">
       <div className="max-w-[1440px] mx-auto md:px-20 px-5">
@@ -46,7 +48,8 @@ const Hero = () => {
             </div>
           </div>
           <div className="w-full md:h-[30rem] h-96 rounded-lg overflow-hidden">
-            <MapWithUsers />
+            {/* <MapWithUsers /> */}
+            <NigeriaStatesMap data={data} />
           </div>
         </div>
       </div>

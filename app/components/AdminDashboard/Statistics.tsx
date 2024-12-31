@@ -20,7 +20,6 @@ const Statistics = () => {
   const fetchStats = async () => {
     try {
       const response = await fetchResources();
-      console.log(response.data);
       setResources(response.data);
     } catch (error: any) {
       console.error('Error fetching data:', error);

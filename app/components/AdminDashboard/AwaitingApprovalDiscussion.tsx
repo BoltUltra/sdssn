@@ -76,7 +76,6 @@ const AwaitingApprovalDiscussion = ({ discussions }) => {
     //       },
     //     });
 
-    //     console.log('Response from comment:', response);
     //     toast.success('Project Approved');
     //   } catch (error: any) {
     //     set({
@@ -92,8 +91,6 @@ const AwaitingApprovalDiscussion = ({ discussions }) => {
 
   const handleDelete = (id, e) => {
     e.stopPropagation();
-    // Add your delete logic here
-    console.log('Delete discussion:', id);
   };
 
   const handleRowClick = (discussion) => {

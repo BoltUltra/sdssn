@@ -64,7 +64,6 @@ const EditUserProfile = () => {
         'https://countriesnow.space/api/v0.1/countries'
       );
       const data: { data: Country[] } = await response.json();
-      console.log('Countries:', data.data);
 
       const sortedCountries = data.data
         .map((country: Country) => ({
@@ -74,7 +73,6 @@ const EditUserProfile = () => {
           a.name.localeCompare(b.name)
         );
       setCountries(sortedCountries);
-      console.log('Sorted countries:', sortedCountries);
     } catch (error) {
       console.error('Error fetching countries:', error);
       toast.error('Failed to load countries');
@@ -154,7 +152,6 @@ const EditUserProfile = () => {
         // First try to get user data from API
         const response = await fetchUserProfile();
         const userData = response.data;
-        console.log('User data:', userData);
 
         if (!userData) {
           // Fallback to localStorage if API fails

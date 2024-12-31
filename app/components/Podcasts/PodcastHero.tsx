@@ -41,15 +41,19 @@ const PodcastHero = () => {
   return (
     <div className="grid md:grid-cols-2 mb-10 md:items-end">
       <div>
-        <p className="text-xl">Most Recent</p>
+        <p className="flex">
+          <span className="bg-primary/50 text-xs rounded-full px-5 py-2 text-white">
+            Most Recent
+          </span>
+        </p>
         <Heading3
           text={podcasts.length > 0 && podcasts[0]?.title}
           style="text-[#086DB9] leading-normal md:text-[57px] font-semibold"
         />
-        <p className="text-xl">
-          By {podcasts.length > 0 && podcasts[0]?.user?.first_name}
+        <p className="text-xl capitalize">
+          By {podcasts.length > 0 && podcasts[0]?.user?.name}
         </p>
-        <div className="mt-5">
+        <div className="mt-5 md:mb-0 mb-5">
           <YouTubeAudioPlayer url={podcasts[0]?.audio_url} />
         </div>
       </div>

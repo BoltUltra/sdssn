@@ -48,4 +48,5 @@ export const API_URLS = {
 
   // Others
   fetchUser: (username: string) => `${API_BASE_URL}/profile/${username}`,
+  fetchStats: `${API_BASE_URL}/statistics`,
 };

@@ -59,7 +59,7 @@ const Navbar = () => {
   }, []);
 
   const navbarClasses = scrolled
-    ? 'fixed top-0 left-0 w-full bg-white shadow-xl transition-all duration-300 ease-in-out z-50'
+    ? 'fixed top-0 left-0 w-full bg-white shadow-xl transition-all duration-300 ease-in-out z-[99]'
     : 'fixed top-0 left-0 w-full bg-white transition-all duration-300 ease-in-out';
 
   return (

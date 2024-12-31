@@ -55,7 +55,7 @@ const AwaitingApprovalMap = ({ maps }) => {
     try {
       await approveProject(id);
     } catch (error) {
-      console.error('Error liking post:', error);
+      console.error('Error approving post:', error);
     } finally {
       // setIsLoading(false);
     }
@@ -63,8 +63,6 @@ const AwaitingApprovalMap = ({ maps }) => {
 
   const handleDelete = (id, e) => {
     e.stopPropagation();
-    // Add your delete logic here
-    console.log('Delete map:', id);
   };
 
   const handleRowClick = (map) => {

@@ -24,7 +24,6 @@ interface DataState {
   addComment: (id: string, payload: any) => Promise<void>;
   likePost: (id: string) => Promise<void>;
   sharePost: (id: string) => Promise<void>;
-  fetchUser: (username: string) => Promise<any>;
 
   // Admin
   fetchAllUsers: () => Promise<void>;
@@ -36,6 +35,10 @@ interface DataState {
   likePodcast: (id: string) => Promise<void>;
   sharePodcast: (id: string) => Promise<void>;
   assignRole: (email: string, role: string) => Promise<void>;
+
+  // General
+  fetchStats: () => Promise<any>;
+  fetchUser: (username: string) => Promise<any>;
 }
 
 const formatToken = (token: string | null): string => {
@@ -167,7 +170,7 @@ export const useDataStore = create<DataState>((set) => ({
         },
       });
       toast.success('User Profile Updated successfully');
-      // console.log("Response from editUserProfile:", response);
+      //
     } catch (error: any) {
       set({
         error: error.response?.data?.message || error.message,
@@ -200,7 +203,7 @@ export const useDataStore = create<DataState>((set) => ({
         error: error.response?.data?.message || error.message,
         loading: false,
       });
-      console.error('Error fetching user profile:', error);
+      console.error('Error fetching user socials:', error);
     }
   },
 
@@ -233,7 +236,7 @@ export const useDataStore = create<DataState>((set) => ({
       localStorage.setItem('profileImage', imageUrl);
       set({ loading: false });
       toast.success('Profile image uploaded successfully');
-      console.log('Uploaded Profile Image:', response);
+
       return imageUrl;
     } catch (error: any) {
       set({
@@ -255,7 +258,7 @@ export const useDataStore = create<DataState>((set) => ({
       if (!token) {
         throw new Error('No token found. Please log in again.');
       }
-      // console.log("Token found:", token);
+      //
       const response = await axios.get(API_URLS.fetchUserImage, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -270,7 +273,7 @@ export const useDataStore = create<DataState>((set) => ({
         error: error.response?.data?.message || error.message,
         loading: false,
       });
-      console.error('Error fetching user profile:', error);
+      console.error('Error fetching user Image:', error);
     }
   },
 
@@ -291,14 +294,12 @@ export const useDataStore = create<DataState>((set) => ({
         },
       });
       toast.success('Project created successfully');
-      console.log('Response from editUserProfile:', response);
     } catch (error: any) {
       set({
         error: error.response?.data?.message || error.message,
         loading: false,
       });
       toast.error('Error creating project');
-      console.error('Error fetching user profile:', error);
     }
   },
 
@@ -319,7 +320,7 @@ export const useDataStore = create<DataState>((set) => ({
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('Response from update post:', response);
+
       toast.success('Project updated successfully');
     } catch (error: any) {
       set({
@@ -385,7 +386,7 @@ export const useDataStore = create<DataState>((set) => ({
         error: error.response?.data?.message || error.message,
         loading: false,
       });
-      console.error('Error fetching single article:', error);
+      console.error('Error fetching comments:', error);
       throw error;
     }
   },
@@ -408,7 +409,6 @@ export const useDataStore = create<DataState>((set) => ({
         },
       });
       toast.success('Comment Added Successfully');
-      console.log('Response from comment:', response);
     } catch (error: any) {
       set({
         error: error.response?.data?.message || error.message,
@@ -440,15 +440,14 @@ export const useDataStore = create<DataState>((set) => ({
           },
         }
       );
-      console.log('Response from comment:', response);
       toast.success('Post liked');
     } catch (error: any) {
       set({
         error: error.response?.data?.message || error.message,
         loading: false,
       });
-      toast.error('Error adding comment');
-      console.error('Error Adding comment', error);
+      toast.error('Error likiing post');
+      console.error('Error liking post', error);
     } finally {
       set({ loading: false });
     }
@@ -475,7 +474,7 @@ export const useDataStore = create<DataState>((set) => ({
           },
         }
       );
-      console.log('Response from share:', response);
+
       toast.success('Post shared');
     } catch (error: any) {
       set({
@@ -541,7 +540,25 @@ export const useDataStore = create<DataState>((set) => ({
         error: error.response?.data?.message || error.message,
         loading: false,
       });
-      console.error('Error fetching users:', error);
+      console.error('Error fetching resources:', error);
+    }
+  },
+
+  /**
+   * Fetch Stats
+   */
+  fetchStats: async () => {
+    set({ loading: true });
+    try {
+      const response = await axios.get(API_URLS.fetchStats);
+      set({ data: response.data, loading: false, error: null });
+      return response.data; // return the fetched data
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || error.message,
+        loading: false,
+      });
+      console.error('Error:', error);
     }
   },
 
@@ -590,7 +607,6 @@ export const useDataStore = create<DataState>((set) => ({
         },
       });
 
-      console.log('Response from comment:', response);
       set({ data: response.data, loading: false, error: null });
       toast.success('Project Approved');
       return response.data;
@@ -647,7 +663,7 @@ export const useDataStore = create<DataState>((set) => ({
         error: error.response?.data?.message || error.message,
         loading: false,
       });
-      console.error('Error fetching projects:', error);
+      console.error('Error fetching podcasts:', error);
     }
   },
 
@@ -672,15 +688,15 @@ export const useDataStore = create<DataState>((set) => ({
           },
         }
       );
-      console.log('Response:', response);
+
       toast.success('Podcast liked');
     } catch (error: any) {
       set({
         error: error.response?.data?.message || error.message,
         loading: false,
       });
-      toast.error('Error');
-      console.error('Error', error);
+      toast.error('Error liking podcast');
+      console.error('Error liking podcast', error);
     } finally {
       set({ loading: false });
     }
@@ -707,7 +723,7 @@ export const useDataStore = create<DataState>((set) => ({
           },
         }
       );
-      console.log('Response:', response);
+
       toast.success('Podcast shared');
     } catch (error: any) {
       set({
@@ -743,7 +759,6 @@ export const useDataStore = create<DataState>((set) => ({
         }
       );
 
-      console.log('Response from assign role:', response);
       toast.success(response.data.message || 'Role assigned successfully');
     } catch (error: any) {
       set({
