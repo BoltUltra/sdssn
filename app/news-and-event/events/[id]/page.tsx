@@ -1,11 +1,11 @@
-"use client";
-import { Footer, Header, Loading } from "@/app/components";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import OtherEvents from "@/app/components/NewsAndEvents/OtherEvents";
-import { FaComment, FaHeart } from "react-icons/fa";
-import { IoShareSocial } from "react-icons/io5";
+'use client';
+import { Footer, Header, Loading } from '@/app/components';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import OtherEvents from '@/app/components/NewsAndEvents/OtherEvents';
+import { FaComment, FaHeart } from 'react-icons/fa';
+import { IoShareSocial } from 'react-icons/io5';
 
 const SingleEvent = () => {
   const { id } = useParams(); // Correct way to get the 'id'
@@ -15,16 +15,15 @@ const SingleEvent = () => {
   useEffect(() => {
     if (id) {
       // Fetch the event data using the id
-      fetch("/data.json")
+      fetch('/data.json')
         .then((response) => response.json())
         .then((data) => {
           const foundEvent = data.events.find(
             (event) => event.id === Number(id)
           );
-          // console.log("foundEvent", foundEvent);
           setEvent(foundEvent);
         })
-        .catch((error) => console.error("Error fetching event data:", error));
+        .catch((error) => console.error('Error fetching event data:', error));
     }
   }, [id]);
 

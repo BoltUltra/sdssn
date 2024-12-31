@@ -17,7 +17,6 @@ const AwaitingApproval = () => {
 
     try {
       const response = await fetchAdminPosts();
-      console.log('All posts:', response.data.data);
 
       const userDiscussions = response.data.data.filter(
         (post) => post.category === 'discussion' && post.approved_by === null

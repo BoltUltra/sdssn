@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useDataStore } from '@/app/stores/dataStore';
 import Loading from '../Loading';
+import { GrCloudUpload } from 'react-icons/gr';
+import { ImSpinner9 } from 'react-icons/im';
 
 const UserProfile = () => {
   const router = useRouter();
@@ -22,7 +24,6 @@ const UserProfile = () => {
     setLoading(true);
     try {
       const response = await fetchUserProfile();
-      console.log(response);
       setCurrentUser(response.data);
     } catch (error: any) {
       console.error('Error fetching user profile:', error);
@@ -36,11 +37,10 @@ const UserProfile = () => {
     setLoading(true);
     try {
       const response = await fetchUserSocials();
-      console.log(response);
       setUserSocials(response.data);
     } catch (error: any) {
       console.error('Error fetching user socials:', error);
-      toast.error(error.message || 'Failed to fetch user profile');
+      toast.error(error.message || 'Failed to fetch user socials');
     } finally {
       setLoading(false);
     }
@@ -63,7 +63,6 @@ const UserProfile = () => {
     setLoading(true);
     try {
       const imageUrl = await updateUserImage(selectedImage);
-      console.log('Image URL:', imageUrl);
     } catch (error) {
       console.error('Upload failed:', error);
     } finally {
@@ -114,9 +113,20 @@ const UserProfile = () => {
           <button
             onClick={handleUpload}
             disabled={loading}
-            className="bg-primary text-white fon-light px-10 py-3 rounded-lg"
+            className="bg-primary text-white fon-light px-10 py-3 rounded-lg md:block hidden"
           >
             {loading ? 'Uploading...' : 'Upload Image'}
+          </button>
+          <button
+            onClick={handleUpload}
+            disabled={loading}
+            className="bg-primary text-white fon-light px-5 py-3 rounded-lg md:hidden"
+          >
+            {loading ? (
+              <ImSpinner9 className="animate-spin" />
+            ) : (
+              <GrCloudUpload />
+            )}
           </button>
         </div>
       </div>

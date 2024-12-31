@@ -27,10 +27,9 @@ const UserProfile = () => {
   const fetchUserProfile = async (id: string) => {
     try {
       const response = await fetchUser(id);
-      console.log('Fetched user:', response.data);
       setUser(response.data);
     } catch (error) {
-      console.error('Error fetching article:', error);
+      console.error('Error fetching user profile:', error);
     } finally {
       setLoading(false);
     }

@@ -11,17 +11,14 @@ import toast from 'react-hot-toast';
 const ActionDropdown = ({ row, isOpen, toggleDropdown, rowId }) => {
   const handleView = (e) => {
     e.stopPropagation();
-    console.log('View', row);
   };
 
   const handleEdit = (e) => {
     e.stopPropagation();
-    console.log('Edit', row);
   };
 
   const handleDelete = (e) => {
     e.stopPropagation();
-    console.log('Delete', row);
   };
 
   return (
@@ -185,7 +182,7 @@ const AllMaps = () => {
       let csv = convertArrayOfObjectsToCSV(array);
       if (!csv) {
         // Handle the case where the CSV conversion failed or the data is empty
-        console.log('No data to export.');
+
         toast.error('No data to export.');
         return;
       }
@@ -216,7 +213,6 @@ const AllMaps = () => {
             onExport();
           } else {
             // Display a message or handle the case where there's no data to export
-            console.log('No data to export.');
           }
         }}
       >

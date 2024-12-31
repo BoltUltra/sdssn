@@ -21,7 +21,6 @@ const AllProjects = () => {
 
     try {
       const response = await fetchAllPosts();
-      console.log('All posts:', response.data);
 
       const userDiscussions = response.data.filter(
         (post) => post.category === 'discussion' && post.approved_by !== null

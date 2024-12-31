@@ -35,30 +35,27 @@
 
 // export default AllDiscussions;
 
-import React, { useEffect, useMemo, useState } from "react";
-import Loading from "../Loading";
-import { useRouter } from "next/navigation";
-import DataTable from "react-data-table-component";
-import { GrMoreVertical } from "react-icons/gr";
-import { FaEye } from "react-icons/fa";
-import { BiEdit, BiTrash } from "react-icons/bi";
-import toast from "react-hot-toast";
+import React, { useEffect, useMemo, useState } from 'react';
+import Loading from '../Loading';
+import { useRouter } from 'next/navigation';
+import DataTable from 'react-data-table-component';
+import { GrMoreVertical } from 'react-icons/gr';
+import { FaEye } from 'react-icons/fa';
+import { BiEdit, BiTrash } from 'react-icons/bi';
+import toast from 'react-hot-toast';
 
 // Dropdown Menu for table
 const ActionDropdown = ({ row, isOpen, toggleDropdown, rowId }) => {
   const handleView = (e) => {
     e.stopPropagation();
-    console.log("View", row);
   };
 
   const handleEdit = (e) => {
     e.stopPropagation();
-    console.log("Edit", row);
   };
 
   const handleDelete = (e) => {
     e.stopPropagation();
-    console.log("Delete", row);
   };
 
   return (
@@ -107,23 +104,23 @@ const ActionDropdown = ({ row, isOpen, toggleDropdown, rowId }) => {
 // columns for table
 const columns = [
   {
-    name: "S/N",
-    width: "70px",
+    name: 'S/N',
+    width: '70px',
     cell: (row, index) => <div>{index + 1}</div>,
   },
   {
-    name: "Subject",
+    name: 'Subject',
     selector: (row) => row.subject,
     sortable: true,
   },
   {
-    name: "Uploaded By",
+    name: 'Uploaded By',
     selector: (row) => row.uploadedBy,
     sortable: true,
   },
   {
-    name: "Actions",
-    width: "100px",
+    name: 'Actions',
+    width: '100px',
     cell: (row, index, column) => (
       <ActionDropdown
         row={row}
@@ -140,22 +137,22 @@ const columns = [
 const customStyles = {
   headCells: {
     style: {
-      paddingLeft: "8px",
-      paddingRight: "8px",
-      fontSize: "16px",
-      fontWeight: "600",
+      paddingLeft: '8px',
+      paddingRight: '8px',
+      fontSize: '16px',
+      fontWeight: '600',
     },
   },
   cells: {
     style: {
-      paddingLeft: "8px",
-      paddingRight: "8px",
-      fontSize: "14px",
+      paddingLeft: '8px',
+      paddingRight: '8px',
+      fontSize: '14px',
     },
   },
   rows: {
     style: {
-      fontSize: "14px",
+      fontSize: '14px',
     },
   },
 };
@@ -190,15 +187,15 @@ const AllDiscussions = () => {
   // Export CSV
   const convertArrayOfObjectsToCSV = (array) => {
     if (array.length === 0) {
-      return "";
+      return '';
     }
 
     let result;
-    const columnDelimiter = ",";
-    const lineDelimiter = "\n";
+    const columnDelimiter = ',';
+    const lineDelimiter = '\n';
     const keys = Object.keys(array[0]);
 
-    result = "";
+    result = '';
     result += keys.join(columnDelimiter);
     result += lineDelimiter;
 
@@ -220,27 +217,27 @@ const AllDiscussions = () => {
   // Download CSV
   const downloadCSV = (array) => {
     try {
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       let csv = convertArrayOfObjectsToCSV(array);
       if (!csv) {
         // Handle the case where the CSV conversion failed or the data is empty
-        console.log("No data to export.");
-        toast.error("No data to export.");
+
+        toast.error('No data to export.');
         return;
       }
 
-      const filename = "export.csv";
+      const filename = 'export.csv';
 
       if (!csv.match(/^data:text\/csv/i)) {
         csv = `data:text/csv;charset=utf-8,${csv}`;
       }
 
-      link.setAttribute("href", encodeURI(csv));
-      link.setAttribute("download", filename);
+      link.setAttribute('href', encodeURI(csv));
+      link.setAttribute('download', filename);
       link.click();
-      toast.success("Data exported successfully.");
+      toast.success('Data exported successfully.');
     } catch (error) {
-      console.error("Error exporting CSV:", error);
+      console.error('Error exporting CSV:', error);
       // Handle the error, e.g., display a message to the user
     }
   };
@@ -255,7 +252,6 @@ const AllDiscussions = () => {
             onExport();
           } else {
             // Display a message or handle the case where there's no data to export
-            console.log("No data to export.");
           }
         }}
       >
@@ -273,7 +269,7 @@ const AllDiscussions = () => {
   // Memoize columns with dropdown
   const columnsWithDropdown = useMemo(() => {
     return columns.map((col) => {
-      if (col.name === "Actions") {
+      if (col.name === 'Actions') {
         return {
           ...col,
           openDropdownId,
@@ -286,25 +282,25 @@ const AllDiscussions = () => {
 
   // Fetch data
   useEffect(() => {
-    fetch("/data.json")
+    fetch('/data.json')
       .then((response) => response.json())
       .then((data) => {
         setDiscussions(data.discussions);
         setData(data.discussions);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
   // Close dropdown when clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!event.target.closest(".relative")) {
+      if (!event.target.closest('.relative')) {
         setOpenDropdownId(null);
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   // Loading

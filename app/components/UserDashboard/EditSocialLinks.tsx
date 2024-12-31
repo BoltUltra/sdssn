@@ -24,7 +24,6 @@ const EditSocialLinks = () => {
       try {
         const response = await fetchUserSocials();
         const userData = response.data;
-        console.log('userData', userData);
 
         setFormData({
           twitter: userData?.twitter || '',

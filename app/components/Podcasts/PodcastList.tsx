@@ -41,7 +41,6 @@ const PodcastList = () => {
 
     try {
       const response = await fetchPodcasts();
-      console.log('All podcasts:', response.data);
 
       const videoPodcasts = response.data.filter(
         (podcast) => podcast.category === 'video'
@@ -105,10 +104,10 @@ const PodcastList = () => {
 
   return (
     <>
-      <div className="w-full justify-center px-4 bg-primary rounded-xl text-white md:p-14">
+      <div className="w-full justify-center px-4 bg-primary rounded-xl text-white md:p-14 p-5">
         <div className="w-full">
           <TabGroup selectedIndex={currentTabIndex} onChange={handleTabChange}>
-            <TabList className="flex items-center justify-between">
+            <TabList className="flex md:flex-row flex-col md:items-center md:justify-between md:space-y-0 space-y-5 md:mt-0 mt-5">
               <Heading4 text="Latest Podcast Episodes" className="text-white" />
               <div className="flex md:gap-16 gap-10">
                 {categories.map(({ name, icon }) => (
@@ -124,13 +123,13 @@ const PodcastList = () => {
             </TabList>
             <TabPanels className="mt-20">
               <TabPanel>
-                <div className="space-y-5">
+                <div className="space-y-10">
                   {podcasts.map((podcast) => (
                     <div
                       key={podcast.id}
-                      className="flex items-center cursor-pointer"
+                      className="flex md:flex-row flex-col md:items-center cursor-pointer"
                     >
-                      <div className="flex space-x-4 w-[75%] border-r-2 border-r-white pr-10 mr-10">
+                      <div className="flex md:space-x-4 md:w-[75%] w-full md:border-r-2 border-r-white md:pr-10 md:mr-10">
                         <PodcastImage
                           src={podcast?.banner?.url}
                           alt={podcast.title}
@@ -147,14 +146,12 @@ const PodcastList = () => {
                           <AudioPlayer url={podcast?.audio_url} />
                         </div>
                       </div>
-                      <div className="w-[25%]">
+                      <div className="md:w-[25%] w-full md:mt-0 mt-3">
                         <div>
-                          <p>
-                            {`By: ${podcast?.user?.first_name} ${podcast?.user?.last_name}`}
-                          </p>
+                          <p className="capitalize">{`By: ${podcast?.user?.name}`}</p>
                           <p>Date: {formatDate(podcast?.created_at)}</p>
                         </div>
-                        <div className="flex space-x-5 mt-5">
+                        <div className="flex space-x-5 md:mt-5 mt-3">
                           <button
                             disabled={!user}
                             onClick={() => like(podcast.id)}
@@ -180,18 +177,25 @@ const PodcastList = () => {
                 </div>
               </TabPanel>
               <TabPanel>
-                <div className="space-y-5">
+                <div className="space-y-10">
                   {videoPodcasts.map((podcast) => (
                     <div
                       key={podcast.id}
-                      className="flex items-center cursor-pointer"
+                      className="flex md:flex-row flex-col md:items-center cursor-pointer"
                     >
-                      <div className="flex items-center space-x-4 w-[75%] border-r-2 border-r-white pr-10 mr-10">
-                        <div className="w-[293px]">
+                      <div className="flex md:flex-row flex-col md:items-center md:space-x-4 md:w-[75%] w-full md:border-r-2 border-r-white md:pr-10 md:mr-10">
+                        <div className="md:w-[293px] w-full md:block hidden">
                           <ReactPlayer
                             url={podcast.video_url}
                             width={293}
                             height={165}
+                          />
+                        </div>
+                        <div className="w-full md:hidden pb-3">
+                          <ReactPlayer
+                            url={podcast.video_url}
+                            width={'100%'}
+                            height={200}
                           />
                         </div>
                         <div className="space-y-3">
@@ -204,11 +208,33 @@ const PodcastList = () => {
                           ></div>
                         </div>
                       </div>
-                      <div className="w-[25%]">
-                        <p>
-                          {`By: ${podcast?.user?.first_name} ${podcast?.user?.last_name}`}
-                        </p>
-                        <p>Date: {formatDate(podcast?.created_at)}</p>
+                      <div className="md:w-[25%] w-full md:mt-0 mt-3">
+                        <div>
+                          <p className="capitalize">
+                            {`By: ${podcast?.user?.name}`}
+                          </p>
+                          <p>Date: {formatDate(podcast?.created_at)}</p>
+                        </div>
+                        <div className="flex space-x-5 md:mt-5 mt-3">
+                          <button
+                            disabled={!user}
+                            onClick={() => like(podcast.id)}
+                            className="flex items-center space-x-2 disabled:bg-transparent"
+                          >
+                            <AiFillLike size={20} />{' '}
+                            <span>{podcast?.likes}</span>
+                          </button>
+                          <button
+                            className="flex items-center space-x-2"
+                            onClick={() => {
+                              setSelectedPodcast(podcast);
+                              setIsShareModalOpen(true);
+                            }}
+                          >
+                            <CiShare2 size={20} />{' '}
+                            <span>{podcast?.shares}</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   ))}

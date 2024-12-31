@@ -19,7 +19,6 @@ const AllPodcasts = () => {
 
     try {
       const response = await fetchPodcasts();
-      console.log('All podcasts:', response.data);
 
       const videoPodcasts = response.data.filter(
         (podcast) => podcast.category === 'video'
